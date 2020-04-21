@@ -308,7 +308,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d299f3299b0bbc4c91bbd224f49c81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadePanel: {fileID: 0}
 --- !u!4 &766995803
 Transform:
   m_ObjectHideFlags: 0
@@ -578,7 +577,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d299f3299b0bbc4c91bbd224f49c81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadePanel: {fileID: 1297133712}
 --- !u!114 &1297133715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,6 +625,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75671f674a882745947723291a42b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeTime: 3
 --- !u!1 &1579682044
 GameObject:
   m_ObjectHideFlags: 0
