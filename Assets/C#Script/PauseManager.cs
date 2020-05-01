@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using GokUtil.UpdateManager;
 
-public class PauseManager : MonoBehaviour, IUpdatable
+public class PauseManager : SingletonMonoBehaviour<PauseManager>
 {
     //GameObject findObjTest;
-    public GameObject canvasData;       //!< 親Obj参照データ
-    public GameObject textPrefab;       //!< 文字Objのプレハブ
-    public GameObject cursorPrefab;     //!< カーソル用Objのプレハブ
+    [SerializeField] private GameObject canvasData;       //!< 親Obj参照データ
+    [SerializeField] private GameObject textPrefab;       //!< 文字Objのプレハブ
+    [SerializeField] private GameObject cursorPrefab;     //!< カーソル用Objのプレハブ
 
     //GameObject obj;
-    GameObject[] msg;                   //!< 文字列obj
+    GameObject[] msg;                   //!< 文字列用obj
     bool isPause = false;               //!< ポーズflg
     const int selectNum = 3;            //!< 選択肢数
     string[] message = new string[]     //!< 選択肢ワード
@@ -23,17 +21,7 @@ public class PauseManager : MonoBehaviour, IUpdatable
         "終了",
     };
     int selectPos = 0;                  //!< 0が一番上の選択肢位置
-    GameObject cursor;
-
-    void OnEnable()
-    {
-        UpdateManager.AddUpdatable(this);
-    }
-
-    void OnDisable()
-    {
-        UpdateManager.RemoveUpdatable(this);
-    }
+    GameObject cursor;                  //!< カーソル用Obj
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +44,7 @@ public class PauseManager : MonoBehaviour, IUpdatable
     }
 
     // Update is called once per frame
-    public void UpdateMe()
+    void Update()
     {
         // メニュー更新
         if (isPause)
@@ -101,8 +89,8 @@ public class PauseManager : MonoBehaviour, IUpdatable
                         // このまま閉じる
                         break;
                     case 1:
-                        // リスタート (仮にシーン読込直し)
-                        SceneManager.LoadScene("Stage1");
+                        // リスタート (同じシーンを読み込み直す)
+                        LoadingScene.Instance.LoadScene(LoadingScene.Instance.GetNowScene());
                         break;
                     case 2:
                         // ゲーム終了
@@ -145,7 +133,7 @@ public class PauseManager : MonoBehaviour, IUpdatable
                 {
                     msg[i] = Instantiate(textPrefab, new Vector3(0.0f, ((selectNum - 1) / 2.0f) * 60 - i * 60, 0.0f), Quaternion.identity);
                     msg[i].transform.SetParent(canvasData.transform, false);
-                    msg[i].transform.localScale = new Vector3(0.20f, 0.16f, 1);
+                    msg[i].transform.localScale = new Vector3(0.18f, 0.14f, 1);
                     Text t = msg[i].GetComponent<Text>();
                     t.text = message[i];
                 }
@@ -164,5 +152,10 @@ public class PauseManager : MonoBehaviour, IUpdatable
             Destroy(msg[i]);
         }
         Destroy(cursor);
+    }
+
+    public bool GetisPause()
+    {
+        return isPause;
     }
 }
