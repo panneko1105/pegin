@@ -2,16 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.SceneManagement;          // 今後消す、こっから直でシーン遷移させない
+
+// @date 2020/05/01 [今後修正予定]
+//
+// FadePanelは必要な時にのみ動的生成・削除
+// →じゃないと、Buttonが押せない。(FadePanelは一番手前に置くから)
+//
+// 新しいシーン遷移に対応したい。
+//
 
 public class Fade : MonoBehaviour
 {
-    float startTime;                //!< 時間計測用
-    float seconds;                  //!< フェードに掛ける時間 [秒]
-    Color color;                    //!< 色設定
-    bool isFadeInFlg = false;       //!< フェードインflg
-    bool isFadeOutFlg = false;      //!< フェードアウトflg
-    string scene;                   //!< シーン遷移先
+    private float startTime;                //!< 時間計測用
+    private float seconds;                  //!< フェードに掛ける時間 [秒]
+    private bool isFadeInFlg = false;       //!< フェードインflg
+    private bool isFadeOutFlg = false;      //!< フェードアウトflg
+    Color color;                            //!< 色設定
+    string scene;                           //!< シーン遷移先 (修正予定)
 
 
     // Use this for initialization

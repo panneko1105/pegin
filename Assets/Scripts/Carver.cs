@@ -15,14 +15,32 @@ public class Carver : MonoBehaviour
     [SerializeField] private Shader maskCleanerShader;
     [SerializeField] private bool attachRigidbodyOnCreateCollider;
     [SerializeField] private bool makeColliderTriggerOnCreateCollider;
+    [SerializeField] private bool notflame;
     private readonly List<List<IntPoint>> outlines = new List<List<IntPoint>>();
     private Mesh pathMesh;
     private (Renderer, (Material, int)[])[] renderers = new (Renderer, (Material, int)[])[0];
     public PolygonCollider2D Collider2D { get; private set; }
 
+    public Material _material;
+    public Material Flamematerial;
+
     private void Start()
     {
         this.FitColliderIntoMeshes();
+        if (notflame)
+        {
+            this.GetComponent<Renderer>().sharedMaterial = _material;
+        }
+    }
+
+    public void Change()
+    {
+        this.GetComponent<Renderer>().sharedMaterial = _material;
+    }
+
+    public Material GetMaterial()
+    {
+        return Flamematerial;
     }
 
     // PolygonCollider2Dを現在の3Dモデルの見た目に合わせて更新する
@@ -65,6 +83,7 @@ public class Carver : MonoBehaviour
         clipper.Clear();
         var sourcePaths = GetPathsFromTriangles(triangles, Precision);
         clipper.AddPaths(sourcePaths, PolyType.ptSubject, true);
+       
         if (clipper.Execute(ClipType.ctUnion, this.outlines, PolyFillType.pftPositive))
         {
             // また、アウトライン生成後にTriangulatorを使ってアウトラインをメッシュ化しておく
@@ -378,19 +397,30 @@ public class Carver : MonoBehaviour
     {
         var siblingIndex = this.transform.GetSiblingIndex();
         var colliderObject = new GameObject(this.gameObject.name);
-        colliderObject.AddComponent<RenderingHelper>().Carver = this;
         colliderObject.transform.SetParent(this.transform.parent, false);
         colliderObject.transform.SetSiblingIndex(siblingIndex);
         colliderObject.transform.position = this.transform.position;
         colliderObject.transform.rotation = Quaternion.identity;
+
+        
         this.transform.SetParent(colliderObject.transform);
+        
         var collider = colliderObject.AddComponent<PolygonCollider2D>();
+
+        colliderObject.tag = "block";
         if (this.attachRigidbodyOnCreateCollider)
         {
             colliderObject.AddComponent<Rigidbody2D>();
         }
+        if (this.makeColliderTriggerOnCreateCollider)
+        {
+            colliderObject.AddComponent<FlameMove>();
+            colliderObject.AddComponent<DrawMesh>();
+            collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
+        }
+        //フレームの場合
+        
 
-        collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
         return collider;
     }
 
@@ -398,149 +428,7 @@ public class Carver : MonoBehaviour
     // OnWillRenderObjectタイミングで今このオブジェクトを描画しようとしているカメラを取得し、
     // まだCommandBufferが挿入されていなければ追加する
     // 実行中にオブジェクトの数が変動する可能性を考慮し、CommandBufferは毎フレーム再構築する
-    private class RenderingHelper : MonoBehaviour
-    {
-        private static readonly int DummyTexture = Shader.PropertyToID("_DummyTex");
-        private static readonly HashSet<RenderingHelper> RenderingHelpers = new HashSet<RenderingHelper>();
-        private static CommandBuffer opaqueCommands;
-        private static CommandBuffer transparentCommands;
-        private static readonly HashSet<Camera> Cameras = new HashSet<Camera>();
-        private static bool NeedsUpdateCommands;
-        [NonSerialized] public Carver Carver;
-        private MeshRenderer maskRenderer;
-
-        private void Update()
-        {
-            NeedsUpdateCommands = true;
-        }
-
-        private void OnWillRenderObject()
-        {
-            var currentCamera = Camera.current;
-            if (currentCamera == null)
-            {
-                return;
-            }
-
-            CreateCommandsIfNeeded();
-            if (!Cameras.Contains(currentCamera))
-            {
-                AddCommands(currentCamera);
-            }
-
-            if (!NeedsUpdateCommands)
-            {
-                return;
-            }
-
-            UpdateCommands();
-            NeedsUpdateCommands = false;
-        }
-
-        private static void CreateCommandsIfNeeded()
-        {
-            if (opaqueCommands == null)
-            {
-                opaqueCommands = new CommandBuffer { name = "RenderCarversOpaque" };
-            }
-
-            if (transparentCommands == null)
-            {
-                transparentCommands = new CommandBuffer { name = "RenderCarversTransparent" };
-            }
-        }
-
-        private static void AddCommands(Camera cam)
-        {
-            cam.AddCommandBuffer(CameraEvent.AfterForwardOpaque, opaqueCommands);
-            cam.AddCommandBuffer(CameraEvent.BeforeForwardAlpha, transparentCommands);
-            Cameras.Add(cam);
-        }
-
-        // レンダリングはForwardBaseを前提とし、邪魔なパスをスキップするようにした
-        // 透明オブジェクトや不透明オブジェクトが複雑に入り組んでいる可能性を考慮するなら
-        // もっと細かく描画順を制御する必要があるだろうが、そこまでやるとややこしくなるため
-        // 妥協して大ざっぱなCarver単位での制御にとどめた
-        private static void UpdateCommands()
-        {
-            var lightModeTag = new ShaderTagId("LightMode");
-            var forwardBaseTag = new ShaderTagId("ForwardBase");
-
-            void DrawForwardBasePass(CommandBuffer commands, Material m, Renderer r, int i)
-            {
-                var shader = m.shader;
-                var passCount = m.passCount;
-                for (var passIndex = 0; passIndex < passCount; passIndex++)
-                {
-                    if (shader.FindPassTagValue(passIndex, lightModeTag) == forwardBaseTag)
-                    {
-                        commands.DrawRenderer(r, m, i, passIndex);
-                    }
-                }
-            }
-
-            opaqueCommands.Clear();
-            transparentCommands.Clear();
-            opaqueCommands.GetTemporaryRT(DummyTexture, 1, 1);
-            transparentCommands.GetTemporaryRT(DummyTexture, 1, 1);
-            opaqueCommands.EnableShaderKeyword("LIGHTPROBE_SH");
-            transparentCommands.EnableShaderKeyword("LIGHTPROBE_SH");
-            foreach (var helper in RenderingHelpers)
-            {
-                if (helper.maskRenderer == null)
-                {
-                    helper.maskRenderer = helper.GetComponent<MeshRenderer>();
-                }
-
-                opaqueCommands.DrawRenderer(helper.maskRenderer, maskMaterial);
-                transparentCommands.DrawRenderer(helper.maskRenderer, maskMaterial);
-                foreach (var (renderer, materials) in helper.Carver.renderers)
-                {
-                    foreach (var (material, subMeshIndex) in materials)
-                    {
-                        DrawForwardBasePass(
-                            material.renderQueue <= 2500 ? opaqueCommands : transparentCommands,
-                            material,
-                            renderer,
-                            subMeshIndex);
-                    }
-                }
-
-                opaqueCommands.Blit(DummyTexture, BuiltinRenderTextureType.CurrentActive, maskCleanerMaterial);
-                transparentCommands.Blit(DummyTexture, BuiltinRenderTextureType.CurrentActive, maskCleanerMaterial);
-            }
-
-            opaqueCommands.ReleaseTemporaryRT(DummyTexture);
-            transparentCommands.ReleaseTemporaryRT(DummyTexture);
-        }
-
-        private void OnEnable()
-        {
-            RenderingHelpers.Add(this);
-        }
-
-        private void OnDisable()
-        {
-            RenderingHelpers.Remove(this);
-            if (RenderingHelpers.Count != 0)
-            {
-                return;
-            }
-
-            foreach (var cam in Cameras)
-            {
-                if (cam != null)
-                {
-                    cam.RemoveCommandBuffer(CameraEvent.AfterForwardOpaque, opaqueCommands);
-                    cam.RemoveCommandBuffer(CameraEvent.BeforeForwardAlpha, transparentCommands);
-                }
-            }
-
-            Cameras.Clear();
-            opaqueCommands = null;
-            transparentCommands = null;
-        }
-    }
+   
 
     // runevisionさんによるTriangulator(http://wiki.unity3d.com/index.php/Triangulator)
     public class Triangulator
