@@ -1,12 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GokUtil.UpdateManager;
 
-public class CreateFlame : MonoBehaviour
+public class CreateFlame : MonoBehaviour, IUpdatable
 {
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
 
     // Use this for initialization
-    void Update()
+    public void UpdateMe()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {

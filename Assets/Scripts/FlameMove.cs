@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.VFX;
+using GokUtil.UpdateManager;
 
 
-public class FlameMove : MonoBehaviour
-{
+public class FlameMove : MonoBehaviour, IUpdatable { 
     public float move = 0.125f;
     [HideInInspector] public int flg = 0;
     [HideInInspector] public bool isRot = false;
@@ -21,9 +22,19 @@ public class FlameMove : MonoBehaviour
         m_ObjectCollider = GetComponent<PolygonCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
 
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
+
+
+    // Update is called once per frame
+    public void UpdateMe()
     {
         // 上移動
         if (Input.GetKey(KeyCode.W))
@@ -86,12 +97,19 @@ public class FlameMove : MonoBehaviour
         // Enterキーが押されたときの処理をここに書く
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            // CubeプレハブをGameObject型で取得
+            GameObject obj = (GameObject)Resources.Load("test");
+
+            Instantiate(obj, transform.position, Quaternion.identity);
+
+
             m_ObjectCollider.isTrigger = false;
             this.gameObject.AddComponent<Rigidbody2D>();
             var script = GetComponent<FlameMove>();
 
             var targetCollider = this.gameObject.GetComponent<Collider2D>();
 
+            //切り取り
             var overlappingColliders = new List<Collider2D>();
             targetCollider.OverlapCollider(new ContactFilter2D(), overlappingColliders);
             var carvers = overlappingColliders.Select(c => c.GetComponentInChildren<Carver>())
@@ -102,6 +120,7 @@ public class FlameMove : MonoBehaviour
                 $"Carve {targetCollider.name} with {string.Join(", ", carvers.Select(c => c.Collider2D.name))}.");
             Carver.Carve(thisCarver, carvers);
 
+            //メッシュの生成
             DrawMesh dr = this.gameObject.GetComponent<DrawMesh>();
             MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
             Vector3[] test = mf.mesh.vertices;
@@ -110,7 +129,6 @@ public class FlameMove : MonoBehaviour
             foreach (Vector3 item in test)
             {
                 v.Add(item);
-                Debug.Log(item);
             }
             dr.CreateMesh(v);
 

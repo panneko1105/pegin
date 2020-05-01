@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using GokUtil.UpdateManager;
 
-public class PauseManager : MonoBehaviour
+public class PauseManager : MonoBehaviour, IUpdatable
 {
     //GameObject findObjTest;
     public GameObject canvasData;       //!< 親Obj参照データ
@@ -23,6 +24,16 @@ public class PauseManager : MonoBehaviour
     };
     int selectPos = 0;                  //!< 0が一番上の選択肢位置
     GameObject cursor;
+
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +56,7 @@ public class PauseManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateMe()
     {
         // メニュー更新
         if (isPause)

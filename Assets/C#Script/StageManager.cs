@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GokUtil.UpdateManager;
 
-public class StageManager : MonoBehaviour
+public class StageManager : MonoBehaviour, IUpdatable
 {
     public GameObject fadePanel;
     Fade fadeSC;
@@ -14,8 +15,18 @@ public class StageManager : MonoBehaviour
         fadeSC = fadePanel.GetComponent<Fade>();
     }
 
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
+
     // Update is called once per frame
-    void Update()
+    public void UpdateMe()
     {
         if (flg)
         {

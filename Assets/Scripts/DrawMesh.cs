@@ -42,10 +42,6 @@ public class DrawMesh : MonoBehaviour
         _triangles.Clear();
     }
 
-    // Start is called before the first frame update
-    void Start(){
-     
-    }
 
     private void Initialize(List<Vector3> vertices)
     {
@@ -136,12 +132,19 @@ public class DrawMesh : MonoBehaviour
 
         Debug.Log(mesh.vertices.Count());
 
-        mesh.RecalculateNormals();
-        mesh.RecalculateBounds();
-
         GetComponent<MeshFilter>().sharedMesh = mesh;
         GetComponent<MeshFilter>().sharedMesh.name = "myMesh";
-        
+
+
+        Mesh mesh2 = GetComponent<MeshFilter>().mesh;
+       // mesh.RecalculateNormals();
+
+
+        mesh2.RecalculateNormals();
+        mesh.RecalculateBounds();
+
+       
+
     }
 
     /// <summary>

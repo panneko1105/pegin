@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GokUtil.UpdateManager;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : MonoBehaviour, IUpdatable
 {
     public GameObject canvasData;      //!< 親Obj参照データ
     public GameObject starPrehfab;      //!< アイテム用Objデータ
@@ -10,6 +11,16 @@ public class ItemManager : MonoBehaviour
 
     GameObject[] star;                   //!< アイテムObj
     bool[] isGetFlg;                   //!< 取得の有無
+
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +36,7 @@ public class ItemManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateMe()
     {
         //========================================
         // デバッグ用アイテム取得処理

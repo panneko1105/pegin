@@ -92,10 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8d058a997cf5f4d9cf49742c9d9996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maskShader: {fileID: 4800000, guid: d081f7b0be8af734aac52d77317df91a, type: 3}
-  maskCleanerShader: {fileID: 4800000, guid: 56d3f01d4558ed34e9c19e11364eb4ae, type: 3}
   attachRigidbodyOnCreateCollider: 0
   makeColliderTriggerOnCreateCollider: 1
   notflame: 0
   _material: {fileID: 2100000, guid: e85ecd5769a0b3a40944a501f70401eb, type: 2}
-  Flamematerial: {fileID: 2100000, guid: 8acd377e3e55bc24da822087cc2ebbff, type: 2}
+  Flamematerial: {fileID: 2100000, guid: 6c5e837e2cef24848b63ebaea7a7e78a, type: 2}

@@ -8,11 +8,9 @@ using UnityEngine.Rendering;
 public class Carver : MonoBehaviour
 {
     private const float Precision = 1024.0f;
-    private static Material maskMaterial;
-    private static Material maskCleanerMaterial;
+    
     private static readonly Clipper clipper = new Clipper(Clipper.ioStrictlySimple);
-    [SerializeField] private Shader maskShader;
-    [SerializeField] private Shader maskCleanerShader;
+   
     [SerializeField] private bool attachRigidbodyOnCreateCollider;
     [SerializeField] private bool makeColliderTriggerOnCreateCollider;
     [SerializeField] private bool notflame;
@@ -22,7 +20,7 @@ public class Carver : MonoBehaviour
     public PolygonCollider2D Collider2D { get; private set; }
 
     public Material _material;
-    public Material Flamematerial;
+    [SerializeField] private Material Flamematerial;
 
     private void Start()
     {
@@ -51,9 +49,7 @@ public class Carver : MonoBehaviour
     // なお、モデルの「Read/Write Enabled」をオンにしておかないと失敗すると思われる
     public void FitColliderIntoMeshes()
     {
-        // マスク処理用マテリアルが未作成なら作っておく
-        this.CreateMaskMaterialsIfNeeded();
-
+        
         // 3Dオブジェクトを使っているということなのでオブジェクトが三次元的に
         // 回転している可能性があるが、2Dコライダーはtransform.forwardが
         // ワールドZ+を向いていた方が好都合なため、親オブジェクトを追加して
@@ -153,42 +149,6 @@ public class Carver : MonoBehaviour
         }
     }
 
-    private void CreateMaskMaterialsIfNeeded()
-    {
-        if (maskMaterial == null)
-        {
-            if (this.maskShader == null)
-            {
-                this.maskShader = Shader.Find("Hidden/CarverMask");
-            }
-
-            if (this.maskShader != null)
-            {
-                maskMaterial = new Material(this.maskShader);
-            }
-            else
-            {
-                Debug.LogError($"{nameof(this.maskShader)} not found.");
-            }
-        }
-
-        if (maskCleanerMaterial == null)
-        {
-            if (this.maskCleanerShader == null)
-            {
-                this.maskCleanerShader = Shader.Find("Hidden/CarverMaskCleaner");
-            }
-
-            if (this.maskCleanerShader != null)
-            {
-                maskCleanerMaterial = new Material(this.maskCleanerShader);
-            }
-            else
-            {
-                Debug.LogError($"{nameof(this.maskCleanerShader)} not found.");
-            }
-        }
-    }
 
     private void UpdatePathMesh()
     {
@@ -253,7 +213,6 @@ public class Carver : MonoBehaviour
 
             meshFilter.sharedMesh = this.pathMesh;
             meshRenderer.enabled = true;
-            meshRenderer.sharedMaterial = maskCleanerMaterial;
         }
     }
 
@@ -268,18 +227,7 @@ public class Carver : MonoBehaviour
             .ToList();
     }
 
-    // 製作過程でtrianglesが正しく生成されているか視覚的に確認する際に使った
-    // メッシュ生成メソッドだが、現状のコードではどこからも使われていない
-    private static Mesh GetMeshFromTriangles(Triangle[] triangles)
-    {
-        var mesh = new Mesh();
-        var vertices = triangles.SelectMany(t => t.Vertices).ToArray();
-        mesh.vertices = vertices;
-        mesh.triangles = Enumerable.Range(0, vertices.Length).ToArray();
-        mesh.RecalculateNormals();
-        return mesh;
-    }
-
+   
     private static void DeleteMeshes((Transform, Mesh)[] meshes)
     {
         foreach (var (_, mesh) in meshes)
@@ -419,15 +367,9 @@ public class Carver : MonoBehaviour
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
         }
         //フレームの場合
-        
 
         return collider;
     }
-
-    // 実際に目に見えるオブジェクトの姿を描画するのはこれが担当する
-    // OnWillRenderObjectタイミングで今このオブジェクトを描画しようとしているカメラを取得し、
-    // まだCommandBufferが挿入されていなければ追加する
-    // 実行中にオブジェクトの数が変動する可能性を考慮し、CommandBufferは毎フレーム再構築する
    
 
     // runevisionさんによるTriangulator(http://wiki.unity3d.com/index.php/Triangulator)
