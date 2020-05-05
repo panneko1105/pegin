@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GokUtil.UpdateManager;
 
 // @date 2020/05/01 [今後修正予定]
 //
@@ -9,7 +10,7 @@ using UnityEngine;
 // Item情報保存
 //
 
-public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>
+public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdatable
 {
     private bool[] isItemGetFlg = new bool[3];           //!< 取得の有無 (今後ステージ分これ用意したい)
     [SerializeField] GameObject canvas;                  //!< キャンバス情報
@@ -22,8 +23,18 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>
         LoadingScene.Instance.FirstLoadScene(firstScene);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
+
+    // Use this for initialization
+    public void UpdateMe()
     {
 
     }

@@ -36,6 +36,13 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     // Update is called once per frame
     public void UpdateMe()
     {
+        // もしポーズ中なら処理しない
+        //（※今の状態だと、Enterを押すとポーズメニューの決定と同時に氷生成処理も行われる。今後修正。）
+        if (PauseManager.Instance.GetisPause())
+        {
+            return;
+        }
+
         // 上移動
         if (Input.GetKey(KeyCode.W))
         {

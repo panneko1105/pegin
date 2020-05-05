@@ -13,7 +13,8 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
 {
     private static string preScene = "Title";                   //!< １つ前のシーン先を保存 (前のシーンに戻りたいときに使用)
     private static string nowScene = "Title";                   //!< 現在のシーン先を保存
-    //bool isLoad = false;
+                                                                //bool isLoad = false;
+    float waitSeconds = 0.5f;                                   //!< 最低限待たせる時間[s]
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +75,9 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
         //
         BaseSceneManager.Instance.SetObject(true);
 
+        //計測開始
+        ProcessTimer.Restart();
+
         Debug.Log("ロード先 : " + sceneName);
         //Debug.Log("現在読み込まれてるシーンの数 : " + SceneManager.sceneCount + " 個");
 
@@ -92,7 +96,7 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
         // ロードが完了していない間ループする
         // ※allowSceneActivationがfalseの場合、progressは「0.9f」、isDoneは「false」で終わるので注意！
         // ※演出などで確実に待ちを入れたい場合は ( async.progress < 0.9f || 読み込み時間 < 確実に待たせたい時間 )
-        while (async.progress < 0.9f)
+        while (async.progress < 0.9f || ProcessTimer.TotalSeconds < waitSeconds)
         {
             // ローディングの進捗状況
             Debug.Log("while : " + async.progress);
@@ -143,5 +147,13 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
     public string GetNowScene()
     {
         return nowScene;
+    }
+
+    //========================================
+    // １つ前のシーンの確認
+    //========================================
+    public string GetPreScene()
+    {
+        return preScene;
     }
 }
