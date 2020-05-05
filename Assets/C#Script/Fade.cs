@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using GokUtil.UpdateManager;
+using UnityEngine.SceneManagement;          // 今後消す、こっから直でシーン遷移させない
 
-// @date 2020/05/06 [今後修正予定]
+// @date 2020/05/01 [今後修正予定]
 //
 // FadePanelは必要な時にのみ動的生成・削除
 // →じゃないと、Buttonが押せない。(FadePanelは一番手前に置くから)
 //
+// 新しいシーン遷移に対応したい。
+//
 
-public class Fade : MonoBehaviour, IUpdatable
+public class Fade : MonoBehaviour
 {
     private float startTime;                //!< 時間計測用
     private float seconds;                  //!< フェードに掛ける時間 [秒]
@@ -49,19 +51,7 @@ public class Fade : MonoBehaviour, IUpdatable
         seconds = _seconds;           // フェードに掛ける時間 [秒]
     }
 
-
-    void OnEnable()
-    {
-        UpdateManager.AddUpdatable(this);
-    }
-
-    void OnDisable()
-    {
-        UpdateManager.RemoveUpdatable(this);
-    }
-
-    // Update is called once per frame
-    public void UpdateMe()
+    void Update()
     {
         // フェードアウト処理中
         if (isFadeOutFlg)
@@ -76,8 +66,8 @@ public class Fade : MonoBehaviour, IUpdatable
             {
                 isFadeOutFlg = false;
                 // シーン遷移
+                SceneManager.LoadScene(scene);
                 Debug.Log("フェードアウト終了、シーン遷移先：" + scene);
-                LoadingScene.Instance.LoadScene(scene);
             }
         }
         //フェードイン処理中

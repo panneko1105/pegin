@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GokUtil.UpdateManager;
 
 // @date 2020/05/01 [今後修正予定]
 //
 // ボタン押したら指定したInspector上でシーン遷移
 //
 
-public class Mybutton : MonoBehaviour, IUpdatable
+public class Mybutton : MonoBehaviour
 {
     [SerializeField] private SceneObject m_nextScene;
 
@@ -18,21 +17,10 @@ public class Mybutton : MonoBehaviour, IUpdatable
         
     }
 
-
-    void OnEnable()
-    {
-        UpdateManager.AddUpdatable(this);
-    }
-
-    void OnDisable()
-    {
-        UpdateManager.RemoveUpdatable(this);
-    }
-
     // Update is called once per frame
-    public void UpdateMe()
+    void Update()
     {
-
+        
     }
 
     //ボタンを押した時の処理

@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using GokUtil.UpdateManager;
 
+// @date 2020/05/01 [今後修正予定]
+//
+// 演出しながらシーン遷移。
+//
 
-public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
+public class TitleManager : SingletonMonoBehaviour<TitleManager>
 {
     public GameObject fadePanel;
     Fade fadeSC;
@@ -17,28 +19,13 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
     {
         // BaseSceneのいらないものを消す
         BaseSceneManager.Instance.SetObject(false);
-        // アクティブシーンを切り替え
-        Scene scene = SceneManager.GetSceneByName(LoadingScene.Instance.GetNowScene());
-        SceneManager.SetActiveScene(scene);
-
-        // フェード取得
         fadeSC = fadePanel.GetComponent<Fade>();
         // フェードイン処理
         fadeSC.StartFadeIn(1.0f);
     }
 
-    void OnEnable()
-    {
-        UpdateManager.AddUpdatable(this);
-    }
-
-    void OnDisable()
-    {
-        UpdateManager.RemoveUpdatable(this);
-    }
-
-    // Use this for initialization
-    public void UpdateMe()
+    // Update is called once per frame
+    void Update()
     {
         if (flg)
         {
@@ -46,8 +33,8 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
             {
                 flg = false;
                 // シーン遷移
-                //LoadingScene.Instance.LoadScene(m_nextScene);
-                fadeSC.StartFadeOut("Stage1", 0.5f);
+                LoadingScene.Instance.LoadScene(m_nextScene);
+                //fadeSC.StartFadeOut("Stage1", 1.0f);
             }
         }   
     }

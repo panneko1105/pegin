@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GokUtil.UpdateManager;
 
 // @date 2020/05/01 [今後修正予定]
 //
@@ -9,7 +8,7 @@ using GokUtil.UpdateManager;
 // →取得したら別の画像 (★) に変更。なのでInstantiateは行わなくする。
 //
 
-public class ItemManager : MonoBehaviour, IUpdatable
+public class ItemManager : MonoBehaviour
 {
     [SerializeField] private GameObject canvasData;      //!< 親Obj参照データ
     [SerializeField] private GameObject starPrehfab;     //!< アイテム用Objデータ
@@ -32,18 +31,8 @@ public class ItemManager : MonoBehaviour, IUpdatable
         star = new GameObject[itemNum];
     }
 
-    void OnEnable()
-    {
-        UpdateManager.AddUpdatable(this);
-    }
-
-    void OnDisable()
-    {
-        UpdateManager.RemoveUpdatable(this);
-    }
-
     // Update is called once per frame
-    public void UpdateMe()
+    void Update()
     {
         // もしポーズ中なら処理しない
         if (PauseManager.Instance.GetisPause())

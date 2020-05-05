@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GokUtil.UpdateManager;
 
-public class ScrollManager : MonoBehaviour, IUpdatable
+public class ScrollManager : MonoBehaviour
 {
     private Renderer rend;
     [SerializeField] private float scrollSpeedX = 0.1f;
@@ -27,19 +26,8 @@ public class ScrollManager : MonoBehaviour, IUpdatable
         oldcampos = cam.transform.position;
     }
 
-
-    void OnEnable()
-    {
-        UpdateManager.AddUpdatable(this);
-    }
-
-    void OnDisable()
-    {
-        UpdateManager.RemoveUpdatable(this);
-    }
-
     // Update is called once per frame
-    public void UpdateMe()
+    void Update()
     {
         //var x = Mathf.Repeat(Time.time * scrollSpeedX, 1);
         //var y = Mathf.Repeat(Time.time * scrollSpeedY, 1);
