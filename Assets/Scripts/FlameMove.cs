@@ -36,25 +36,29 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     // Update is called once per frame
     public void UpdateMe()
     {
+        if (PauseManager.Instance.GetisPause())
+        {
+            return;
+        }
         // 上移動
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += new Vector3(0, move, 0 * Time.deltaTime);
+            transform.position += new Vector3(0, move, 0);
         }
         // 下移動
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += new Vector3(0, -move, 0 * Time.deltaTime);
+            transform.position += new Vector3(0, -move, 0);
         }
         // 左に移動
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += new Vector3(move, 0, 0 * Time.deltaTime);
+            transform.position += new Vector3(move, 0, 0);
         }
         // 右に移動
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += new Vector3(-move, 0, 0 * Time.deltaTime);
+            transform.position += new Vector3(-move, 0, 0);
         }
         // 45度回転
         // 左回転
@@ -76,24 +80,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             isRot = !isRot;
         }
 
-        // 水増し
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            flg++;
-            if (flg >= 3)
-            {
-                flg = 3;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            flg--;
-            if (flg < 0)
-            {
-                flg = 0;
-            }
-        }
-
+        
         // Enterキーが押されたときの処理をここに書く
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -105,9 +92,11 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
             m_ObjectCollider.isTrigger = false;
             this.gameObject.AddComponent<Rigidbody2D>();
-            var script = GetComponent<FlameMove>();
+            
+            this.gameObject.layer = 0;
 
             var targetCollider = this.gameObject.GetComponent<Collider2D>();
+            this.gameObject.tag = "block";
 
             //切り取り
             var overlappingColliders = new List<Collider2D>();
@@ -138,7 +127,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
 
             ChangeMaterial.Change();
-            Destroy(script);
+            Destroy(this);
            
         }
     }

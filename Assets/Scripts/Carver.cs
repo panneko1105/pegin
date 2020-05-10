@@ -5,6 +5,7 @@ using ClipperLib;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+
 public class Carver : MonoBehaviour
 {
     private const float Precision = 1024.0f;
@@ -40,6 +41,7 @@ public class Carver : MonoBehaviour
     {
         return Flamematerial;
     }
+   
 
     // PolygonCollider2Dを現在の3Dモデルの見た目に合わせて更新する
     // まずStartで一度実行されるが、後で再度実行すれば欠損部分が復活することになる
@@ -358,16 +360,19 @@ public class Carver : MonoBehaviour
         colliderObject.tag = "block";
         if (this.attachRigidbodyOnCreateCollider)
         {
-            colliderObject.AddComponent<Rigidbody2D>();
+            var rb=colliderObject.AddComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
         }
         if (this.makeColliderTriggerOnCreateCollider)
         {
+            colliderObject.tag = "Untagged";
             colliderObject.AddComponent<FlameMove>();
             colliderObject.AddComponent<DrawMesh>();
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
+            //レイヤーをblockに変更
+            colliderObject.layer = 10;
         }
-        //フレームの場合
-
+        
         return collider;
     }
    

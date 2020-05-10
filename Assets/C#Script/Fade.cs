@@ -2,16 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using GokUtil.UpdateManager;
 
-public class Fade : MonoBehaviour
+// @date 2020/05/06 [今後修正予定]
+//
+// FadePanelは必要な時にのみ動的生成・削除
+// →じゃないと、Buttonが押せない。(FadePanelは一番手前に置くから)
+//
+
+public class Fade : MonoBehaviour, IUpdatable
 {
-    float startTime;                //!< 時間計測用
-    float seconds;                  //!< フェードに掛ける時間 [秒]
-    Color color;                    //!< 色設定
-    bool isFadeInFlg = false;       //!< フェードインflg
-    bool isFadeOutFlg = false;      //!< フェードアウトflg
-    string scene;                   //!< シーン遷移先
+    private float startTime;                //!< 時間計測用
+    private float seconds;                  //!< フェードに掛ける時間 [秒]
+    private bool isFadeInFlg = false;       //!< フェードインflg
+    private bool isFadeOutFlg = false;      //!< フェードアウトflg
+    Color color;                            //!< 色設定
+    string scene;                           //!< シーン遷移先 (修正予定)
 
 
     // Use this for initialization
@@ -26,7 +32,7 @@ public class Fade : MonoBehaviour
     public void StartFadeOut(string _scene, float _seconds)
     {
         isFadeOutFlg = true;
-        isFadeInFlg  = false;         // フェードインすなよ(念のため)
+        isFadeInFlg = false;         // フェードインすなよ(念のため)
         startTime = Time.time;        // 時間計測開始
         scene = _scene;               // フェードアウト終了後のシーン遷移先
         seconds = _seconds;           // フェードに掛ける時間 [秒]
@@ -38,12 +44,23 @@ public class Fade : MonoBehaviour
     public void StartFadeIn(float _seconds)
     {
         isFadeOutFlg = false;         // フェードアウトすなよ(念のため)
-        isFadeInFlg  = true;
+        isFadeInFlg = true;
         startTime = Time.time;        // 時間計測開始
         seconds = _seconds;           // フェードに掛ける時間 [秒]
     }
 
-    void Update()
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
+
+    // Update is called once per frame
+    public void UpdateMe()
     {
         // フェードアウト処理中
         if (isFadeOutFlg)
@@ -58,7 +75,7 @@ public class Fade : MonoBehaviour
             {
                 isFadeOutFlg = false;
                 // シーン遷移
-                SceneManager.LoadScene(scene);
+                LoadingScene.Instance.LoadScene(scene);
                 Debug.Log("フェードアウト終了、シーン遷移先：" + scene);
             }
         }
