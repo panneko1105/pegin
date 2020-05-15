@@ -95,5 +95,5 @@ MonoBehaviour:
   attachRigidbodyOnCreateCollider: 0
   makeColliderTriggerOnCreateCollider: 1
   notflame: 0
-  _material: {fileID: 2100000, guid: e85ecd5769a0b3a40944a501f70401eb, type: 2}
-  Flamematerial: {fileID: 2100000, guid: 6c5e837e2cef24848b63ebaea7a7e78a, type: 2}
+  _material: {fileID: 2100000, guid: 1ec301666c4483c4ca91bbb2da8c3a39, type: 2}
+  Flamematerial: {fileID: 2100000, guid: 1ec301666c4483c4ca91bbb2da8c3a39, type: 2}

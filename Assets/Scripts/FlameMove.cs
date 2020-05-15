@@ -7,7 +7,7 @@ using GokUtil.UpdateManager;
 
 
 public class FlameMove : MonoBehaviour, IUpdatable { 
-    public float move = 0.125f;
+    public float move = 5.0f;
     [HideInInspector] public int flg = 0;
     [HideInInspector] public bool isRot = false;
     private List<Vector3> v = new List<Vector3>();
@@ -43,22 +43,22 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         // 上移動
         if (Input.GetKey(KeyCode.W))
         {
-            transform.position += new Vector3(0, move, 0);
+            transform.position += new Vector3(0, move* Time.deltaTime, 0);
         }
         // 下移動
         if (Input.GetKey(KeyCode.S))
         {
-            transform.position += new Vector3(0, -move, 0);
+            transform.position += new Vector3(0, -move* Time.deltaTime, 0);
         }
         // 左に移動
         if (Input.GetKey(KeyCode.D))
         {
-            transform.position += new Vector3(move, 0, 0);
+            transform.position += new Vector3(move* Time.deltaTime, 0, 0);
         }
         // 右に移動
         if (Input.GetKey(KeyCode.A))
         {
-            transform.position += new Vector3(-move, 0, 0);
+            transform.position += new Vector3(-move* Time.deltaTime, 0, 0);
         }
         // 45度回転
         // 左回転

@@ -55,7 +55,9 @@
 		<type fullname="BaseSceneManager" preserve="nothing"/>
 		<type fullname="Carver" preserve="nothing"/>
 		<type fullname="CreateFlame" preserve="nothing"/>
+		<type fullname="EditorModeStencilWriter" preserve="nothing"/>
 		<type fullname="Fade" preserve="nothing"/>
+		<type fullname="FpsDisplay" preserve="nothing"/>
 		<type fullname="GokUtil.UpdateManager.UpdateManager" preserve="nothing"/>
 		<type fullname="ItemManager" preserve="nothing"/>
 		<type fullname="LoadingScene" preserve="nothing"/>
@@ -65,6 +67,7 @@
 		<type fullname="SoundManager" preserve="nothing"/>
 		<type fullname="StageManager" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
+		<type fullname="camera" preserve="nothing"/>
 		<type fullname="vfx" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.RenderPipelines.Core.Runtime">

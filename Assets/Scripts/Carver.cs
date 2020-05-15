@@ -358,11 +358,14 @@ public class Carver : MonoBehaviour
         var collider = colliderObject.AddComponent<PolygonCollider2D>();
 
         colliderObject.tag = "block";
+        //通常ブロックの場合
         if (this.attachRigidbodyOnCreateCollider)
         {
             var rb=colliderObject.AddComponent<Rigidbody2D>();
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX| RigidbodyConstraints2D.FreezePositionY;
+
         }
+        //フレームの場合
         if (this.makeColliderTriggerOnCreateCollider)
         {
             colliderObject.tag = "Untagged";
