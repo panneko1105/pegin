@@ -1,18 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using GokUtil.UpdateManager;
+using UnityEngine.SceneManagement;
 
-// @date 2020/05/01 [今後修正予定]
+// @date 2020/05/06 [今後修正予定]
 //
 // GAMEOVER画面への遷移
 //
 
 public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
 {
-    public GameObject fadePanel;
-    Fade fadeSC;
     bool flg = true;
 
     // Start is called before the first frame update
@@ -20,17 +18,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
     {
         // BGMの再生
         SoundManager.Instance.PlayBgm("BGM_Test01");
-
-        // BaseSceneのいらないものを消す
-        BaseSceneManager.Instance.SetObject(false);
-        // アクティブシーンを切り替え
-        Scene scene = SceneManager.GetSceneByName(LoadingScene.Instance.GetNowScene());
-        SceneManager.SetActiveScene(scene);
-
-        // フェード取得
-        fadeSC = fadePanel.GetComponent<Fade>();
-        // フェードイン処理
-        fadeSC.StartFadeIn(0.5f);
+        // シーンの初期化
+        LoadingScene.Instance.InitScene();
+        // シーンイン演出処理
+        SceneChangeManager.Instance.SceneChangeIn(SceneChangeType.FADE, 0.5f);
     }
 
     void OnEnable()
@@ -43,12 +34,17 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         UpdateManager.RemoveUpdatable(this);
     }
 
-    // Use this for initialization
+    // Update is called once per frame
     public void UpdateMe()
     {
         if (flg)
         {
 
         }
+    }
+
+    public void GameOver()
+    {
+        // ゲームオーバーへ
     }
 }

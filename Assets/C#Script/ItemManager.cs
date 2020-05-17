@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GokUtil.UpdateManager;
-
-// @date 2020/05/01 [今後修正予定]
-//
-// アイテムObj (☆)は初めから表示
-// →取得したら別の画像 (★) に変更。なのでInstantiateは行わなくする。
-//
+using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour, IUpdatable
 {
     [SerializeField] private GameObject canvasData;      //!< 親Obj参照データ
-    [SerializeField] private GameObject starPrehfab;     //!< アイテム用Objデータ
-    int itemNum = 3;                                     //!< アイテム合計数
+    [SerializeField] private GameObject itemPrehfab;     //!< アイテム用Objデータ
+    [SerializeField] private Sprite afterItemTexture;    //!< 取得後のテクスチャ
+    static int itemNum = 3;                              //!< アイテム合計数
 
-    GameObject[] star;                                   //!< アイテムObj
+    GameObject[] itemObj;                                //!< アイテムObj
     bool[] isGetFlg;                                     //!< 取得の有無
 
 
@@ -24,12 +20,27 @@ public class ItemManager : MonoBehaviour, IUpdatable
     {
         // 必要分のアイテム情報を用意
         isGetFlg = new bool[itemNum];
-        for(int i = 0; i < itemNum; i++)
+        itemObj = new GameObject[itemNum];
+        for (int i = 0; i < itemNum; i++)
         {
+            // 未取得
             isGetFlg[i] = false;
+
+            //=========================
+            // Obj生成
+            //=========================
+            // 生成
+            itemObj[i] = Instantiate(itemPrehfab, new Vector3(40 + i * 40, -30.0f, 0.0f), Quaternion.identity);
+            // 親Objをキャンバスに
+            itemObj[i].transform.SetParent(canvasData.transform, false);
+            // 大きさ調整
+            itemObj[i].transform.localScale = new Vector3(0.4f, 0.4f, 1);
+            // 左上をアンカーとする
+            var rect = itemObj[i].transform.GetComponent<RectTransform>();
+            rect.anchorMin = new Vector2(0.0f, 1.0f);
+            rect.anchorMax = new Vector2(0.0f, 1.0f);
         }
-        // 必要数分Objを用意
-        star = new GameObject[itemNum];
+
     }
 
     void OnEnable()
@@ -75,7 +86,7 @@ public class ItemManager : MonoBehaviour, IUpdatable
     public void SetItem(int num)
     {
         // 例外
-        if(num > itemNum)
+        if (num > itemNum)
         {
             return;
         }
@@ -83,17 +94,12 @@ public class ItemManager : MonoBehaviour, IUpdatable
         // まだ未取得なら処理
         if (!isGetFlg[num - 1])
         {
+            // flg
             isGetFlg[num - 1] = true;
-            // 生成
-            star[num - 1] = Instantiate(starPrehfab, new Vector3(40 + (num - 1) * 40, -30.0f, 0.0f), Quaternion.identity);
-            // 親Objをキャンバスに
-            star[num - 1].transform.SetParent(canvasData.transform, false);
-            // 大きさ調整
-            star[num - 1].transform.localScale = new Vector3(0.4f, 0.4f, 1);
-            // 左上をアンカーとする
-            var rect = star[num - 1].transform.GetComponent<RectTransform>();
-            rect.anchorMax = new Vector2(0.0f, 1.0f);
-            rect.anchorMin = new Vector2(0.0f, 1.0f);
+
+            // 画像切り替え
+            Image image = itemObj[num - 1].GetComponent<Image>();
+            image.sprite = afterItemTexture;
 
             // SE再生
             SoundManager.Instance.PlaySe("SE_Test_01");

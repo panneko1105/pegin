@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// @date 2020/05/01 [今後修正予定]
-//
-// シーン遷移前後の演出。
-// →FadeOut系もここで呼び出せたらハッピー
-//
 
 public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
 {
     private static string preScene = "Title";                   //!< １つ前のシーン先を保存 (前のシーンに戻りたいときに使用)
     private static string nowScene = "Title";                   //!< 現在のシーン先を保存
-                                                                //bool isLoad = false;
-    float waitSeconds = 0.5f;                                   //!< 最低限待たせる時間[s]
+    //bool isLoad = false;
+    const float waitSeconds = 0.5f;                             //!< 最低限待たせる時間[s]
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +18,11 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
         Debug.Log("GAME_START");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //// Update is called once per frame
+    //void Update()
+    //{
 
+    //}
 
     //========================================
     // シーンの読込 (初回のみ)
@@ -41,7 +35,7 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
         nowScene = sceneName;
 
         // 現在のシーンを破棄 (初回なのでいらない)
-        // 関数別に作らずif()文分岐でええかもね
+        // 関数別に作らずif()文分岐でええかもね→分かりにくいめんどいまぎらわしい現状維持で
         //SceneManager.UnloadSceneAsync(preScene);
 
         // 読み込み処理開始 (非同期)
@@ -68,14 +62,11 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
     IEnumerator LoadNextScene(string sceneName)
     {
         //==========================================================
-        // 遷移前の演出挟むならココ！ (BaseSceneでのFadeInなど)
+        // 遷移前の演出挟むならココ！
         //==========================================================
-        //
-        //
-        //
         BaseSceneManager.Instance.SetObject(true);
 
-        //計測開始
+        // 計測開始
         ProcessTimer.Restart();
 
         Debug.Log("ロード先 : " + sceneName);
@@ -95,20 +86,19 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
 
         // ロードが完了していない間ループする
         // ※allowSceneActivationがfalseの場合、progressは「0.9f」、isDoneは「false」で終わるので注意！
-        // ※演出などで確実に待ちを入れたい場合は ( async.progress < 0.9f || 読み込み時間 < 確実に待たせたい時間 )
+        // ※演出などで確実に待ちを入れたい場合は ( async.progress < 0.9f || 読み込み時間 < 確実に待たせたい時間[] )
         while (async.progress < 0.9f || ProcessTimer.TotalSeconds < waitSeconds)
         {
             // ローディングの進捗状況
-            Debug.Log("while : " + async.progress);
+            //Debug.Log("while : " + async.progress);
             // シーンの読み込みが終わったらtrueになるよ...と思っていた時期が私にもありました。
-            Debug.Log("isDone : " + async.isDone);
+            //Debug.Log("isDone : " + async.isDone);
 
             yield return null;
         }
 
         // ロード完了！
         Debug.Log("Loading Completed!");
-        //Debug.Log("end while : " + async.progress);
 
         //==========================================================
         // 遷移直前の演出挟むならココ！ (BaseSceneでのFadeOutなど)
@@ -155,5 +145,17 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
     public string GetPreScene()
     {
         return preScene;
+    }
+
+    //========================================
+    // シーン初期化まとめ
+    //========================================
+    public void InitScene()
+    {
+        // BaseSceneのいらないものを消す
+        BaseSceneManager.Instance.SetObject(false);
+        // アクティブシーンを切り替え
+        Scene scene = SceneManager.GetSceneByName(GetNowScene());
+        SceneManager.SetActiveScene(scene);
     }
 }
