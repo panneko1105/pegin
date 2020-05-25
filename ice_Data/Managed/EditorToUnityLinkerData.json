@@ -148,7 +148,8 @@
             "fullManagedTypeName": "UnityEngine.ComputeShader",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
             ]
         },
         {
@@ -398,7 +399,8 @@
             "fullManagedTypeName": "UnityEngine.VFX.VisualEffect",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
             ]
         },
         {
@@ -407,7 +409,8 @@
             "fullManagedTypeName": "UnityEngine.VFX.VFXRenderer",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
             ]
         },
         {
@@ -480,7 +483,8 @@
             "fullManagedTypeName": "UnityEngine.VFX.VisualEffectAsset",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
             ]
         },
         {
@@ -489,7 +493,8 @@
             "fullManagedTypeName": "UnityEngine.VFX.VisualEffectObject",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
             ]
         },
         {
@@ -630,7 +635,7 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
-            "fullManagedTypeName": "EditorModeStencilWriter",
+            "fullManagedTypeName": "EffectFire",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -652,6 +657,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "GokUtil.UpdateManager.UpdateManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "IceBreak",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -901,6 +913,27 @@
             "usedInScenes": []
         },
         {
+            "managedAssemblyName": "Unity.RenderPipelines.Core.Runtime.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "UnityEngine.Rendering.Volume",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Unity.RenderPipelines.Core.Runtime.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "UnityEngine.Rendering.VolumeProfile",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "UnityEngine.Rendering.Universal.Bloom",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
             "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
             "nativeClass": "",
             "fullManagedTypeName": "UnityEngine.Rendering.Universal.ForwardRendererData",
@@ -911,6 +944,13 @@
             "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
             "nativeClass": "",
             "fullManagedTypeName": "UnityEngine.Rendering.Universal.PostProcessData",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "UnityEngine.Rendering.Universal.Tonemapping",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -932,6 +972,13 @@
             "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
             "nativeClass": "",
             "fullManagedTypeName": "UnityEngine.Rendering.Universal.UniversalRenderPipelineEditorResources",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "UnityEngine.Rendering.Universal.Vignette",
             "moduleName": "",
             "usedInScenes": []
         },

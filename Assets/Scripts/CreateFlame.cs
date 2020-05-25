@@ -5,6 +5,9 @@ using GokUtil.UpdateManager;
 
 public class CreateFlame : MonoBehaviour, IUpdatable
 {
+    public Camera maincamera;
+    public int DelNum;
+
     void OnEnable()
     {
         UpdateManager.AddUpdatable(this);
@@ -20,10 +23,24 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // CubeプレハブをGameObject型で取得
             GameObject obj = (GameObject)Resources.Load("flame");
-            // Cubeプレハブを元に、インスタンスを生成、
-            Instantiate(obj, new Vector3(-0.5f, -1.0f, 1.0f), Quaternion.identity);
+            Vector3 Setpos = maincamera.transform.position;
+            Setpos.z = 1f;
+            obj = Instantiate(obj, Setpos, Quaternion.identity);
+            obj.transform.SetParent(this.transform);
+        }
+    }
+
+    public void DeleteChild()
+    {
+        if (this.transform.childCount > DelNum)
+        {
+            var child = transform.GetChild(0);
+            //エフェクト発生
+            GameObject obj = (GameObject)Resources.Load("icebreak");
+            Instantiate(obj, child.transform.position, Quaternion.identity);
+
+            Destroy(child.gameObject);
         }
     }
 

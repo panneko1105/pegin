@@ -115,7 +115,7 @@ public class PlayerMove : MonoBehaviour, IUpdatable
 
                 Vector3 raypos;
                 raypos.x = hitleft + space;
-                raypos.y = hit.collider.gameObject.transform.position.y + size.y/2.0f + 0.1f;
+                raypos.y = hit.collider.gameObject.transform.position.y + size.y/2.0f + 1.0f;
                 raypos.z = 1.0f;
 
                 ray = new Ray2D(raypos, new Vector2(0, 1));

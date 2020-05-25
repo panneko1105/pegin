@@ -84,9 +84,8 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         // Enterキーが押されたときの処理をここに書く
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            // CubeプレハブをGameObject型で取得
+            //エフェクト発生
             GameObject obj = (GameObject)Resources.Load("test");
-
             Instantiate(obj, transform.position, Quaternion.identity);
 
 
@@ -114,17 +113,31 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
             Vector3[] test = mf.mesh.vertices;
 
-           
+            Debug.Log(test.Count());
+
             foreach (Vector3 item in test)
             {
                 v.Add(item);
             }
             dr.CreateMesh(v);
+            var child = transform.GetChild(0);
 
-            var ChangeMaterial = transform.GetChild(0).gameObject.GetComponent<Carver>();
+            
 
+            //子のメッシュを削除
+            var delfilter = child.GetComponent<MeshFilter>();
+            var delrender = child.GetComponent<MeshRenderer>();
+
+            Destroy(delfilter);
+            Destroy(delrender);
+
+            //子のスクリプトを取得してセットしてあるマテリアルを取得
+            var ChangeMaterial = child.gameObject.GetComponent<Carver>();
             this.GetComponent<Renderer>().sharedMaterial = ChangeMaterial.GetMaterial();
 
+            //managerからDelete関数を呼び出す
+            var Deletescript = transform.root.gameObject.GetComponent<CreateFlame>();
+            Deletescript.DeleteChild();
 
             ChangeMaterial.Change();
             Destroy(this);

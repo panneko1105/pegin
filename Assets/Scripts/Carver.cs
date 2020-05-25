@@ -21,7 +21,11 @@ public class Carver : MonoBehaviour
     public PolygonCollider2D Collider2D { get; private set; }
 
     public Material _material;
+    public Mesh comn;
+
     [SerializeField] private Material Flamematerial;
+
+    private List<Vector3> v = new List<Vector3>();
 
     private void Start()
     {
@@ -30,6 +34,11 @@ public class Carver : MonoBehaviour
         {
             this.GetComponent<Renderer>().sharedMaterial = _material;
         }
+        Destroy(transform.parent.GetComponent<MeshFilter>());
+        Destroy(transform.parent.GetComponent<MeshRenderer>());
+
+        Mesh mesh2 = Instantiate(comn);
+        GetComponent<MeshFilter>().sharedMesh = mesh2;
     }
 
     public void Change()
@@ -351,12 +360,11 @@ public class Carver : MonoBehaviour
         colliderObject.transform.SetSiblingIndex(siblingIndex);
         colliderObject.transform.position = this.transform.position;
         colliderObject.transform.rotation = Quaternion.identity;
-
-        
         this.transform.SetParent(colliderObject.transform);
         
         var collider = colliderObject.AddComponent<PolygonCollider2D>();
 
+        //タグの設定（親に）
         colliderObject.tag = "block";
         //通常ブロックの場合
         if (this.attachRigidbodyOnCreateCollider)
@@ -368,12 +376,14 @@ public class Carver : MonoBehaviour
         //フレームの場合
         if (this.makeColliderTriggerOnCreateCollider)
         {
+            //フレームの場合生成前に当たらないように
             colliderObject.tag = "Untagged";
             colliderObject.AddComponent<FlameMove>();
-            colliderObject.AddComponent<DrawMesh>();
+            var dr = colliderObject.AddComponent<DrawMesh>();
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
             //レイヤーをblockに変更
             colliderObject.layer = 10;
+
         }
         
         return collider;

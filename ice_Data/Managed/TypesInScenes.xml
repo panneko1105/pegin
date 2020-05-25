@@ -55,10 +55,11 @@
 		<type fullname="BaseSceneManager" preserve="nothing"/>
 		<type fullname="Carver" preserve="nothing"/>
 		<type fullname="CreateFlame" preserve="nothing"/>
-		<type fullname="EditorModeStencilWriter" preserve="nothing"/>
+		<type fullname="EffectFire" preserve="nothing"/>
 		<type fullname="Fade" preserve="nothing"/>
 		<type fullname="FpsDisplay" preserve="nothing"/>
 		<type fullname="GokUtil.UpdateManager.UpdateManager" preserve="nothing"/>
+		<type fullname="IceBreak" preserve="nothing"/>
 		<type fullname="ItemManager" preserve="nothing"/>
 		<type fullname="LoadingScene" preserve="nothing"/>
 		<type fullname="PauseManager" preserve="nothing"/>
@@ -96,13 +97,18 @@
 		<type fullname="UnityEngine.Rendering.UI.DebugUIHandlerVector3" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.UI.DebugUIHandlerVector4" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.UI.UIFoldout" preserve="nothing"/>
+		<type fullname="UnityEngine.Rendering.Volume" preserve="nothing"/>
+		<type fullname="UnityEngine.Rendering.VolumeProfile" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.RenderPipelines.Universal.Runtime">
+		<type fullname="UnityEngine.Rendering.Universal.Bloom" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.Universal.ForwardRendererData" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.Universal.PostProcessData" preserve="nothing"/>
+		<type fullname="UnityEngine.Rendering.Universal.Tonemapping" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.Universal.UniversalAdditionalCameraData" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.Universal.UniversalRenderPipelineEditorResources" preserve="nothing"/>
+		<type fullname="UnityEngine.Rendering.Universal.Vignette" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.TextMeshPro">
 		<type fullname="TMPro.TMP_FontAsset" preserve="nothing"/>
