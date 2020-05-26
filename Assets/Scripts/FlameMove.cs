@@ -80,7 +80,27 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             isRot = !isRot;
         }
 
-        
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            var keep_y = transform.localScale;
+            keep_y.y += 0.5f * Time.deltaTime;
+            transform.localScale = keep_y;
+
+            var keep_pos = transform.position;
+            keep_pos.y += 0.5f * Time.deltaTime;
+            transform.position = keep_pos;
+        }
+
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            var keep_y = transform.localScale;
+            keep_y.y -= 0.5f * Time.deltaTime;
+            transform.localScale = keep_y;
+
+            var keep_pos = transform.position;
+            keep_pos.y -= 0.5f * Time.deltaTime;
+            transform.position = keep_pos;
+        }
         // Enterキーが押されたときの処理をここに書く
         if (Input.GetKeyDown(KeyCode.Return))
         {

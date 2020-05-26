@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 
+
+
 public class Carver : MonoBehaviour
 {
     private const float Precision = 1024.0f;
@@ -76,8 +78,8 @@ public class Carver : MonoBehaviour
         // ワールドZ方向に押し潰し、三角形の集合を得てコライダーの原型とする
         // 裏向きの三角形も向きを反転した上で列挙しているが、ポリゴンの裏面は
         // 考慮しなくてもいいのなら、裏は除外してもいいかもしれない
-        this.renderers = this.GetComponentsInChildren<Renderer>().Select(
-            r => (r, r.materials.Select((m, i) => (m, i)).OrderBy(pair => pair.m.renderQueue).ToArray())).ToArray();
+        //this.renderers = this.GetComponentsInChildren<Renderer>().Select(
+        //    r => (r, r.materials.Select((m, i) => (m, i)).OrderBy(pair => pair.m.renderQueue).ToArray())).ToArray();
         var meshes = this.GatherMeshes();
         var triangles = this.GetTrianglesFromMesh(meshes);
         DeleteMeshes(meshes);
@@ -370,8 +372,7 @@ public class Carver : MonoBehaviour
         if (this.attachRigidbodyOnCreateCollider)
         {
             var rb=colliderObject.AddComponent<Rigidbody2D>();
-            rb.constraints = RigidbodyConstraints2D.FreezePositionX| RigidbodyConstraints2D.FreezePositionY;
-
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
         //フレームの場合
         if (this.makeColliderTriggerOnCreateCollider)
