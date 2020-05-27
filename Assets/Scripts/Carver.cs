@@ -17,6 +17,7 @@ public class Carver : MonoBehaviour
     [SerializeField] private bool attachRigidbodyOnCreateCollider;
     [SerializeField] private bool makeColliderTriggerOnCreateCollider;
     [SerializeField] private bool notflame;
+    [SerializeField] private bool maskBox;
     private readonly List<List<IntPoint>> outlines = new List<List<IntPoint>>();
     private Mesh pathMesh;
     private (Renderer, (Material, int)[])[] renderers = new (Renderer, (Material, int)[])[0];
@@ -373,6 +374,15 @@ public class Carver : MonoBehaviour
         {
             var rb=colliderObject.AddComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+        }
+        if (this.maskBox)
+        {
+            //フレームの場合生成前に当たらないように
+            colliderObject.tag = "Untagged";
+            collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
+            //レイヤーをblockに変更
+            colliderObject.layer = 10;
+            colliderObject.AddComponent<maskBoxMove>();
         }
         //フレームの場合
         if (this.makeColliderTriggerOnCreateCollider)

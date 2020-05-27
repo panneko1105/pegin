@@ -13,7 +13,6 @@ public class IceBreak : MonoBehaviour
         if (time < 3.0f)
         {
             SetParamete(time);
-            Debug.Log(time);
         }
         else
         {

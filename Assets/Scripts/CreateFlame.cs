@@ -28,6 +28,34 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             Setpos.z = 1f;
             obj = Instantiate(obj, Setpos, Quaternion.identity);
             obj.transform.SetParent(this.transform);
+            obj.tag = "flame";
+
+            GameObject obj2 = (GameObject)Resources.Load("maskBox");
+            Vector3 Setpos2 = maincamera.transform.position;
+            Setpos2.z = 1f;
+            Setpos2.y += 1f;
+            obj2 = Instantiate(obj2, Setpos2, Quaternion.identity);
+            obj2.transform.SetParent(this.transform);
+
+        }
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                var child = transform.GetChild(i);
+                if (child.tag != "block")
+                {
+                    if (child.transform.GetChild(0).tag == "flame")
+                    {
+                        var sc = child.GetComponent<FlameMove>();
+                        sc.CreateIce();
+                    }
+                    else
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
+            }
         }
     }
 
