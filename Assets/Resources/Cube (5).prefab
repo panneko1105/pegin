@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4179378732181953543}
   - component: {fileID: 4179378732181953540}
   - component: {fileID: 4179378732181953541}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube (5)
   m_TagString: block
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6629409cd7f7d4d499cd46afd1bf63eb, type: 2}
+  - {fileID: 2100000, guid: 43dd79b333c3b9844a8a399426794f34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +96,8 @@ MonoBehaviour:
   attachRigidbodyOnCreateCollider: 1
   makeColliderTriggerOnCreateCollider: 0
   notflame: 1
-  _material: {fileID: 2100000, guid: 6629409cd7f7d4d499cd46afd1bf63eb, type: 2}
+  maskBox: 0
+  _material: {fileID: 2100000, guid: 43dd79b333c3b9844a8a399426794f34, type: 2}
   comn: {fileID: 4068373912626513877, guid: 9cd0b8c329cbc9a4cb1ac00d97aab57c, type: 3}
   Flamematerial: {fileID: 0}
 --- !u!1001 &4655664342076088025
@@ -110,6 +111,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: iceo-ra
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189604376774703624, guid: 1b24f5c3c884e6d4e82e21f658a7b094,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5189604376774703625, guid: 1b24f5c3c884e6d4e82e21f658a7b094,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5189604376774703625, guid: 1b24f5c3c884e6d4e82e21f658a7b094,
         type: 3}

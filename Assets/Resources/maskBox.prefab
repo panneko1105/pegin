@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5819341926879582949}
   - component: {fileID: 5819341926879582950}
   - component: {fileID: 6481552243712138153}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: maskBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5819341926879582952}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.3256855, y: 6.0842447, z: 1}
-  m_LocalScale: {x: 3, y: 2.1, z: 1.5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 7d7cdf4970dc30d409be2ffd4a0a29aa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
