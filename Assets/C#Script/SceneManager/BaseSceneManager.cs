@@ -3,22 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using GokUtil.UpdateManager;
 
-// @date 2020/05/01 [今後修正予定]
+// @date 2020/05/14 [今後修正予定]
 //
 // NowLoadingの動きとか
-//
-// Item情報保存
 //
 
 public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdatable
 {
-    private bool[] isItemGetFlg = new bool[3];           //!< 取得の有無 (今後ステージ分これ用意したい)
-    [SerializeField] GameObject canvas;                  //!< キャンバス情報
-    [SerializeField] SceneObject firstScene;             //!< 開始するシーンを指定 (まぁ普通はTitleからだよね)
+    [SerializeField] SceneObject firstScene;                        //!< 開始するシーンを指定 (まぁ普通はTitleからだよね)
+    [SerializeField] GameObject canvas;                             //!< キャンバス情報
+    const int footMax = 4;
+    [SerializeField] GameObject[] foot = new GameObject[footMax];   //!< 足跡Obj
+
+    /* フェード設定関連 */
+    [SerializeField] private float seconds = 0.15f;
+    [SerializeField] private float minAlpha = 0.3f;
+    [SerializeField] private float maxAlpha = 0.8f;
+    /* 演出制御関連 */
+    [SerializeField] int waitCnt = 4;
+    IEnumerator startEffect;
+    //bool isUseeeeeeeeeeeeee;
 
     // Start is called before the first frame update
     void Start()
     {
+        //isUseeeeeeeeeeeeee = false;
         // 開始
         LoadingScene.Instance.FirstLoadScene(firstScene);
     }
@@ -33,28 +42,33 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
         UpdateManager.RemoveUpdatable(this);
     }
 
-    // Use this for initialization
+    // Update is called once per frame
     public void UpdateMe()
     {
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    // オン→オフ
+        //    if (isUseeeeeeeeeeeeee)
+        //    {
+        //        // コルーチンの停止
+        //        StopCoroutine(startEffect);
+        //        for(int i = 0; i < footMax; i++)
+        //        {
+        //            foot[i].GetComponent<FadeManager>().StopAllCoroutines();
+        //        }
+        //        Debug.Log("BaseScene演出：OFF");
+        //    }
+        //    // オフ→オン
+        //    else
+        //    {
+        //        // コルーチンの開始
+        //        startEffect = StartEffect();
+        //        StartCoroutine(startEffect);
+        //        Debug.Log("BaseScene演出：ON");
+        //    }
 
-    }
-
-    //========================================
-    // アイテム取得処理 ※1～の指定
-    //========================================
-    public void SetItemGetFlg(int a)
-    {
-        // 例外防止
-        if (a < 1)
-        {
-            a = 1;
-        }
-        else if (a > 3)
-        {
-            a = 3;
-        }
-        // 取得扱いに
-        isItemGetFlg[a - 1] = true;
+        //    isUseeeeeeeeeeeeee = !isUseeeeeeeeeeeeee;
+        //}
     }
 
     //========================================
@@ -62,12 +76,73 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
     //========================================
     public void SetObject(bool isUse)
     {
+        // オフ
+        if (!isUse)
+        {
+            // コルーチンの停止
+            StopCoroutine(startEffect);
+            for (int i = 0; i < footMax; i++)
+            {
+                foot[i].GetComponent<FadeManager>().StopAllCoroutines();
+            }
+            Debug.Log("BaseScene演出：OFF");
+        }
+
         // falseになると存在を確認できないらしく、直接trueにできなかった...。
         // 仕方なく親Objからたどることに。
-        canvas.transform.Find("BackGround").gameObject.SetActive(isUse);
-        canvas.transform.Find("NowLoading...").gameObject.SetActive(isUse);
+        canvas.transform.Find("AllObject").gameObject.SetActive(isUse);
         Debug.Log("BaseSceneObj：SetActive設定");
-        //backGround.SetActive(isUse);
-        //nowLoading.SetActive(isUse);
+
+        // オン
+        if (isUse)
+        {
+            // コルーチンの開始
+            startEffect = StartEffect();
+            StartCoroutine(startEffect);
+            Debug.Log("BaseScene演出：ON");
+        }
+    }
+
+    public IEnumerator StartEffect()
+    {
+        for (int i = 0; i < waitCnt; i++)
+        {
+            // 継続
+            yield return null;
+        }
+
+        // 足跡1の繰り返し演出開始
+        IEnumerator cor = foot[0].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        StartCoroutine(cor);
+        
+        for(int i = 0; i < waitCnt; i++)
+        {
+            // 継続
+            yield return null;
+        }
+
+        // 足跡2の繰り返し演出開始
+        cor = foot[1].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        StartCoroutine(cor);
+
+        for (int i = 0; i < waitCnt; i++)
+        {
+            // 継続
+            yield return null;
+        }
+
+        // 足跡3の繰り返し演出開始
+        cor = foot[2].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        StartCoroutine(cor);
+
+        for (int i = 0; i < waitCnt; i++)
+        {
+            // 継続
+            yield return null;
+        }
+
+        // 足跡4の繰り返し演出開始
+        cor = foot[3].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        StartCoroutine(cor);
     }
 }
