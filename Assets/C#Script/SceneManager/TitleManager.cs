@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GokUtil.UpdateManager;
 
 
-public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
+public class TitleManager : SingletonMonoBehaviour<TitleManager>
 {
     [SerializeField] SceneObject m_nextScene;       //!< 次のシーン先をInspector上で指定できるよ
     bool flg = true;
@@ -25,18 +24,10 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
         //GameDataManager.Instance.SaveItemFlg(3, 1);
     }
 
-    void OnEnable()
-    {
-        UpdateManager.AddUpdatable(this);
-    }
-
-    void OnDisable()
-    {
-        UpdateManager.RemoveUpdatable(this);
-    }
+    
 
     // Update is called once per frame
-    public void UpdateMe()
+    void Update()
     {
         if (flg)
         {
@@ -45,6 +36,7 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
                 flg = false;
                 // シーン遷移
                 SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, m_nextScene);
+                Debug.Log("あだだｓだだｓ");
             }
         }
     }
