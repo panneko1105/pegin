@@ -22,8 +22,8 @@ public class star : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            var s = script.GetComponent<ItemManager>();
-            s.SetItem(num);
+            //var s = script.GetComponent<ItemManager>();
+            //s.SetItem(num);
 
             Destroy(this.gameObject);
         }

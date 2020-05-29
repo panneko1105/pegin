@@ -384,7 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff16b0974e3f58c4a9b30ef864cc6ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadePanel: {fileID: 0}
+  canvasData: {fileID: 0}
 --- !u!114 &256502015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,9 +413,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ebde98478efd8442bdc28e5c65e17ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasData: {fileID: 0}
-  starPrehfab: {fileID: 6557330183017806005, guid: b7e96b152ef019e4684f64d13df32dc3,
-    type: 3}
+  itemObj:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &256502017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,9 +798,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046e14cc00757784f9c64f667f32ac76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAutoScroll: 0
   scrollSpeedX: 0.08
   scrollSpeedY: 0
-  div_v: 20
 --- !u!43 &1333467735
 Mesh:
   m_ObjectHideFlags: 0
