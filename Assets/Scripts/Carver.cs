@@ -37,10 +37,11 @@ public class Carver : MonoBehaviour
         {
             this.GetComponent<Renderer>().sharedMaterial = _material;
         }
-        Destroy(transform.parent.GetComponent<MeshFilter>());
-        Destroy(transform.parent.GetComponent<MeshRenderer>());
+         Destroy(transform.parent.GetComponent<MeshFilter>());
+         Destroy(transform.parent.GetComponent<MeshRenderer>());
 
         Mesh mesh2 = Instantiate(comn);
+        
         GetComponent<MeshFilter>().sharedMesh = mesh2;
     }
 
@@ -367,34 +368,34 @@ public class Carver : MonoBehaviour
         
         var collider = colliderObject.AddComponent<PolygonCollider2D>();
 
-        //タグの設定（親に）
-        colliderObject.tag = "block";
         //通常ブロックの場合
         if (this.attachRigidbodyOnCreateCollider)
         {
+            //タグの設定（親に）
+            colliderObject.tag = "block";
             var rb=colliderObject.AddComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
         if (this.maskBox)
         {
             //フレームの場合生成前に当たらないように
-            colliderObject.tag = "Untagged";
-            collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
+            colliderObject.tag = "Mask";
+            collider.isTrigger = true;
             //レイヤーをblockに変更
-            colliderObject.layer = 10;
+            colliderObject.layer = 13;
             colliderObject.AddComponent<maskBoxMove>();
         }
         //フレームの場合
         if (this.makeColliderTriggerOnCreateCollider)
         {
             //フレームの場合生成前に当たらないように
-            colliderObject.tag = "Untagged";
+            colliderObject.tag = "flame";
             colliderObject.AddComponent<FlameMove>();
             var dr = colliderObject.AddComponent<DrawMesh>();
+            colliderObject.AddComponent<TheWorld>();
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
             //レイヤーをblockに変更
             colliderObject.layer = 10;
-
         }
         
         return collider;

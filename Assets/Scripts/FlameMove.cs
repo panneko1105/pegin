@@ -162,6 +162,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
         var targetCollider = this.gameObject.GetComponent<Collider2D>();
         this.gameObject.tag = "block";
+        transform.GetChild(0).gameObject.tag = "block";
 
         //切り取り
         var overlappingColliders = new List<Collider2D>();
@@ -186,7 +187,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         dr.CreateMesh(v);
         var child = transform.GetChild(0);
 
-
+        this.gameObject.AddComponent<TheWorld>();
 
         //子のメッシュを削除
         var delfilter = child.GetComponent<MeshFilter>();
@@ -207,5 +208,10 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         this.gameObject.name = "ice";
         Destroy(this);
 
+    }
+
+    public void CCCCC()
+    {
+        Debug.Log("コッチハいけてる");
     }
 }

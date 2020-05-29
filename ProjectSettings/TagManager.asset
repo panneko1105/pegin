@@ -6,6 +6,9 @@ TagManager:
   tags:
   - block
   - flame
+  - Ground
+  - Mask
+  - Delete
   layers:
   - Default
   - TransparentFX

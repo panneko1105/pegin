@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6481552243712138153}
   m_Layer: 13
   m_Name: maskBox
-  m_TagString: Untagged
+  m_TagString: Mask
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,5 +97,5 @@ MonoBehaviour:
   notflame: 0
   maskBox: 1
   _material: {fileID: 0}
-  comn: {fileID: 0}
+  comn: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   Flamematerial: {fileID: 0}

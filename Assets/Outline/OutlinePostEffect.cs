@@ -32,11 +32,9 @@ public class OutlinePostEffect : MonoBehaviour
         _maskCamera.clearFlags = CameraClearFlags.Nothing;
 
         _maskCamera.cullingMask = 1 << LayerMask.NameToLayer("Default") |
-            1 << LayerMask.NameToLayer("Block")|
-            1<< LayerMask.NameToLayer("Player");
-        //_maskCamera.cullingMask = 1 << ;
-        //_maskCamera.cullingMask = 1 << LayerMask.NameToLayer("Block");
-        //_maskCamera.cullingMask = 1 << LayerMask.NameToLayer("Player");
+            1 << LayerMask.NameToLayer("Block") |
+            1 << LayerMask.NameToLayer("Player") |
+            1 << LayerMask.NameToLayer("Outline");
 
         RenderTexture activeRT = RenderTexture.active;
         RenderTexture.active = _maskRT;

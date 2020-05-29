@@ -35,50 +35,6 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Texture",
-            "fullManagedTypeName": "UnityEngine.Texture",
-            "moduleName": "Core",
-            "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Behaviour",
-            "fullManagedTypeName": "UnityEngine.Behaviour",
-            "moduleName": "Core",
-            "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Component",
-            "fullManagedTypeName": "UnityEngine.Component",
-            "moduleName": "Core",
-            "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "MonoBehaviour",
-            "fullManagedTypeName": "UnityEngine.MonoBehaviour",
-            "moduleName": "Core",
-            "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "MonoScript",
             "fullManagedTypeName": "UnityEditor.MonoScript",
             "moduleName": "Core",
@@ -92,17 +48,6 @@
             "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "Material",
             "fullManagedTypeName": "UnityEngine.Material",
-            "moduleName": "Core",
-            "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Texture2D",
-            "fullManagedTypeName": "UnityEngine.Texture2D",
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
@@ -373,13 +318,23 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Texture",
+            "fullManagedTypeName": "UnityEngine.Texture",
+            "moduleName": "Core",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "Canvas",
             "fullManagedTypeName": "UnityEngine.Canvas",
             "moduleName": "UI",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity"
             ]
         },
         {
@@ -410,6 +365,39 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Behaviour",
+            "fullManagedTypeName": "UnityEngine.Behaviour",
+            "moduleName": "Core",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Component",
+            "fullManagedTypeName": "UnityEngine.Component",
+            "moduleName": "Core",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "MonoBehaviour",
+            "fullManagedTypeName": "UnityEngine.MonoBehaviour",
+            "moduleName": "Core",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
                 "Assets/Scenes/Stage1/Stage1.unity"
             ]
         },
@@ -453,6 +441,17 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage1/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Texture2D",
+            "fullManagedTypeName": "UnityEngine.Texture2D",
+            "moduleName": "Core",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
                 "Assets/Scenes/Stage1/Stage1.unity"
             ]
         },
@@ -595,6 +594,15 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "CircleCollider2D",
+            "fullManagedTypeName": "UnityEngine.CircleCollider2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/Stage1/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "CapsuleCollider2D",
             "fullManagedTypeName": "UnityEngine.CapsuleCollider2D",
             "moduleName": "Physics2D",
@@ -684,6 +692,13 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
+            "fullManagedTypeName": "OutlinePostEffect",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
             "fullManagedTypeName": "PauseManager",
             "moduleName": "",
             "usedInScenes": []
@@ -691,7 +706,14 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
-            "fullManagedTypeName": "PlayerMove",
+            "fullManagedTypeName": "PlayerControl1",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "Post",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -727,6 +749,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "camera",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "star",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -909,76 +938,6 @@
             "managedAssemblyName": "Unity.RenderPipelines.Core.Runtime.dll",
             "nativeClass": "",
             "fullManagedTypeName": "UnityEngine.Rendering.UI.UIFoldout",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Core.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Volume",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Core.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.VolumeProfile",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.Bloom",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.ForwardRendererData",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.PostProcessData",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.Tonemapping",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.UniversalAdditionalCameraData",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.UniversalRenderPipelineEditorResources",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Unity.RenderPipelines.Universal.Runtime.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "UnityEngine.Rendering.Universal.Vignette",
             "moduleName": "",
             "usedInScenes": []
         },

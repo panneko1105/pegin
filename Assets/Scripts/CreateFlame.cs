@@ -7,10 +7,21 @@ public class CreateFlame : MonoBehaviour, IUpdatable
 {
     public Camera maincamera;
     public int DelNum;
+    private bool SpownMode = false;         //trueで出ている状態
+
+    public GameObject Player;
+    public GameObject Camera;
+    PlayerControl1 WalkCon;
+    Post StopMono;
+    bool OnceMove;
+
 
     void OnEnable()
     {
         UpdateManager.AddUpdatable(this);
+        WalkCon = Player.GetComponent<PlayerControl1>();
+        OnceMove = true;
+        StopMono = Camera.GetComponent<Post>();
     }
 
     void OnDisable()
@@ -21,40 +32,73 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     // Use this for initialization
     public void UpdateMe()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!SpownMode)
         {
-            GameObject obj = (GameObject)Resources.Load("flame");
-            Vector3 Setpos = maincamera.transform.position;
-            Setpos.z = 1f;
-            obj = Instantiate(obj, Setpos, Quaternion.identity);
-            obj.transform.SetParent(this.transform);
-            obj.tag = "flame";
-
-            GameObject obj2 = (GameObject)Resources.Load("maskBox");
-            Vector3 Setpos2 = maincamera.transform.position;
-            Setpos2.z = -1f;
-            Setpos2.y += 1f;
-            obj2 = Instantiate(obj2, Setpos2, Quaternion.identity);
-            obj2.transform.SetParent(this.transform);
-
-        }
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            for (int i = 0; i < this.transform.childCount; i++)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                var child = transform.GetChild(i);
-                if (child.tag != "block")
+                GameObject obj2 = (GameObject)Resources.Load("maskBox");
+                Vector3 Setpos2 = maincamera.transform.position;
+                Setpos2.z = 1f;
+                Setpos2.y += 1f;
+                obj2 = Instantiate(obj2, Setpos2, Quaternion.identity);
+                obj2.transform.SetParent(this.transform);
+
+                GameObject obj = (GameObject)Resources.Load("flame");
+                Vector3 Setpos = maincamera.transform.position;
+                Setpos.z = 1f;
+                obj = Instantiate(obj, Setpos, Quaternion.identity);
+                obj.transform.SetParent(this.transform);
+                obj.tag = "flame";
+                
+                SpownMode = true;
+
+                //  PauseChild();
+                StopMono.enabled = true;
+                WalkCon.ChangeWalk();
+
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                
+                SpownMode = false;
+                if (OnceMove)
                 {
-                    if (child.transform.GetChild(0).tag == "flame")
+                    WalkCon.LetsStart();
+                    OnceMove = false;
+                }
+                else
+                {
+                    WalkCon.ChangeWalk();
+                }
+               
+                foreach (Transform child in this.transform)
+                {   
+                    if (child.tag == "Mask")
+                    {
+                        var col = child.GetComponent<PolygonCollider2D>();
+                        col.isTrigger = false;
+                        child.tag = "Delete";
+                    }
+                    else if(child.tag=="flame")
                     {
                         var sc = child.GetComponent<FlameMove>();
                         sc.CreateIce();
                     }
-                    else
+                   
+                }
+
+                foreach (Transform child in this.transform)
+                {
+                    if (child.tag == "Delete")
                     {
                         Destroy(child.gameObject);
                     }
                 }
+                StopMono.enabled = false;
+                //StartChild();
             }
         }
     }
@@ -72,4 +116,32 @@ public class CreateFlame : MonoBehaviour, IUpdatable
         }
     }
 
+    public void PauseChild()
+    {
+        Debug.Log("入ったよ");
+        foreach (Transform child in transform)
+        {
+
+           if (child.tag == "flame")
+            {
+                //var s = child.GetComponent<FlameMove>();
+                //s.CCCCC();
+            }
+            //cnt++;
+        }
+        Debug.Log(transform.childCount);
+    }
+
+    public void StartChild()
+    {
+        int cnt = 0;
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "block")
+            {
+               
+            }
+            cnt++;
+        }
+    }
 }

@@ -2,7 +2,7 @@
 
 Shader "Stealth" {
 	SubShader{
-		Tags { "RenderType" = "Opaque" "Queue" = "Geometry-100"}
+		Tags { "RenderType" = "Opaque"}
 		Pass {
 
 			ColorMask 0

@@ -1,13 +1,8 @@
 <linker>
 	<assembly fullname="UnityEngine">
 		<type fullname="UnityEngine.Object" preserve="nothing"/>
-		<type fullname="UnityEngine.Texture" preserve="nothing"/>
-		<type fullname="UnityEngine.Behaviour" preserve="nothing"/>
-		<type fullname="UnityEngine.Component" preserve="nothing"/>
-		<type fullname="UnityEngine.MonoBehaviour" preserve="nothing"/>
 		<type fullname="UnityEditor.MonoScript" preserve="nothing"/>
 		<type fullname="UnityEngine.Material" preserve="nothing"/>
-		<type fullname="UnityEngine.Texture2D" preserve="nothing"/>
 		<type fullname="UnityEditor.VFXManager" preserve="nothing"/>
 		<type fullname="UnityEngine.ComputeShader" preserve="nothing"/>
 		<type fullname="UnityEngine.Shader" preserve="nothing"/>
@@ -30,14 +25,19 @@
 		<type fullname="UnityEngine.MeshRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioBehaviour" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioListener" preserve="nothing"/>
+		<type fullname="UnityEngine.Texture" preserve="nothing"/>
 		<type fullname="UnityEngine.Canvas" preserve="nothing"/>
 		<type fullname="UnityEngine.RectTransform" preserve="nothing"/>
 		<type fullname="UnityEngine.VFX.VisualEffect" preserve="nothing"/>
 		<type fullname="UnityEngine.VFX.VFXRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.Behaviour" preserve="nothing"/>
+		<type fullname="UnityEngine.Component" preserve="nothing"/>
+		<type fullname="UnityEngine.MonoBehaviour" preserve="nothing"/>
 		<type fullname="UnityEngine.GameObject" preserve="nothing"/>
 		<type fullname="UnityEngine.LightmapSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.Font" preserve="nothing"/>
 		<type fullname="UnityEngine.Mesh" preserve="nothing"/>
+		<type fullname="UnityEngine.Texture2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Sprite" preserve="nothing"/>
 		<type fullname="UnityEngine.CanvasRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.VFX.VisualEffectAsset" preserve="nothing"/>
@@ -48,6 +48,7 @@
 		<type fullname="UnityEngine.MeshCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.CircleCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
 	</assembly>
@@ -62,13 +63,16 @@
 		<type fullname="IceBreak" preserve="nothing"/>
 		<type fullname="ItemManager" preserve="nothing"/>
 		<type fullname="LoadingScene" preserve="nothing"/>
+		<type fullname="OutlinePostEffect" preserve="nothing"/>
 		<type fullname="PauseManager" preserve="nothing"/>
-		<type fullname="PlayerMove" preserve="nothing"/>
+		<type fullname="PlayerControl1" preserve="nothing"/>
+		<type fullname="Post" preserve="nothing"/>
 		<type fullname="ScrollManager" preserve="nothing"/>
 		<type fullname="SoundManager" preserve="nothing"/>
 		<type fullname="StageManager" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
 		<type fullname="camera" preserve="nothing"/>
+		<type fullname="star" preserve="nothing"/>
 		<type fullname="vfx" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.RenderPipelines.Core.Runtime">
@@ -97,18 +101,6 @@
 		<type fullname="UnityEngine.Rendering.UI.DebugUIHandlerVector3" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.UI.DebugUIHandlerVector4" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.UI.UIFoldout" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Volume" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.VolumeProfile" preserve="nothing"/>
-	</assembly>
-	<assembly fullname="Unity.RenderPipelines.Universal.Runtime">
-		<type fullname="UnityEngine.Rendering.Universal.Bloom" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Universal.ForwardRendererData" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Universal.PostProcessData" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Universal.Tonemapping" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Universal.UniversalAdditionalCameraData" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Universal.UniversalRenderPipelineEditorResources" preserve="nothing"/>
-		<type fullname="UnityEngine.Rendering.Universal.Vignette" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.TextMeshPro">
 		<type fullname="TMPro.TMP_FontAsset" preserve="nothing"/>
