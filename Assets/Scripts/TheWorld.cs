@@ -1,17 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using GokUtil.UpdateManager;
 
-public class TheWorld : MonoBehaviour
+
+public class TheWorld : MonoBehaviour,IUpdatable
 {
     private Rigidbody2D rb;
 
     Vector2 KeepVelcity;
     float KeepAnglu;
-    void Star()
+
+    void OnEnable()
     {
+        UpdateManager.AddUpdatable(this);
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
+
+    public void UpdateMe()
+    {
+        Debug.Log("ここはイケてる");
+        if (Input.GetKey(KeyCode.K))
+        {
+            Debug.Log("謎");
+            StopIce();
+        }
     }
     public void StopIce()
     {
