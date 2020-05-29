@@ -43,7 +43,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     //------------------------------------------------------------------------------
     void Awake()
     {
-        Debug.Log("Audio読み込み開始");
+        //Debug.Log("Audio読み込み開始");
         if (this != Instance)
         {
             Destroy(this);
@@ -70,7 +70,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         {
             bgmIndexes[bgmClips[i].name] = i;
         }
-        Debug.Log("Audio読み込み完了");
+        //Debug.Log("Audio読み込み完了");
 
         /* Debug.Log("se ========================"); */
         /* foreach(var ac in seClips ) { Debug.Log( ac.name ); } */
@@ -135,7 +135,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     //------------------------------------------------------------------------------
     public void PlayBgm(string name)
     {
-        Debug.Log(bgmClips[0].name);
+        //Debug.Log(bgmClips[0].name);
         int index = bgmIndexes[name];
         PlayBgm(index);
     }
@@ -158,7 +158,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         bgmSource.Stop();
         bgmSource.clip = bgmClips[index];
         bgmSource.Play();
-        Debug.Log("BGM「" + bgmClips[index] + "」再生");
+       // Debug.Log("BGM「" + bgmClips[index] + "」再生");
     }
 
     //------------------------------------------------------------------------------

@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276107052134902564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.46, y: 0.61, z: 1}
-  m_LocalScale: {x: 2.5823, y: 2.1966, z: 1}
+  m_LocalPosition: {x: -0.46, y: 0.61, z: 0.784}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8acd377e3e55bc24da822087cc2ebbff, type: 2}
+  - {fileID: 2100000, guid: cf75bbe88de8a7e4db86bccf7258ec20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,5 +95,7 @@ MonoBehaviour:
   attachRigidbodyOnCreateCollider: 0
   makeColliderTriggerOnCreateCollider: 1
   notflame: 0
-  _material: {fileID: 2100000, guid: e85ecd5769a0b3a40944a501f70401eb, type: 2}
-  Flamematerial: {fileID: 2100000, guid: 6c5e837e2cef24848b63ebaea7a7e78a, type: 2}
+  maskBox: 0
+  _material: {fileID: 0}
+  comn: {fileID: 0}
+  Flamematerial: {fileID: 2100000, guid: 43dd79b333c3b9844a8a399426794f34, type: 2}

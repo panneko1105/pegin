@@ -130,20 +130,15 @@ public class DrawMesh : MonoBehaviour
 
         mesh.triangles = _triangles.ToArray();
 
-        Debug.Log(mesh.vertices.Count());
-
         GetComponent<MeshFilter>().sharedMesh = mesh;
         GetComponent<MeshFilter>().sharedMesh.name = "myMesh";
 
 
         Mesh mesh2 = GetComponent<MeshFilter>().mesh;
-       // mesh.RecalculateNormals();
 
 
         mesh2.RecalculateNormals();
         mesh.RecalculateBounds();
-
-       
 
     }
 

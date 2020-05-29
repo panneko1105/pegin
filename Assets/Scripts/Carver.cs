@@ -5,6 +5,9 @@ using ClipperLib;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+
+
+
 public class Carver : MonoBehaviour
 {
     private const float Precision = 1024.0f;
@@ -14,13 +17,18 @@ public class Carver : MonoBehaviour
     [SerializeField] private bool attachRigidbodyOnCreateCollider;
     [SerializeField] private bool makeColliderTriggerOnCreateCollider;
     [SerializeField] private bool notflame;
+    [SerializeField] private bool maskBox;
     private readonly List<List<IntPoint>> outlines = new List<List<IntPoint>>();
     private Mesh pathMesh;
     private (Renderer, (Material, int)[])[] renderers = new (Renderer, (Material, int)[])[0];
     public PolygonCollider2D Collider2D { get; private set; }
 
     public Material _material;
+    public Mesh comn;
+
     [SerializeField] private Material Flamematerial;
+
+    private List<Vector3> v = new List<Vector3>();
 
     private void Start()
     {
@@ -29,6 +37,12 @@ public class Carver : MonoBehaviour
         {
             this.GetComponent<Renderer>().sharedMaterial = _material;
         }
+         Destroy(transform.parent.GetComponent<MeshFilter>());
+         Destroy(transform.parent.GetComponent<MeshRenderer>());
+
+        Mesh mesh2 = Instantiate(comn);
+        
+        GetComponent<MeshFilter>().sharedMesh = mesh2;
     }
 
     public void Change()
@@ -40,6 +54,7 @@ public class Carver : MonoBehaviour
     {
         return Flamematerial;
     }
+   
 
     // PolygonCollider2Dを現在の3Dモデルの見た目に合わせて更新する
     // まずStartで一度実行されるが、後で再度実行すれば欠損部分が復活することになる
@@ -65,8 +80,8 @@ public class Carver : MonoBehaviour
         // ワールドZ方向に押し潰し、三角形の集合を得てコライダーの原型とする
         // 裏向きの三角形も向きを反転した上で列挙しているが、ポリゴンの裏面は
         // 考慮しなくてもいいのなら、裏は除外してもいいかもしれない
-        this.renderers = this.GetComponentsInChildren<Renderer>().Select(
-            r => (r, r.materials.Select((m, i) => (m, i)).OrderBy(pair => pair.m.renderQueue).ToArray())).ToArray();
+        //this.renderers = this.GetComponentsInChildren<Renderer>().Select(
+        //    r => (r, r.materials.Select((m, i) => (m, i)).OrderBy(pair => pair.m.renderQueue).ToArray())).ToArray();
         var meshes = this.GatherMeshes();
         var triangles = this.GetTrianglesFromMesh(meshes);
         DeleteMeshes(meshes);
@@ -349,25 +364,40 @@ public class Carver : MonoBehaviour
         colliderObject.transform.SetSiblingIndex(siblingIndex);
         colliderObject.transform.position = this.transform.position;
         colliderObject.transform.rotation = Quaternion.identity;
-
-        
         this.transform.SetParent(colliderObject.transform);
         
         var collider = colliderObject.AddComponent<PolygonCollider2D>();
 
-        colliderObject.tag = "block";
+        //通常ブロックの場合
         if (this.attachRigidbodyOnCreateCollider)
         {
-            colliderObject.AddComponent<Rigidbody2D>();
+            //タグの設定（親に）
+            colliderObject.tag = "block";
+            var rb=colliderObject.AddComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
         }
-        if (this.makeColliderTriggerOnCreateCollider)
+        if (this.maskBox)
         {
-            colliderObject.AddComponent<FlameMove>();
-            colliderObject.AddComponent<DrawMesh>();
-            collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
+            //フレームの場合生成前に当たらないように
+            colliderObject.tag = "Mask";
+            collider.isTrigger = true;
+            //レイヤーをblockに変更
+            colliderObject.layer = 13;
+            colliderObject.AddComponent<maskBoxMove>();
         }
         //フレームの場合
-
+        if (this.makeColliderTriggerOnCreateCollider)
+        {
+            //フレームの場合生成前に当たらないように
+            colliderObject.tag = "flame";
+            colliderObject.AddComponent<FlameMove>();
+            var dr = colliderObject.AddComponent<DrawMesh>();
+            colliderObject.AddComponent<TheWorld>();
+            collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
+            //レイヤーをblockに変更
+            colliderObject.layer = 10;
+        }
+        
         return collider;
     }
    
