@@ -2,34 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GokUtil.UpdateManager;
-
-// @date 2020/05/06 [今後修正予定]
-//
-// アイテムObj (☆)は初めから表示
-// →取得したら別の画像 (★) に変更。なのでInstantiateは行わなくする。
-//
+using UnityEngine.UI;
 
 public class ItemManager : MonoBehaviour, IUpdatable
 {
-    [SerializeField] private GameObject canvasData;      //!< 親Obj参照データ
-    [SerializeField] private GameObject starPrehfab;     //!< アイテム用Objデータ
-    int itemNum = 3;                                     //!< アイテム合計数
+    const int itemNum = 3;                                               //!< アイテム合計数
+    [SerializeField] GameObject[] itemObj = new GameObject[itemNum];     //!< アイテムObj
+    bool[] isGetFlg = new bool[itemNum];                                 //!< 取得の有無 (bool, bool, bool)
 
-    GameObject[] star;                                   //!< アイテムObj
-    bool[] isGetFlg;                                     //!< 取得の有無
-
+    private int stageNo = 1;                                             //!< 現在のステージNo.
 
     // Start is called before the first frame update
     void Start()
     {
+        // 現在どこのステージかの情報を取得
+        stageNo = GameDataManager.Instance.GetNowStageNo();
+
         // 必要分のアイテム情報を用意
-        isGetFlg = new bool[itemNum];
+        //
         for (int i = 0; i < itemNum; i++)
         {
+            // 未取得
             isGetFlg[i] = false;
+
+            // 未取得処理 (保存情報から)
+            if (GameDataManager.Instance.GetItemFlg(stageNo, i + 1))
+            {
+                // 取得済みにする
+                FirstItemGetting(i + 1);
+            }
+
+            //=========================
+            // Obj生成
+            //=========================
+            // 生成
+            //itemObj[i] = Instantiate(itemPrehfab, new Vector3(40 + i * 40, -30.0f, 0.0f), Quaternion.identity);
+            //// 親Objをキャンバスに
+            //itemObj[i].transform.SetParent(canvasData.transform, false);
+            //// 大きさ調整
+            //itemObj[i].transform.localScale = new Vector3(0.4f, 0.4f, 1);
+            //// 左上をアンカーとする
+            //var rect = itemObj[i].transform.GetComponent<RectTransform>();
+            //rect.anchorMin = new Vector2(0.0f, 1.0f);
+            //rect.anchorMax = new Vector2(0.0f, 1.0f);
         }
-        // 必要数分Objを用意
-        star = new GameObject[itemNum];
     }
 
     void OnEnable()
@@ -45,26 +61,26 @@ public class ItemManager : MonoBehaviour, IUpdatable
     // Update is called once per frame
     public void UpdateMe()
     {
-        // もしポーズ中なら処理しない
-        if (PauseManager.Instance.GetisPause())
+        // 関係ないときは動かせない
+        if (StageManager.Instance.GetFlg() != StageFlg.NOMAL)
         {
             return;
         }
 
         //========================================
-        // デバッグ用アイテム取得処理
+        // デバッグ用アイテム取得処理　※本番は必ず消すこと！！！！！！！！！！！！！！！！！！！！！！！
         //========================================
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SetItem(1);
+            ItemGetting(1);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SetItem(2);
+            ItemGetting(2);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SetItem(3);
+            ItemGetting(3);
         }
     }
 
@@ -72,7 +88,24 @@ public class ItemManager : MonoBehaviour, IUpdatable
     //========================================
     // アイテム取得処理 ※1～の指定
     //========================================
-    public void SetItem(int num)
+    void FirstItemGetting(int num)
+    {
+        // 例外
+        if (num > itemNum)
+        {
+            return;
+        }
+
+        // flg
+        isGetFlg[num - 1] = true;
+
+        // 画像切り替え
+        Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+        Image image = itemObj[num - 1].GetComponent<Image>();
+        image.sprite = afterPic;
+    }
+
+    public void ItemGetting(int num)
     {
         // 例外
         if (num > itemNum)
@@ -83,20 +116,47 @@ public class ItemManager : MonoBehaviour, IUpdatable
         // まだ未取得なら処理
         if (!isGetFlg[num - 1])
         {
+            // flg
             isGetFlg[num - 1] = true;
-            // 生成
-            star[num - 1] = Instantiate(starPrehfab, new Vector3(40 + (num - 1) * 40, -30.0f, 0.0f), Quaternion.identity);
-            // 親Objをキャンバスに
-            star[num - 1].transform.SetParent(canvasData.transform, false);
-            // 大きさ調整
-            star[num - 1].transform.localScale = new Vector3(0.4f, 0.4f, 1);
-            // 左上をアンカーとする
-            var rect = star[num - 1].transform.GetComponent<RectTransform>();
-            rect.anchorMax = new Vector2(0.0f, 1.0f);
-            rect.anchorMin = new Vector2(0.0f, 1.0f);
+
+            // 画像切り替え
+            Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+            Image image = itemObj[num - 1].GetComponent<Image>();
+            image.sprite = afterPic;
+
+            // アニメーション開始
+            StartCoroutine(ItemGettingAnim(num, 0.08f));
+            //itemObj[num - 1].transform.localScale = new Vector3(3.0f, 3.0f, 1.0f);
 
             // SE再生
             SoundManager.Instance.PlaySe("SE_Test_01");
         }
+    }
+
+    //========================================
+    // アイテム取得アニメーション
+    //========================================
+    IEnumerator ItemGettingAnim(int num, float seconds)
+    {
+        //!< 時間計測開始
+        float startTime = Time.time;
+        float scal = itemObj[num - 1].transform.localScale.x;
+
+        // 
+        while (seconds > Time.time - startTime)
+        {
+            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 200.0f, scal);
+            //float w = Easing.BackOut(Time.time - startTime, seconds, scal / 100.0f * 150.0f, scal, 5.0f);
+            if (w < 0.0f)
+            {
+                w = 0.0f;
+            }
+            itemObj[num - 1].transform.localScale = new Vector3(w, w, 1);
+
+            // 継続
+            yield return null;
+        }
+        // 調整用
+        itemObj[num - 1].transform.localScale = new Vector3(scal, scal, 1);
     }
 }

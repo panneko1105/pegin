@@ -4,22 +4,16 @@ using UnityEngine;
 using GokUtil.UpdateManager;
 using UnityEngine.SceneManagement;
 
-// @date 2020/05/06 [今後修正予定]
-//
-// １つ前のシーンに戻る
-//
-
 public class GameOverManager : SingletonMonoBehaviour<GameOverManager>, IUpdatable
 {
     // Start is called before the first frame update
     void Start()
     {
-        // BaseSceneのいらないものを消す
-        BaseSceneManager.Instance.SetObject(false);
-        // アクティブシーンを切り替え
-        Scene scene = SceneManager.GetSceneByName(LoadingScene.Instance.GetNowScene());
-        SceneManager.SetActiveScene(scene);
-        // フェード取得
+        // BGMの再生
+        //SoundManager.Instance.PlayBgm("BGM_Test01");
+        // シーンの初期化
+        LoadingScene.Instance.InitScene();
+        // シーンイン演出処理
     }
 
     void OnEnable()
@@ -37,7 +31,8 @@ public class GameOverManager : SingletonMonoBehaviour<GameOverManager>, IUpdatab
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            LoadingScene.Instance.LoadScene(LoadingScene.Instance.GetNowScene());
+            // １つ前のシーンに戻る
+            LoadingScene.Instance.LoadScene(LoadingScene.Instance.GetPreScene());
         }
     }
 }

@@ -6,31 +6,32 @@
 using System;
 using System.Diagnostics;
 
+// 2020/05/23 staticを除去
 
 /// <summary>
 /// 処理時間を計測するクラス
 /// </summary>
-public static class ProcessTimer
+public class ProcessTimer
 {
     //時間を計るためのクラス
-    private static Stopwatch _stopwatch = new Stopwatch();
+    private Stopwatch _stopwatch = new Stopwatch();
 
     //現在の処理時間の合計をfloatで各単位に変換したもの(上からミリ秒、秒、分、時間、日)
-    public static float TotalMilliseconds { get { return (float)_stopwatch.Elapsed.TotalMilliseconds; } }
-    public static float TotalSeconds { get { return (float)_stopwatch.Elapsed.TotalSeconds; } }
-    public static float TotalMinutes { get { return (float)_stopwatch.Elapsed.TotalMinutes; } }
-    public static float TotalHours { get { return (float)_stopwatch.Elapsed.TotalHours; } }
-    public static float TotalDays { get { return (float)_stopwatch.Elapsed.TotalDays; } }
+    public float TotalMilliseconds { get { return (float)_stopwatch.Elapsed.TotalMilliseconds; } }
+    public float TotalSeconds { get { return (float)_stopwatch.Elapsed.TotalSeconds; } }
+    public float TotalMinutes { get { return (float)_stopwatch.Elapsed.TotalMinutes; } }
+    public float TotalHours { get { return (float)_stopwatch.Elapsed.TotalHours; } }
+    public float TotalDays { get { return (float)_stopwatch.Elapsed.TotalDays; } }
 
     //現在の処理時間の各単位だけをintで抜き出したもの(上からミリ秒、秒、分、時間、日)
-    public static int Milliseconds { get { return _stopwatch.Elapsed.Milliseconds; } }
-    public static int Seconds { get { return _stopwatch.Elapsed.Seconds; } }
-    public static int Minutes { get { return _stopwatch.Elapsed.Minutes; } }
-    public static int Hours { get { return _stopwatch.Elapsed.Hours; } }
-    public static int Days { get { return _stopwatch.Elapsed.Days; } }
+    public int Milliseconds { get { return _stopwatch.Elapsed.Milliseconds; } }
+    public int Seconds { get { return _stopwatch.Elapsed.Seconds; } }
+    public int Minutes { get { return _stopwatch.Elapsed.Minutes; } }
+    public int Hours { get { return _stopwatch.Elapsed.Hours; } }
+    public int Days { get { return _stopwatch.Elapsed.Days; } }
 
     //計測中かどうかのフラグ
-    public static bool IsRunning { get { return _stopwatch.IsRunning; } }
+    public bool IsRunning { get { return _stopwatch.IsRunning; } }
 
     //=================================================================================
     //基本メソッド
@@ -38,7 +39,7 @@ public static class ProcessTimer
     /// <summary>
     /// 計測を開始する
     /// </summary>
-    public static void Start()
+    public void Start()
     {
         _stopwatch.Start();
     }
@@ -46,7 +47,7 @@ public static class ProcessTimer
     /// <summary>
     /// 計測を停止し、現在の計測時間(秒)を返す
     /// </summary>
-    public static float Stop()
+    public float Stop()
     {
         _stopwatch.Stop();
         return TotalSeconds;
@@ -55,7 +56,7 @@ public static class ProcessTimer
     /// <summary>
     /// 計測した時間をリセットする
     /// </summary>
-    public static void Reset()
+    public void Reset()
     {
         _stopwatch.Reset();
     }
@@ -64,7 +65,7 @@ public static class ProcessTimer
     /// <summary>
     /// 計測した時間をリセットしてから計測を開始する
     /// </summary>
-    public static void Restart()
+    public void Restart()
     {
         Reset();
         Start();
@@ -77,7 +78,7 @@ public static class ProcessTimer
     /// 入力したアクションを実行し、処理時間(秒)を返す。
     /// loopcountで実行回数指定し、isAverageを有効にすると平均を返す
     /// </summary>
-    public static float MeasureAction(Action action, int loopCount = 1, bool isAverage = false)
+    public float MeasureAction(Action action, int loopCount = 1, bool isAverage = false)
     {
         //アクションがない場合や、処理回数が0の時はエラーが出ないように0を返す
         if (action == null || loopCount == 0)
