@@ -50,7 +50,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         if (Input.GetKey(KeyCode.W))
         {
             transform.position += new Vector3(0, move* Time.deltaTime, 0);
-           
+
         }
         // 下移動
         if (Input.GetKey(KeyCode.S))

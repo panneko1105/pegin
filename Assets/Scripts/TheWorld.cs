@@ -11,6 +11,7 @@ public class TheWorld : MonoBehaviour,IUpdatable
     Vector2 KeepVelcity;
     float KeepAnglu;
 
+
     void OnEnable()
     {
         UpdateManager.AddUpdatable(this);

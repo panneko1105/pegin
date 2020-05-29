@@ -392,6 +392,7 @@ public class Carver : MonoBehaviour
             colliderObject.tag = "flame";
             colliderObject.AddComponent<FlameMove>();
             var dr = colliderObject.AddComponent<DrawMesh>();
+            colliderObject.AddComponent<TheWorld>();
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
             //レイヤーをblockに変更
             colliderObject.layer = 10;
