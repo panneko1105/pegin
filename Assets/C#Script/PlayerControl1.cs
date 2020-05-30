@@ -102,7 +102,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
                 //localScale.xに-1をかける
 
-                temp.x *= -1;
+                temp.x *= -1f;
 
                 //結果を戻す
 
@@ -131,7 +131,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     public void PlayerRay(int layerMask)
     {
         Vector3 _trans = transform.position;
-        _trans.y -= 1.0f;
+        _trans.y -= 0.2f;
         Ray2D ray = new Ray2D(_trans, new Vector2(dir, 0));
 
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.red, 0.1f, false);
