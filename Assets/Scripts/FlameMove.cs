@@ -13,6 +13,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     private List<Vector3> v = new List<Vector3>();
 
     private int fase;
+  
 
     PolygonCollider2D m_ObjectCollider;
 
@@ -50,7 +51,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         if (Input.GetKey(KeyCode.W))
         {
             transform.position += new Vector3(0, move* Time.deltaTime, 0);
-            Debug.Log("W押してるぞ");
         }
         // 下移動
         if (Input.GetKey(KeyCode.S))
@@ -69,84 +69,30 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         }
         // 45度回転
         // 左回転
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Quaternion rot;
-           
-            if (!isRot)
-            {//z軸を軸にして45度回転させるQuaternionを作成
-                rot = Quaternion.Euler(0, 0, 45);              
-            }
-            else
-            {
-                rot = Quaternion.Euler(0, 0, 0);
+            Quaternion myRot = this.transform.rotation;
+            Quaternion rot = Quaternion.Euler(0, 0, 50*Time.deltaTime);
 
-            }
             // 現在の自身の回転の情報を取得する
-            this.transform.rotation = rot;
+            this.transform.rotation = myRot * rot;
 
          
 
             isRot = !isRot;
         }
         // 右回転
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            Quaternion rot;
-            
-           
-            if (!isRot)
-            {//z軸を軸にして45度回転させるQuaternionを作成
-                rot = Quaternion.Euler(0, 0, 45);
+        if (Input.GetKey(KeyCode.RightArrow)) {
+            Quaternion myRot = this.transform.rotation;
+            Quaternion rot = Quaternion.Euler(0, 0, -50 * Time.deltaTime);
 
-            }
-            else
-            {
-                rot = Quaternion.Euler(0, 0, 0);
+            // 現在の自身の回転の情報を取得する
+            this.transform.rotation = myRot * rot;
 
-            }
-            //現在の自身の回転の情報を取得する
-            this.transform.rotation =rot;
 
-           
             isRot = !isRot;
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-           
-            fase += 1;
-            if (fase > 4)
-            {
-                fase = 3;
-            }
-            
-            var keep_y = transform.localScale;
-            keep_y.y += 0.5f * Time.deltaTime;
-            transform.localScale = keep_y;
-
-            var keep_pos = transform.position;
-            keep_pos.y += 0.5f * Time.deltaTime;
-            transform.position = keep_pos;
-
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-
-            fase -= 1;
-            if (fase < 1)
-            {
-                fase = 1;
-            }
-            var keep_y = transform.localScale;
-            keep_y.y -= 0.5f * Time.deltaTime;
-            transform.localScale = keep_y;
-
-            var keep_pos = transform.position;
-            keep_pos.y -= 0.5f * Time.deltaTime;
-            transform.position = keep_pos;
-        }
     }
 
     public void CreateIce()

@@ -68,17 +68,17 @@ public class maskBoxMove : MonoBehaviour, IUpdatable
             transform.position += new Vector3(-move * Time.deltaTime, 0, 0);
         }
        
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             var ke = transform.position;
-            ke.y += 0.25f;
+            ke.y += 0.5f * Time.deltaTime;
             transform.position = ke;
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             var ke = transform.position;
-            ke.y -= 0.25f;
+            ke.y -= 0.5f * Time.deltaTime;
             transform.position = ke;
         }
     }
