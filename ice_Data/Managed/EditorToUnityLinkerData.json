@@ -8,7 +8,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -19,7 +20,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -30,7 +32,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -41,7 +44,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -52,7 +56,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -77,7 +82,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -94,7 +100,7 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -105,7 +111,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -137,7 +144,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -239,7 +247,17 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "AnimationClip",
+            "fullManagedTypeName": "UnityEngine.AnimationClip",
+            "moduleName": "Animation",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -250,7 +268,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -260,7 +279,8 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -271,7 +291,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -281,7 +302,8 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -291,7 +313,8 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -302,7 +325,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -313,7 +337,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -324,7 +349,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -334,7 +360,9 @@
             "moduleName": "UI",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Title.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -345,7 +373,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -355,7 +384,7 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -365,7 +394,25 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Motion",
+            "fullManagedTypeName": "UnityEngine.Motion",
+            "moduleName": "Animation",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "RuntimeAnimatorController",
+            "fullManagedTypeName": "UnityEngine.RuntimeAnimatorController",
+            "moduleName": "Animation",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -376,7 +423,17 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Animator",
+            "fullManagedTypeName": "UnityEngine.Animator",
+            "moduleName": "Animation",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -387,7 +444,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -398,7 +456,17 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "AnimatorController",
+            "fullManagedTypeName": "UnityEditor.Animations.AnimatorController",
+            "moduleName": "Animation",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -409,7 +477,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -420,7 +489,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -431,7 +501,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -441,7 +512,8 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -452,7 +524,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -462,7 +535,8 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -473,7 +547,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -483,7 +558,7 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -493,7 +568,7 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -522,7 +597,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -542,7 +618,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -553,7 +630,8 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/StageSelect.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -562,7 +640,8 @@
             "fullManagedTypeName": "UnityEngine.Collider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -571,16 +650,8 @@
             "fullManagedTypeName": "UnityEngine.MeshCollider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Rigidbody2D",
-            "fullManagedTypeName": "UnityEngine.Rigidbody2D",
-            "moduleName": "Physics2D",
-            "usedInScenes": [
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -589,25 +660,8 @@
             "fullManagedTypeName": "UnityEngine.Collider2D",
             "moduleName": "Physics2D",
             "usedInScenes": [
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "CircleCollider2D",
-            "fullManagedTypeName": "UnityEngine.CircleCollider2D",
-            "moduleName": "Physics2D",
-            "usedInScenes": [
-                "Assets/Scenes/Stage1/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "CapsuleCollider2D",
-            "fullManagedTypeName": "UnityEngine.CapsuleCollider2D",
-            "moduleName": "Physics2D",
-            "usedInScenes": [
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -616,7 +670,35 @@
             "fullManagedTypeName": "UnityEngine.BoxCollider2D",
             "moduleName": "Physics2D",
             "usedInScenes": [
-                "Assets/Scenes/Stage1/Stage1.unity"
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Rigidbody2D",
+            "fullManagedTypeName": "UnityEngine.Rigidbody2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "CircleCollider2D",
+            "fullManagedTypeName": "UnityEngine.CircleCollider2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "CapsuleCollider2D",
+            "fullManagedTypeName": "UnityEngine.CapsuleCollider2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
@@ -650,7 +732,7 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
-            "fullManagedTypeName": "Fade",
+            "fullManagedTypeName": "FadeManager",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -658,6 +740,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "FpsDisplay",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "GameDataManager",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -692,6 +781,13 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
+            "fullManagedTypeName": "Mybutton",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
             "fullManagedTypeName": "OutlinePostEffect",
             "moduleName": "",
             "usedInScenes": []
@@ -720,7 +816,21 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
+            "fullManagedTypeName": "SceneChangeManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
             "fullManagedTypeName": "ScrollManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "SelectPanelManager",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -735,6 +845,34 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "StageManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "StageSelectCursor",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "StageSelectManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "StartEvent",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "TextEffect",
             "moduleName": "",
             "usedInScenes": []
         },
