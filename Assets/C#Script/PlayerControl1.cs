@@ -10,7 +10,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     public float distance;
     private Rigidbody2D rb;
     Animator peguin;
-    private int dir = 1;
+    private float dir = 1f;
     //飛べる高さ
     public float height;
     //ブロック上の幅（ペンギンが乗るスペース）1の場合ブロック一個分の大きさとして扱う
@@ -23,14 +23,24 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool StartMove;
     private float time = 0f;
 
+    Vector3 KeepVel;
+    float KeepAngl;
+    Vector3 KeepPos;
+
+    bool StopNow = true;
+    bool JpNow;
+    bool KeepJp;
+
     // Start is called before the first frame update
     void Start()
     {
-      //  this.peguin = GetComponent<Animator>();
+      //this.peguin = GetComponent<Animator>();
         //rs = new Vector2(0f, jumppower);
         rb = GetComponent<Rigidbody2D>();
         jp = false;
+        JpNow = false;
         StartMove = false;
+        KeepPos = transform.position;
         //jp = anime.SetBool("Jump",false);
     }
 
@@ -49,58 +59,72 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             {
                 // peguin.SetBool("Walk", false);
                 //rb.AddForce(Vector2.up * jumppower,ForceMode2D.Impulse);
-                Vector2 jump = new Vector2(0, jumppower);
                 //this.rb.AddForce(jump, ForceMode2D.Impulse);
-               // peguin.SetTrigger("Jump");
+                // peguin.SetTrigger("Jump");
                 jp = false;
-                rb.velocity = new Vector2(1.5f, jumppower);
+                JpNow = true;
+                if (dir > 0f)
+                {
+                    rb.velocity = new Vector2(1.5f, jumppower);
+                }
+                else
+                {
+                    rb.velocity = new Vector2(-1.5f, jumppower);
+                }
+                time = 0f;
+            }
+        }
+    }
+
+    
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (JpNow)
+        {
+            if (col.gameObject.tag == "block" || col.gameObject.tag == "Ground")
+            {
+                walk = true;
+                JpNow = false;
             }
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (StartMove)
+        if (!JpNow && !StopNow)
         {
-            if (!walk)
+            //歩き出すよう
+            if (col.gameObject.tag == "block")
             {
-                //歩き出すよう
-                if (col.gameObject.tag == "block" || col.gameObject.tag == "Ground")
-                {
-                    walk = true;
-                    time = 0f;
-                }
+
+                //反転処理
+                Vector3 temp = gameObject.transform.localScale;
+
+                //localScale.xに-1をかける
+
+                temp.x *= -1;
+
+                //結果を戻す
+
+                gameObject.transform.localScale = temp;
+                dir *= -1;
+
+                Not_JpBlock = null;
             }
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        //飛べなかった場合のブロック
-        if (col.gameObject==Not_JpBlock)
-        {
-            //反転処理
-            Vector3 temp = gameObject.transform.localScale;
-
-            //localScale.xに-1をかける
-
-            temp.x *= -1;
-
-            //結果を戻す
-
-            gameObject.transform.localScale = temp;
-            dir *= -1;
-
-            Not_JpBlock = null;
-        }
-    }
     // Update is called once per frame
     public void Update()
     {
-        if (!jp)
+        if (!JpNow&&walk)
         {
             PlayerRay(1);
             // peguin.SetBool("Walk", true);
+        }
+        if (StopNow)
+        {
+            transform.position = KeepPos;
         }
     }
 
@@ -159,12 +183,40 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
     }
 
-    public void ChangeWalk()
+    public void StopWalk()
     {
         if (StartMove)
         {
-            walk = !walk;
-            rb.velocity = new Vector2(0f, 0f);
+            walk = false;
+            KeepVel = rb.velocity;
+            KeepAngl = rb.angularVelocity;
+
+            rb.Sleep();
+
+            KeepJp = jp;
+            jp = false;
+            KeepPos = transform.position;
+           
+            StopNow = true;
+        }
+    }
+
+    public void StartWalk()
+    {
+        if (StartMove)
+        {
+            walk = true;
+
+            rb.WakeUp();
+            rb.velocity = KeepVel;
+            rb.angularVelocity = KeepAngl;
+
+            if (StopNow)
+            {
+                jp = KeepJp;
+            }
+            StopNow = false;
+            Debug.Log("入るわけない");
         }
     }
 
@@ -172,5 +224,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     {
         StartMove = true;
         walk = true;
+        StopNow = false;
     }
 }

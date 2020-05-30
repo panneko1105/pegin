@@ -52,10 +52,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 
                 SpownMode = true;
 
-                //  PauseChild();
                 StopMono.enabled = true;
-                WalkCon.ChangeWalk();
-
+                WalkCon.StopWalk();
             }
         }
         else
@@ -71,7 +69,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 }
                 else
                 {
-                    WalkCon.ChangeWalk();
+                    WalkCon.StartWalk();
+                    Debug.Log("ここまで行けてる");
                 }
                
                 foreach (Transform child in this.transform)
@@ -98,7 +97,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                     }
                 }
                 StopMono.enabled = false;
-                //StartChild();
             }
         }
     }
@@ -116,32 +114,4 @@ public class CreateFlame : MonoBehaviour, IUpdatable
         }
     }
 
-    public void PauseChild()
-    {
-        Debug.Log("入ったよ");
-        foreach (Transform child in transform)
-        {
-
-           if (child.tag == "flame")
-            {
-                //var s = child.GetComponent<FlameMove>();
-                //s.CCCCC();
-            }
-            //cnt++;
-        }
-        Debug.Log(transform.childCount);
-    }
-
-    public void StartChild()
-    {
-        int cnt = 0;
-        foreach (Transform child in transform)
-        {
-            if (child.tag == "block")
-            {
-               
-            }
-            cnt++;
-        }
-    }
 }

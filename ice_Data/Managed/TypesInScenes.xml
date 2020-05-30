@@ -53,15 +53,15 @@
 		<type fullname="UnityEngine.MeshCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.BoxCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
-		<type fullname="UnityEngine.CircleCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.AI.NavMeshData" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="BaseSceneManager" preserve="nothing"/>
 		<type fullname="Carver" preserve="nothing"/>
 		<type fullname="CreateFlame" preserve="nothing"/>
-		<type fullname="EffectFire" preserve="nothing"/>
 		<type fullname="FadeManager" preserve="nothing"/>
 		<type fullname="FpsDisplay" preserve="nothing"/>
 		<type fullname="GameDataManager" preserve="nothing"/>
@@ -85,7 +85,6 @@
 		<type fullname="TextEffect" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
 		<type fullname="camera" preserve="nothing"/>
-		<type fullname="star" preserve="nothing"/>
 		<type fullname="vfx" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.RenderPipelines.Core.Runtime">

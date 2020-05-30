@@ -676,17 +676,17 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Rigidbody2D",
-            "fullManagedTypeName": "UnityEngine.Rigidbody2D",
-            "moduleName": "Physics2D",
+            "nativeClass": "BoxCollider",
+            "fullManagedTypeName": "UnityEngine.BoxCollider",
+            "moduleName": "Physics",
             "usedInScenes": [
                 "Assets/Scenes/Stage/Stage1.unity"
             ]
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "CircleCollider2D",
-            "fullManagedTypeName": "UnityEngine.CircleCollider2D",
+            "nativeClass": "Rigidbody2D",
+            "fullManagedTypeName": "UnityEngine.Rigidbody2D",
             "moduleName": "Physics2D",
             "usedInScenes": [
                 "Assets/Scenes/Stage/Stage1.unity"
@@ -697,6 +697,15 @@
             "nativeClass": "CapsuleCollider2D",
             "fullManagedTypeName": "UnityEngine.CapsuleCollider2D",
             "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/Stage/Stage1.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "NavMeshData",
+            "fullManagedTypeName": "UnityEngine.AI.NavMeshData",
+            "moduleName": "AI",
             "usedInScenes": [
                 "Assets/Scenes/Stage/Stage1.unity"
             ]
@@ -719,13 +728,6 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "CreateFlame",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Assembly-CSharp.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "EffectFire",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -887,13 +889,6 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "camera",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Assembly-CSharp.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "star",
             "moduleName": "",
             "usedInScenes": []
         },

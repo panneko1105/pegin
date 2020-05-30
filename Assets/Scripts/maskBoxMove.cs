@@ -71,14 +71,14 @@ public class maskBoxMove : MonoBehaviour, IUpdatable
         if (Input.GetKey(KeyCode.UpArrow))
         {
             var ke = transform.position;
-            ke.y += 0.5f * Time.deltaTime;
+            ke.y += 1.5f * Time.deltaTime;
             transform.position = ke;
         }
 
         if (Input.GetKey(KeyCode.DownArrow))
         {
             var ke = transform.position;
-            ke.y -= 0.5f * Time.deltaTime;
+            ke.y -= 1.5f * Time.deltaTime;
             transform.position = ke;
         }
     }

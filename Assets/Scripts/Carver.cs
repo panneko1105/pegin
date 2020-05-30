@@ -375,6 +375,7 @@ public class Carver : MonoBehaviour
             colliderObject.tag = "block";
             var rb=colliderObject.AddComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            rb.mass = 100f;
         }
         if (this.maskBox)
         {
@@ -395,7 +396,7 @@ public class Carver : MonoBehaviour
             colliderObject.AddComponent<TheWorld>();
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
             //レイヤーをblockに変更
-            colliderObject.layer = 10;
+            colliderObject.layer = 14;
         }
         
         return collider;

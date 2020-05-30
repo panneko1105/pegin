@@ -103,7 +103,8 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
 
         m_ObjectCollider.isTrigger = false;
-        this.gameObject.AddComponent<Rigidbody2D>();
+        var rb = this.gameObject.AddComponent<Rigidbody2D>();
+        rb.mass = 100f;
 
         this.gameObject.layer = 0;
 
@@ -155,10 +156,5 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         this.gameObject.name = "ice";
         Destroy(this);
 
-    }
-
-    public void CCCCC()
-    {
-        Debug.Log("コッチハいけてる");
     }
 }
