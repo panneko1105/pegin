@@ -135,8 +135,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         dr.CreateMesh(v);
         var child = transform.GetChild(0);
 
-        this.gameObject.AddComponent<TheWorld>();
-
         //子のメッシュを削除
         var delfilter = child.GetComponent<MeshFilter>();
         var delrender = child.GetComponent<MeshRenderer>();

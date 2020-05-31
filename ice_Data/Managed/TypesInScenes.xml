@@ -27,6 +27,8 @@
 		<type fullname="UnityEngine.AudioBehaviour" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioListener" preserve="nothing"/>
 		<type fullname="UnityEngine.Texture" preserve="nothing"/>
+		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.CircleCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Canvas" preserve="nothing"/>
 		<type fullname="UnityEngine.RectTransform" preserve="nothing"/>
 		<type fullname="UnityEngine.VFX.VisualEffect" preserve="nothing"/>
@@ -51,12 +53,11 @@
 		<type fullname="UnityEngine.RenderSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.Collider" preserve="nothing"/>
 		<type fullname="UnityEngine.MeshCollider" preserve="nothing"/>
-		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.BoxCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
-		<type fullname="UnityEngine.AI.NavMeshData" preserve="nothing"/>
+		<type fullname="UnityEngine.CapsuleCollider" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="BaseSceneManager" preserve="nothing"/>
@@ -65,6 +66,8 @@
 		<type fullname="FadeManager" preserve="nothing"/>
 		<type fullname="FpsDisplay" preserve="nothing"/>
 		<type fullname="GameDataManager" preserve="nothing"/>
+		<type fullname="GetStar" preserve="nothing"/>
+		<type fullname="Goal" preserve="nothing"/>
 		<type fullname="GokUtil.UpdateManager.UpdateManager" preserve="nothing"/>
 		<type fullname="IceBreak" preserve="nothing"/>
 		<type fullname="ItemManager" preserve="nothing"/>

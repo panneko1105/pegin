@@ -9,7 +9,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -21,7 +23,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -33,7 +37,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -45,7 +51,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -57,7 +65,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -83,7 +93,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -100,7 +112,9 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -112,7 +126,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -145,7 +161,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -248,7 +266,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -269,7 +289,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -280,7 +302,9 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -292,7 +316,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -303,7 +329,9 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -314,7 +342,9 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -326,7 +356,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -338,7 +370,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -350,7 +384,33 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Collider2D",
+            "fullManagedTypeName": "UnityEngine.Collider2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "CircleCollider2D",
+            "fullManagedTypeName": "UnityEngine.CircleCollider2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -362,7 +422,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -374,7 +436,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -384,7 +448,9 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -394,7 +460,9 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -424,7 +492,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -445,7 +515,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -457,7 +529,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -478,7 +552,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -490,7 +566,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -502,7 +580,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -513,7 +593,9 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -525,7 +607,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -536,7 +620,9 @@
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -548,7 +634,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -558,7 +646,9 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -568,7 +658,9 @@
             "moduleName": "VFX",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -598,7 +690,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -619,7 +713,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -631,7 +727,9 @@
                 "Assets/Scenes/BaseScene.unity",
                 "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -641,7 +739,9 @@
             "moduleName": "Physics",
             "usedInScenes": [
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -651,17 +751,9 @@
             "moduleName": "Physics",
             "usedInScenes": [
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Collider2D",
-            "fullManagedTypeName": "UnityEngine.Collider2D",
-            "moduleName": "Physics2D",
-            "usedInScenes": [
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -671,7 +763,9 @@
             "moduleName": "Physics2D",
             "usedInScenes": [
                 "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -689,7 +783,9 @@
             "fullManagedTypeName": "UnityEngine.Rigidbody2D",
             "moduleName": "Physics2D",
             "usedInScenes": [
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -698,16 +794,19 @@
             "fullManagedTypeName": "UnityEngine.CapsuleCollider2D",
             "moduleName": "Physics2D",
             "usedInScenes": [
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "NavMeshData",
-            "fullManagedTypeName": "UnityEngine.AI.NavMeshData",
-            "moduleName": "AI",
+            "nativeClass": "CapsuleCollider",
+            "fullManagedTypeName": "UnityEngine.CapsuleCollider",
+            "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/Stage/Stage1.unity"
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
         {
@@ -749,6 +848,20 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "GameDataManager",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "GetStar",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "Goal",
             "moduleName": "",
             "usedInScenes": []
         },

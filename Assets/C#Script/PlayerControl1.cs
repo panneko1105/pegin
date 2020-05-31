@@ -5,7 +5,7 @@ using GokUtil.UpdateManager;
 
 public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 {
-    public float jumppower;
+    float jumppower;
     public float playerspeed;
     public float distance;
     private Rigidbody2D rb;
@@ -17,15 +17,17 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     public float space;
     //飛べないと判断されたブロックキャッシュ用
     GameObject Not_JpBlock;
+    float sumHeigh = 0f;
 
     bool jp;
     bool walk = false;
     bool StartMove;
     private float time = 0f;
 
-    Vector3 KeepVel;
+    Vector2 KeepVel;
     float KeepAngl;
     Vector3 KeepPos;
+    bool HitBoxCol = false;
 
     bool StopNow = true;
     bool JpNow;
@@ -54,7 +56,9 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         if (jp)
         {
             time += Time.deltaTime;
-            rb.velocity = new Vector2(0f, 0f);
+            Vector2 tame = rb.velocity;
+            tame.x = 0f;
+            rb.velocity = tame;
             if (time > 0.8f)
             {
                 // peguin.SetBool("Walk", false);
@@ -63,6 +67,11 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 // peguin.SetTrigger("Jump");
                 jp = false;
                 JpNow = true;
+
+                Vector3 Jp_pos = Not_JpBlock.transform.position;
+                Jp_pos.y += Not_JpBlock.transform.localScale.y*0.5f;
+                //Shoot(Jp_pos);
+                jumppower = 5.6f + 1.3f * sumHeigh;
                 if (dir > 0f)
                 {
                     rb.velocity = new Vector2(1.5f, jumppower);
@@ -79,6 +88,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     
     void OnCollisionEnter2D(Collision2D col)
     {
+        //飛んでいる最中は判定をとらない
         if (JpNow)
         {
             if (col.gameObject.tag == "block" || col.gameObject.tag == "Ground")
@@ -96,7 +106,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             //歩き出すよう
             if (col.gameObject.tag == "block")
             {
-
                 //反転処理
                 Vector3 temp = gameObject.transform.localScale;
 
@@ -110,9 +119,13 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 dir *= -1;
 
                 Not_JpBlock = null;
+
+                HitBoxCol = true;
+                Debug.Log(dir);
             }
         }
     }
+
 
     // Update is called once per frame
     public void Update()
@@ -131,6 +144,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     public void PlayerRay(int layerMask)
     {
         Vector3 _trans = transform.position;
+        //足元からレイを飛ばすため
         _trans.y -= 0.2f;
         Ray2D ray = new Ray2D(_trans, new Vector2(dir, 0));
 
@@ -141,8 +155,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
         if (hit.collider)
         {
-            //当たったオブジェクトをKEEPしておく
-            Not_JpBlock = hit.collider.gameObject;
+            
 
             //当たったオブジェクトの子供を取得（子がLocalScaleを保持しているため）
             var HitChild = hit.collider.gameObject.transform.GetChild(0);
@@ -163,7 +176,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 RaycastHit2D[] Uphit = Physics2D.RaycastAll(rayUp.origin, rayUp.direction, 100, layerMask);
 
                 //Debug.DrawRay(JumpSpace, rayUp.direction * distance, Color.green, 5f, false);
-                float sumHeigh = 0f;
+                sumHeigh = 0f;
 
                 foreach (var col in Uphit)
                 {
@@ -175,7 +188,8 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     jp = true;
                     walk = false;
                     //飛んだ場合なので削除
-                    Not_JpBlock = null;
+                    //当たったオブジェクトをKEEPしておく
+                    Not_JpBlock = hit.collider.gameObject;
                 }
                 //----------------------------------------------------------------------------------------------
             }
@@ -216,7 +230,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 jp = KeepJp;
             }
             StopNow = false;
-            Debug.Log("入るわけない");
+        
         }
     }
 
@@ -226,4 +240,78 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         walk = true;
         StopNow = false;
     }
+
+
+
+    private void Shoot(Vector3 i_targetPosition)
+    {
+        // とりあえず適当に60度でかっ飛ばすとするよ！
+        ShootFixedAngle(i_targetPosition, 60.0f);
+    }
+
+    private void ShootFixedAngle(Vector3 i_targetPosition, float i_angle)
+    {
+        float speedVec = ComputeVectorFromAngle(i_targetPosition, i_angle);
+        if (speedVec <= 0.0f)
+        {
+            // その位置に着地させることは不可能のようだ！
+            Debug.LogWarning("!!");
+            return;
+        }
+
+        Vector3 vec = ConvertVectorToVector3(speedVec, i_angle, i_targetPosition);
+
+        Vector3 force = vec * rb.mass;
+
+        rb.AddForce(force, ForceMode2D.Impulse);
+    }
+
+    private float ComputeVectorFromAngle(Vector3 i_targetPosition, float i_angle)
+    {
+        // xz平面の距離を計算。
+        Vector2 startPos = new Vector2(transform.position.x,transform.position.z);
+        Vector2 targetPos = new Vector2(i_targetPosition.x, i_targetPosition.z);
+        float distance = Vector2.Distance(targetPos, startPos);
+
+        float x = distance;
+        float g = Physics.gravity.y;
+        float y0 = transform.position.y - 0.2f;
+        float y = i_targetPosition.y;
+
+        // Mathf.Cos()、Mathf.Tan()に渡す値の単位はラジアンだ。角度のまま渡してはいけないぞ！
+        float rad = i_angle * Mathf.Deg2Rad;
+
+        float cos = Mathf.Cos(rad);
+        float tan = Mathf.Tan(rad);
+
+        float v0Square = g * x * x / (2 * cos * cos * (y - y0 - x * tan));
+
+        // 負数を平方根計算すると虚数になってしまう。
+        // 虚数はfloatでは表現できない。
+        // こういう場合はこれ以上の計算は打ち切ろう。
+        if (v0Square <= 0.0f)
+        {
+            return 0.0f;
+        }
+
+        float v0 = Mathf.Sqrt(v0Square);
+        return v0;
+    }
+
+    private Vector3 ConvertVectorToVector3(float i_v0, float i_angle, Vector3 i_targetPosition)
+    {
+        Vector3 startPos = transform.position;
+        Vector3 targetPos = i_targetPosition;
+        startPos.y = 0.0f;
+        targetPos.y = 0.0f;
+
+        Vector3 dir = (targetPos - startPos).normalized;
+        Quaternion yawRot = Quaternion.FromToRotation(Vector3.right, dir);
+        Vector3 vec = i_v0 * Vector3.right;
+
+        vec = yawRot * Quaternion.AngleAxis(i_angle, Vector3.forward) * vec;
+
+        return vec;
+    }
+
 }

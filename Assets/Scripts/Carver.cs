@@ -18,6 +18,7 @@ public class Carver : MonoBehaviour
     [SerializeField] private bool makeColliderTriggerOnCreateCollider;
     [SerializeField] private bool notflame;
     [SerializeField] private bool maskBox;
+    [SerializeField] private bool GoalObj;
     private readonly List<List<IntPoint>> outlines = new List<List<IntPoint>>();
     private Mesh pathMesh;
     private (Renderer, (Material, int)[])[] renderers = new (Renderer, (Material, int)[])[0];
@@ -393,10 +394,17 @@ public class Carver : MonoBehaviour
             colliderObject.tag = "flame";
             colliderObject.AddComponent<FlameMove>();
             var dr = colliderObject.AddComponent<DrawMesh>();
-            colliderObject.AddComponent<TheWorld>();
+            
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
             //レイヤーをblockに変更
             colliderObject.layer = 14;
+        }
+        if (this.GoalObj)
+        {
+            colliderObject.tag = "Goal";
+            colliderObject.AddComponent<Goal>();
+            var dr = colliderObject.AddComponent<DrawMesh>();
+            Debug.Log("生成したよ");
         }
         
         return collider;

@@ -70,7 +70,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 else
                 {
                     WalkCon.StartWalk();
-                    Debug.Log("ここまで行けてる");
                 }
                
                 foreach (Transform child in this.transform)
