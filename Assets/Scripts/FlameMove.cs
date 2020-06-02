@@ -14,7 +14,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     private List<GameObject> TrigeerStayObj=new List<GameObject>();
     List<Vector3> myPoint = new List<Vector3>();
     List<Vector3> Dainyuu = new List<Vector3>();
-
+    //孫
     private List<GameObject> GR_Child = new List<GameObject>();
 
     static int num = 0;
@@ -100,19 +100,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
         if (Input.GetKeyDown(KeyCode.J))
         {
-            var mago = transform.GetChild(0);
-            for (int i = 0; i < 4; i++)
-            {
-                GR_Child.Add(mago.GetChild(i).gameObject);
-                
-            }
-            mago.transform.DetachChildren();
-
-            foreach(GameObject K_pos in GR_Child)
-            {
-                myPoint.Add(K_pos.transform.position);
-            }
-            Mabiki();
+         
         }
     }
 
@@ -177,6 +165,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         this.gameObject.name = "ice" + num;
         num++;
         Destroy(this);
+
 
     }
  
@@ -287,8 +276,25 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         return true;
     }
 
-    void Mabiki()
+    public bool Mabiki()
     {
+        var mago = transform.GetChild(0);
+        for (int i = 0; i < 4; i++)
+        {
+            GR_Child.Add(mago.GetChild(i).gameObject);
+
+        }
+        mago.transform.DetachChildren();
+
+        foreach (GameObject K_pos in GR_Child)
+        {
+            myPoint.Add(K_pos.transform.position);
+            K_pos.transform.parent = this.transform;
+        }
+
+
+        //カットしていいかのフラグ
+        bool CutFg = true;
         Vector3 ireru = new Vector3(0, 0, 0);
         Vector3[] watasu = {ireru, ireru , ireru, ireru };
         foreach (Transform child in transform.root.transform)
@@ -383,6 +389,10 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         {
             case 0:
                 Debug.Log("4角形");
+                for (int i = 0; i < 4; i++)
+                {
+                    NewPoint[i] = myPoint[i];
+                }
                 break;
             case 1:
                 Debug.Log("5角形");
@@ -413,7 +423,74 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 break;
         }
 
+        //トリガーの頂点
+        Vector3[] TriPos = { ireru, ireru, ireru, ireru };
+        Vector3 HoziPos;
+        Vector3 HoziSize;
+        Vector3 Tyouten;
+        int CrossNum = 0;
+  
+        foreach (GameObject TriObj in TrigeerStayObj)
+        {
+            HoziPos = TriObj.transform.position;
+            HoziSize = TriObj.transform.GetChild(0).localScale;
+            Tyouten = new Vector3(HoziPos.x + HoziSize.x * 0.5f, HoziPos.y + HoziSize.y * 0.5f, 1.0f);
+            TriPos[0] = Tyouten;
 
+            Tyouten = new Vector3(HoziPos.x + HoziSize.x*0.5f, HoziPos.y - HoziSize.y * 0.5f, 1.0f);
+            TriPos[1] = Tyouten;
+
+            Tyouten = new Vector3(HoziPos.x - HoziSize.x * 0.5f, HoziPos.y - HoziSize.y * 0.5f, 1.0f);
+            TriPos[2] = Tyouten;
+
+            Tyouten = new Vector3(HoziPos.x - HoziSize.x * 0.5f, HoziPos.y + HoziSize.y * 0.5f, 1.0f);
+            TriPos[3] = Tyouten;
+
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 5 - InNum; j++)
+                {
+
+                    if (LineSegmentsIntersection(TriPos[i], TriPos[i+1], NewPoint[j], NewPoint[j + 1], out Kousa))
+                    {
+                        CrossNum++;
+                    }
+                    if (j == 4 - InNum)
+                    {
+                        if (LineSegmentsIntersection(TriPos[i], TriPos[i + 1], NewPoint[j+1], NewPoint[0], out Kousa))
+                        {
+                            CrossNum++;
+                        }
+                    }
+                }
+
+                if (i == 2)
+                {
+                    for (int j = 0; j < 5 - InNum; j++)
+                    {
+                        if (LineSegmentsIntersection(TriPos[3], TriPos[0], NewPoint[j], NewPoint[j + 1], out Kousa))
+                        {
+                            CrossNum++;
+                        }
+                        if (j == 4 - InNum)
+                        {
+                            if (LineSegmentsIntersection(TriPos[3], TriPos[0], NewPoint[j+1], NewPoint[0], out Kousa))
+                            {               
+                                CrossNum++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (CrossNum > 3)
+            {
+                CutFg = false;
+            }
+            Debug.Log(CrossNum + "点まじわりました");
+            CrossNum = 0;
+        }
+        return CutFg;
     }
 
     //上向きならtrue

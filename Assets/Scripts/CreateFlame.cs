@@ -11,7 +11,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
 
     public GameObject Player;
     public GameObject Camera;
-    PlayerCon/*trol1*/ WalkCon;
+    PlayerControl1 WalkCon;
     Post StopMono;
     bool OnceMove;
 
@@ -19,7 +19,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     void OnEnable()
     {
         UpdateManager.AddUpdatable(this);
-        WalkCon = Player.GetComponent<PlayerCon/*trol1*/>();
+        WalkCon = Player.GetComponent<PlayerControl1>();
         OnceMove = true;
         StopMono = Camera.GetComponent<Post>();
     }
@@ -83,7 +83,14 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                     else if(child.tag=="flame")
                     {
                         var sc = child.GetComponent<FlameMove>();
-                        sc.CreateIce();
+                        if (sc.Mabiki())
+                        {
+                            sc.CreateIce();
+                        }
+                        else
+                        {
+                            Debug.Log("カットしちゃだめ");
+                        }
                     }
                    
                 }

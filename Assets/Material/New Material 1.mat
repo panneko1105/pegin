@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: New Material 1
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: f50aeb8d51ebcb9439d7f774031d87af, type: 3}
+  m_ShaderKeywords: RIM
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -40,7 +40,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 860fe264631804343bf5867b3a620053, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -55,23 +55,41 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Ramp:
+        m_Texture: {fileID: 2800000, guid: 860fe264631804343bf5867b3a620053, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RampS:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FADE: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Offset: 3.2
     - _Parallax: 0.02
+    - _RIM: 1
     - _SmoothnessTextureChannel: 0
+    - _SpecOffset: 0.5
+    - _SpecSize: 0.9
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TopBottomOffset: 3.2
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
+    - _BottomColor: {r: 1, g: 0, b: 0.14656258, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1, g: 0, b: 0.18353081, a: 1}
+    - _SColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TColor: {r: 0.9245283, g: 0.34451762, b: 0.34451762, a: 1}
