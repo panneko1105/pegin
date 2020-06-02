@@ -54,7 +54,6 @@
 		<type fullname="UnityEngine.Collider" preserve="nothing"/>
 		<type fullname="UnityEngine.MeshCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
-		<type fullname="UnityEngine.BoxCollider" preserve="nothing"/>
 		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider" preserve="nothing"/>
@@ -67,7 +66,6 @@
 		<type fullname="FpsDisplay" preserve="nothing"/>
 		<type fullname="GameDataManager" preserve="nothing"/>
 		<type fullname="GetStar" preserve="nothing"/>
-		<type fullname="Goal" preserve="nothing"/>
 		<type fullname="GokUtil.UpdateManager.UpdateManager" preserve="nothing"/>
 		<type fullname="IceBreak" preserve="nothing"/>
 		<type fullname="ItemManager" preserve="nothing"/>
@@ -75,6 +73,7 @@
 		<type fullname="Mybutton" preserve="nothing"/>
 		<type fullname="OutlinePostEffect" preserve="nothing"/>
 		<type fullname="PauseManager" preserve="nothing"/>
+		<type fullname="PlayerCon" preserve="nothing"/>
 		<type fullname="PlayerControl1" preserve="nothing"/>
 		<type fullname="Post" preserve="nothing"/>
 		<type fullname="SceneChangeManager" preserve="nothing"/>

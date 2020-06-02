@@ -35,24 +35,24 @@ public class Goal : MonoBehaviour
 
             Debug.Log("切り取り完了");
 
-            //メッシュの生成
-            MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
-            Vector3[] test = mf.mesh.vertices;
+            ////メッシュの生成
+            //MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
+            //Vector3[] test = mf.mesh.vertices;
 
 
-            foreach (Vector3 item in test)
-            {
-                v.Add(item);
-            }
-            dr.CreateMesh(v);
-            var child = transform.GetChild(0);
+            //foreach (Vector3 item in test)
+            //{
+            //    v.Add(item);
+            //}
+            //dr.CreateMesh(v);
+            //var child = transform.GetChild(0);
 
             //子のメッシュを削除
-            var delfilter = child.GetComponent<MeshFilter>();
-            var delrender = child.GetComponent<MeshRenderer>();
+            //var delfilter = child.GetComponent<MeshFilter>();
+            //var delrender = child.GetComponent<MeshRenderer>();
 
-            Destroy(delfilter);
-            Destroy(delrender);
+            //Destroy(delfilter);
+            //Destroy(delrender);
         }
     }
 }

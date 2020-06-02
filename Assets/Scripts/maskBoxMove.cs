@@ -48,24 +48,24 @@ public class maskBoxMove : MonoBehaviour, IUpdatable
             return;
         }
         // 上移動
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            transform.position += new Vector3(0, move * Time.deltaTime, 0);
+            transform.position += new Vector3(0, 1f, 0);
         }
         // 下移動
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            transform.position += new Vector3(0, -move * Time.deltaTime, 0);
+            transform.position += new Vector3(0, -1f, 0);
         }
         // 左に移動
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            transform.position += new Vector3(move * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(1f, 0, 0);
         }
         // 右に移動
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            transform.position += new Vector3(-move * Time.deltaTime, 0, 0);
+            transform.position += new Vector3(-1f, 0, 0);
         }
        
         if (Input.GetKey(KeyCode.UpArrow))
