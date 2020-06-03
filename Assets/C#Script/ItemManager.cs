@@ -8,6 +8,7 @@ public class ItemManager : MonoBehaviour, IUpdatable
 {
     const int itemNum = 3;                                               //!< アイテム合計数
     [SerializeField] GameObject[] itemObj = new GameObject[itemNum];     //!< アイテムObj
+    [SerializeField] GameObject goalFlgObj;                              //!< ゴールUIObj
     bool[] isGetFlg = new bool[itemNum];                                 //!< 取得の有無 (bool, bool, bool)
 
     private int stageNo = 1;                                             //!< 現在のステージNo.
@@ -100,9 +101,13 @@ public class ItemManager : MonoBehaviour, IUpdatable
         isGetFlg[num - 1] = true;
 
         // 画像切り替え
-        Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+        //Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+        //Image image = itemObj[num - 1].GetComponent<Image>();
+        //image.sprite = afterPic;
+
+        // 色切り替え
         Image image = itemObj[num - 1].GetComponent<Image>();
-        image.sprite = afterPic;
+        image.color = new Color(1.0f, 1.0f, 100.0f / 255.0f, 1.0f);
     }
 
     public void ItemGetting(int num)
@@ -120,16 +125,32 @@ public class ItemManager : MonoBehaviour, IUpdatable
             isGetFlg[num - 1] = true;
 
             // 画像切り替え
-            Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+            //Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+            //Image image = itemObj[num - 1].GetComponent<Image>();
+            //image.sprite = afterPic;
+
+            // 色切り替え
             Image image = itemObj[num - 1].GetComponent<Image>();
-            image.sprite = afterPic;
+            image.color = new Color(1.0f, 1.0f, 100.0f / 255.0f, 1.0f);
 
             // アニメーション開始
             StartCoroutine(ItemGettingAnim(num, 0.08f));
             //itemObj[num - 1].transform.localScale = new Vector3(3.0f, 3.0f, 1.0f);
 
-            // SE再生
-            SoundManager.Instance.PlaySe("SE_Test_01");
+            // 全取得
+            if(isGetFlg[0] && isGetFlg[1] && isGetFlg[2])
+            {
+                // 旗処理
+                StartCoroutine(GoalUIAnim(0.2f, 0.12f));
+
+                // SE再生
+                SoundManager.Instance.PlaySe("SE_Test_01");
+            }
+            else
+            {
+                // SE再生
+                SoundManager.Instance.PlaySe("SE_Test_01");
+            }
         }
     }
 
@@ -158,5 +179,34 @@ public class ItemManager : MonoBehaviour, IUpdatable
         }
         // 調整用
         itemObj[num - 1].transform.localScale = new Vector3(scal, scal, 1);
+    }
+
+    //========================================
+    // ゴールUIが立っちゃうアニメーション///
+    //========================================
+    IEnumerator GoalUIAnim(float waitSeconds, float seconds)
+    {
+        yield return new WaitForSecondsRealtime(waitSeconds);
+
+        //!< 時間計測開始
+        float startTime = Time.time;
+        float scal = goalFlgObj.transform.localScale.x;
+
+        // 
+        while (seconds > Time.time - startTime)
+        {
+            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 250.0f, scal);
+            //float w = Easing.BackOut(Time.time - startTime, seconds, scal / 100.0f * 150.0f, scal, 5.0f);
+            if (w < 0.0f)
+            {
+                w = 0.0f;
+            }
+            goalFlgObj.transform.localScale = new Vector3(w, w, 1);
+
+            // 継続
+            yield return null;
+        }
+        // 調整用
+        goalFlgObj.transform.localScale = new Vector3(scal, scal, 1);
     }
 }

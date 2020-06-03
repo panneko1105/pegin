@@ -19,6 +19,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     private GameObject _child;
 
     private DrawMesh dr;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,15 +43,20 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     // Update is called once per frame
     public void UpdateMe()
     {
-        if (PauseManager.Instance.GetisPause())
+        // 操作不可
+        if (StageManager.Instance.GetFlg() != StageFlg.NOMAL)
         {
             return;
         }
+
+        //----------------------------------------------
+        //  フレーム移動 (左スティック)
+        //----------------------------------------------
         // 上移動
         if (Input.GetKey(KeyCode.W))
         {
             transform.position += new Vector3(0, move* Time.deltaTime, 0);
-            Debug.Log("W押してるぞ");
+            //Debug.Log("W押してるぞ");
         }
         // 下移動
         if (Input.GetKey(KeyCode.S))
@@ -67,9 +73,13 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         {
             transform.position += new Vector3(-move* Time.deltaTime, 0, 0);
         }
+
+        //----------------------------------------------
+        //  フレーム回転 (LR)
+        //----------------------------------------------
         // 45度回転
-        // 左回転
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        // 左回転 (L)
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown("joystick button 4"))
         {
             Quaternion rot;
            
@@ -89,8 +99,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
             isRot = !isRot;
         }
-        // 右回転
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
+        // 右回転 (R)
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown("joystick button 5"))
+        {
             Quaternion rot;
             
            
@@ -109,6 +120,18 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
            
             isRot = !isRot;
+        }
+
+        //----------------------------------------------
+        //  水位上下 (右スティック)
+        //----------------------------------------------
+        // R Stick
+        //float rsh = Input.GetAxis("R_Stick_H");
+        float rsv = Input.GetAxis("R_Stick_V");
+        // 確認用
+        if (rsv != 0)
+        {
+            Debug.Log(rsv);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))

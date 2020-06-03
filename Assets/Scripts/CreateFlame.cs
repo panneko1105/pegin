@@ -32,9 +32,18 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     // Use this for initialization
     public void UpdateMe()
     {
+        // 操作不可
+        if (StageManager.Instance.GetFlg() != StageFlg.NOMAL)
+        {
+            return;
+        }
+
         if (!SpownMode)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            //----------------------------------------------
+            //  氷生成モード (Xボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 2"))
             {
                 GameObject obj2 = (GameObject)Resources.Load("maskBox");
                 Vector3 Setpos2 = maincamera.transform.position;
@@ -60,7 +69,16 @@ public class CreateFlame : MonoBehaviour, IUpdatable
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            // ポーズ解除と同時に氷が落ちるのを防止
+            if (PauseManager.Instance.GetPauseEndCnt() < 1)
+            {
+                return;
+            }
+
+            //----------------------------------------------
+            //  氷生成モード (Aボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 
                 SpownMode = false;

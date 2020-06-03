@@ -9,8 +9,8 @@ public class FadeManager : MonoBehaviour
     [SerializeField] private float seconds = 2.0f;
     [SerializeField] private float minAlpha = 0.3f;
     [SerializeField] private float maxAlpha = 0.8f;
-    IEnumerator coroutine;
-    IEnumerator parentCoroutine;
+    private IEnumerator coroutine;
+    private IEnumerator parentCoroutine;
 
     // Use this for initialization
     void Start()
@@ -21,18 +21,25 @@ public class FadeManager : MonoBehaviour
         //}
     }
 
-    public IEnumerator StartFadeLoop(float _seconds, float _minAlpha = 0.0f, float _maxAlpha = 1.0f)
+    public void SetFadeInfo(float _seconds, float _minAlpha = 0.0f, float _maxAlpha = 1.0f)
+    {
+        seconds = _seconds;
+        minAlpha = _minAlpha;
+        maxAlpha = _maxAlpha;
+    }
+
+    public IEnumerator StartFadeLoop()
     {
         // フェードアウト
-        coroutine = FadeOut(_seconds, _minAlpha, _maxAlpha);
+        coroutine = FadeOut(seconds, minAlpha, maxAlpha);
         yield return StartCoroutine(coroutine);
 
         // フェードイン
-        coroutine = FadeIn(_seconds, _minAlpha, _maxAlpha);
+        coroutine = FadeIn(seconds, minAlpha, maxAlpha);
         yield return StartCoroutine(coroutine);
 
         // ↑の繰り返し
-        parentCoroutine = StartFadeLoop(_seconds, _minAlpha, _maxAlpha);
+        parentCoroutine = StartFadeLoop();
         StartCoroutine(parentCoroutine);
     }
 
@@ -149,7 +156,6 @@ public class FadeManager : MonoBehaviour
             {
                 alpha = 0.0f;
             }
-            // ほんとはここで毎回Getしたくない...。けど事前にGetしても上手くいかない...。
             image.color = new Color(0, 0, 0, alpha);
 
             // 継続
