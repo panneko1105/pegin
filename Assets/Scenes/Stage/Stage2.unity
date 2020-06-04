@@ -829,6 +829,7 @@ MonoBehaviour:
   - {fileID: 1074834468}
   - {fileID: 5576326}
   - {fileID: 2815475}
+  goalFlgObj: {fileID: 0}
 --- !u!114 &148516891
 MonoBehaviour:
   m_ObjectHideFlags: 0
