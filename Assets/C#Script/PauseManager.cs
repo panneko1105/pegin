@@ -31,6 +31,9 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
         "ステージセレクトへ",
     };
 
+    bool pushFlg = false;
+    int cnt =0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,11 +71,22 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                 return;
             }
 
+            // L Stick
+            float lsv = Input.GetAxis("L_Stick_V");
+            // 十字キー
+            float dpv = Input.GetAxis("D_Pad_V");
+
+            // 押した判定
+            if (lsv == 0 && dpv == 0)
+            {
+                pushFlg = false;
+            }
+
             //========================================
             // カーソル移動
             //========================================
             // カーソルを１つ上へ
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.W) || !pushFlg && (lsv > 0.1f || dpv > 0.0f))
             {
                 selectPos--;
                 // 上端きたら下端へ
@@ -81,7 +95,7 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                     selectPos = selectNum - 1;
                 }
                 // 座標を文字位置に合わせる
-                Vector3 pos = new Vector3(msg[selectPos].transform.localPosition.x - 54, msg[selectPos].transform.localPosition.y - 3, 0);
+                Vector3 pos = new Vector3(msg[selectPos].transform.localPosition.x - 54, msg[selectPos].transform.localPosition.y - 6, 0);
                 cursor.transform.localPosition = pos;
                 // 色
                 for(int i = 0; i < selectNum; i++)
@@ -95,9 +109,11 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                         msg[i].GetComponent<Text>().color = Color.white;
                     }
                 }
+
+                pushFlg = true;
             }
             // カーソルを１つ下へ
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.S) || !pushFlg && (lsv < -0.1f || dpv < -0.0f))
             {
                 selectPos++;
                 // 下端きたら上端へ
@@ -106,7 +122,7 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                     selectPos = 0;
                 }
                 // 座標を文字位置に合わせる
-                Vector3 pos = new Vector3(msg[selectPos].transform.localPosition.x - 54, msg[selectPos].transform.localPosition.y - 3, 0);
+                Vector3 pos = new Vector3(msg[selectPos].transform.localPosition.x - 54, msg[selectPos].transform.localPosition.y - 6, 0);
                 cursor.transform.localPosition = pos;
                 // 色
                 for (int i = 0; i < selectNum; i++)
@@ -120,12 +136,14 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                         msg[i].GetComponent<Text>().color = Color.white;
                     }
                 }
+
+                pushFlg = true;
             }
 
             //========================================
-            // 選択
+            // 選択 (Aボタン)
             //========================================
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 ClosePauseMenu();
 
@@ -162,16 +180,11 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                 }
             }
             // Escapeでとりあえず閉じる
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 3"))
             {
                 ClosePauseMenu();
                 // このまま閉じる
                 StageManager.Instance.SetFlg(StageFlg.NOMAL);
-            }
-
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-
             }
         }
         // まだポーズメニュー開いてないよ
@@ -183,18 +196,26 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                 return;
             }
 
+            cnt++;
+            if (cnt > 1)
+            {
+                cnt = 1;
+            }
+
             // 開くよ
             //========================================
-            // 選択
+            // 選択 (Yボタン)
             //========================================
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 3"))
             {
                 // ポーズ中に切り替え
                 isPause = true;
-                StageManager.Instance.SetFlg(StageFlg.PAUSE_MENU);
+                StageManager.Instance.SetFlg(StageFlg.PAUSE_BEGIN);
 
                 // ザ・ワールド
                 Time.timeScale = 0f;
+
+                cnt = 0;
 
                 // もしポーズするたびに選択カーソル位置を一番上にリセットするならコレ
                 selectPos = 0;
@@ -253,7 +274,7 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
         LeftEX[1] = new GameObject("LeftWall_White");
         LeftEX[1].transform.SetParent(canvasData.transform, false);
         //LeftEX[1].transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-        LeftEX[1].transform.localScale = new Vector3(1.0f, 1.0f, 1);
+        LeftEX[1].transform.localScale = new Vector3(1.0f, 1.05f, 1);
         LeftEX[1].transform.Rotate(0.0f, 0.0f, 3.0f, Space.World);
         // 色合い
         image = LeftEX[1].AddComponent<Image>();
@@ -305,7 +326,7 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
         //=================================
         for(int i = 0; i < selectNum; i++)
         {
-            msg[i] = Instantiate(textPrefab, new Vector3(250.0f + 20 * i, 230.0f - 60 * i, 0.0f), Quaternion.identity);
+            msg[i] = Instantiate(textPrefab, new Vector3(260.0f + 20 * i, 220.0f - 55 * i, 0.0f), Quaternion.identity);
             msg[i].name = "Text_Select" + i;
             //pauseText = new GameObject("Text_PAUSE");
             msg[i].transform.SetParent(canvasData.transform, false);
@@ -336,7 +357,9 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
         LeftEX[0].transform.Rotate(0.0f, 0.0f, 3.0f, Space.World);
         // 色合い
         image = LeftEX[0].AddComponent<Image>();
-        image.color = new Color(0.0f, 138.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+        //image.color = new Color(0.0f, 138.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
+        Sprite afterPic2 = Resources.Load<Sprite>("Texture/half1");
+        image.sprite = afterPic2;
         // 画面全体の大きさに合わせる
         var rect7 = LeftEX[0].GetComponent<RectTransform>();
         rect7.anchorMin = new Vector2(0.0f, 0.0f);
@@ -348,8 +371,38 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
         //Debug.Log(Screen.width / 2);
 
         // カーソル合わせ
-        Vector3 pos = new Vector3(msg[selectPos].transform.localPosition.x - 54, msg[selectPos].transform.localPosition.y - 3, 0);
+        Vector3 pos = new Vector3(msg[selectPos].transform.localPosition.x - 54, msg[selectPos].transform.localPosition.y - 6, 0);
         cursor.transform.localPosition = pos;
+
+
+        //=============================================
+        //  アニメーション開始
+        //=============================================
+        StartCoroutine(PauseAnimation());
+    }
+
+    IEnumerator PauseAnimation()
+    {
+        // 左壁
+        PauseEvent pauseEvent = LeftEX[0].AddComponent<PauseEvent>();
+        StartCoroutine(pauseEvent.AnimUpdown(0.55f, -1100));
+        // 左壁
+        pauseEvent = LeftEX[1].AddComponent<PauseEvent>();
+        StartCoroutine(pauseEvent.AnimUpdown(0.55f, 1100));
+
+        // ペンギン
+        pauseEvent = penguin.AddComponent<PauseEvent>();
+        StartCoroutine(pauseEvent.AnimLeftRight(0.06f, 0.64f, -850));
+
+        // PAUSE
+        pauseEvent = pauseText.AddComponent<PauseEvent>();
+        StartCoroutine(pauseEvent.AnimLeftRight(0.09f, 0.61f, -850));
+
+        pauseEvent = cursor.AddComponent<PauseEvent>();
+        yield return StartCoroutine(pauseEvent.AnimLeftRight2(0.0f, 0.5f, 2080));
+
+        // 操作可能に
+        StageManager.Instance.SetFlg(StageFlg.PAUSE_MENU);
     }
 
     //========================================
@@ -388,5 +441,10 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
     public bool GetisPause()
     {
         return isPause;
+    }
+
+    public int GetPauseEndCnt()
+    {
+        return cnt;
     }
 }

@@ -23,7 +23,7 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
         //itemObj[2] = obj.Find("Star_3").gameObject;
 
         // アイテム情報をセット
-        SetItem();
+        //SetItem();
     }
 
     void OnEnable()
@@ -67,7 +67,7 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
     {
         stageNo = _stageNo;
         // アイテム画像の変更
-        SetItem();
+        //SetItem();
         // テキスト
         Text t = text.GetComponent<Text>();
         t.text = "STAGE " + _stageNo;

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 // @date 2020/05/29 [今後修正予定]
 //
-// GAMEOVER画面への遷移
 // GOALへの遷移
 //
 
@@ -22,8 +21,8 @@ public enum StageFlg {
 public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
 {
     [SerializeField] private GameObject canvasData;       //!< 親Obj参照データ
-    private StageFlg stageFlg = StageFlg.START;
-    private int stageNo = 1;
+    private StageFlg stageFlg = StageFlg.START;           //!< ステージ状態flg
+    private int stageNo = 1;                              //!< ステージ番号
 
     // Start is called before the first frame update
     void Start()
