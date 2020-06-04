@@ -4,7 +4,7 @@ using System.Collections;
 public class Tenmetu : MonoBehaviour
 {
     private float nextTime;
-    public float interval = 0.1f;   // 点滅周期
+    public float interval = 4f;   // 点滅周期
 
     // Use this for initialization
     void Start()

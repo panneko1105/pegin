@@ -15,7 +15,7 @@ public class GetStar : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(new Vector3(0, 5*Time.deltaTime, 0) * Time.deltaTime, Space.World);
+        transform.Rotate(new Vector3(0, 30.0f * Time.deltaTime, 0));
     }
     void OnTriggerEnter2D(Collider2D col)
     {

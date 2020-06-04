@@ -56,6 +56,8 @@
 		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.SkinnedMeshRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.Avatar" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Assembly-CSharp">
@@ -73,7 +75,6 @@
 		<type fullname="Mybutton" preserve="nothing"/>
 		<type fullname="OutlinePostEffect" preserve="nothing"/>
 		<type fullname="PauseManager" preserve="nothing"/>
-		<type fullname="PlayerCon" preserve="nothing"/>
 		<type fullname="PlayerControl1" preserve="nothing"/>
 		<type fullname="Post" preserve="nothing"/>
 		<type fullname="SceneChangeManager" preserve="nothing"/>

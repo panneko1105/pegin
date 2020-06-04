@@ -14,23 +14,44 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     private List<GameObject> TrigeerStayObj=new List<GameObject>();
     List<Vector3> myPoint = new List<Vector3>();
     List<Vector3> Dainyuu = new List<Vector3>();
-    //孫
+    //孫のリスト
     private List<GameObject> GR_Child = new List<GameObject>();
-
+    //Mabiki関数一回だけ実行
+    bool OnceFg = false;
+    Transform mago;
     static int num = 0;
-
     PolygonCollider2D m_ObjectCollider;
-
     private GameObject _child;
-
-
     private DrawMesh dr;
+
+    private float vibrateRange; //振動幅
+    private float vibrateSpeed;               //振動速度
+
+    private float initPosition;   //初期ポジション
+    private float newPosition;    //新規ポジション
+    private float minPosition;    //ポジションの下限
+    private float maxPosition;    //ポジションの上限
+    private bool directionToggle; //振動方向の切り替え用トグル(オフ：値が小さくなる方向へ オン：値が大きくなる方向へ)
+
+    bool VibrateFg;
+    private float VibrateTime;
     // Start is called before the first frame update
     void Start()
     {
         m_ObjectCollider = GetComponent<PolygonCollider2D>();
-
         dr = this.gameObject.GetComponent<DrawMesh>();
+        mago = transform.GetChild(0);
+        for (int i = 0; i < 4; i++)
+        {
+            GR_Child.Add(mago.GetChild(i).gameObject);
+        }
+
+
+        vibrateRange = 0.3f;
+        vibrateSpeed = 6.0f;
+
+        VibrateFg = false;
+        VibrateTime = 0f;
     }
 
     void OnEnable()
@@ -51,56 +72,69 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         {
             return;
         }
-        // 上移動
-        if (Input.GetKeyDown(KeyCode.W))
+        if (!VibrateFg)
         {
-            transform.position += new Vector3(0, 1f, 0);
+            // 上移動
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                transform.position += new Vector3(0, 1f, 0);
+            }
+            // 下移動
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                transform.position += new Vector3(0, -1f, 0);
+            }
+            // 左に移動
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                transform.position += new Vector3(1f, 0, 0);
+            }
+            // 右に移動
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                transform.position += new Vector3(-1f, 0, 0);
+            }
+            // 45度回転
+            // 左回転
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                Quaternion myRot = this.transform.rotation;
+                Quaternion rot = Quaternion.Euler(0, 0, 1);
+
+                // 現在の自身の回転の情報を取得する
+                this.transform.rotation = myRot * rot;
+
+
+
+                isRot = !isRot;
+            }
+            // 右回転
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                Quaternion myRot = this.transform.rotation;
+                Quaternion rot = Quaternion.Euler(0, 0, -1);
+
+                // 現在の自身の回転の情報を取得する
+                this.transform.rotation = myRot * rot;
+
+
+                isRot = !isRot;
+            }
         }
-        // 下移動
-        if (Input.GetKeyDown(KeyCode.S))
+
+        if (VibrateFg)
         {
-            transform.position += new Vector3(0, -1f, 0);
-        }
-        // 左に移動
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            transform.position += new Vector3(1f, 0, 0);
-        }
-        // 右に移動
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            transform.position += new Vector3(-1f, 0, 0);
-        }
-        // 45度回転
-        // 左回転
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Quaternion myRot = this.transform.rotation;
-            Quaternion rot = Quaternion.Euler(0, 0, 1);
-
-            // 現在の自身の回転の情報を取得する
-            this.transform.rotation = myRot * rot;
-
-         
-
-            isRot = !isRot;
-        }
-        // 右回転
-        if (Input.GetKey(KeyCode.RightArrow)) {
-            Quaternion myRot = this.transform.rotation;
-            Quaternion rot = Quaternion.Euler(0, 0, -1);
-
-            // 現在の自身の回転の情報を取得する
-            this.transform.rotation = myRot * rot;
-
-
-            isRot = !isRot;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-         
+            VibrateTime += Time.deltaTime;
+            if (VibrateTime < 0.4f)
+            {
+                Vibrate();
+            }
+            else
+            {
+                VibrateFg = false;
+                VibrateTime = 0.0f;
+                transform.position = new Vector3(initPosition, transform.position.y, transform.position.z);
+            }
         }
     }
 
@@ -155,10 +189,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         //子のスクリプトを取得してセットしてあるマテリアルを取得
         var ChangeMaterial = child.gameObject.GetComponent<Carver>();
         this.GetComponent<Renderer>().sharedMaterial = ChangeMaterial.GetMaterial();
-
-        //managerからDelete関数を呼び出す
-        var Deletescript = transform.root.gameObject.GetComponent<CreateFlame>();
-        Deletescript.DeleteChild();
 
         ChangeMaterial.Change();
         //名前付与
@@ -276,20 +306,15 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         return true;
     }
 
-    public bool Mabiki()
+    public bool Mabiki(Vector3 P_Pos)
     {
-        var mago = transform.GetChild(0);
-        for (int i = 0; i < 4; i++)
-        {
-            GR_Child.Add(mago.GetChild(i).gameObject);
-
-        }
+        //var mago = transform.GetChild(0);
         mago.transform.DetachChildren();
-
+        myPoint.Clear();
         foreach (GameObject K_pos in GR_Child)
         {
             myPoint.Add(K_pos.transform.position);
-            K_pos.transform.parent = this.transform;
+            K_pos.transform.parent = transform.GetChild(0).transform;
         }
 
 
@@ -340,6 +365,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             }
         }
         int kazu = 0;
+        Dainyuu.Clear();
         foreach(Vector3 item in myPoint)
         {
             if (kazu != VtxNum[0] && kazu != VtxNum[1] && kazu != VtxNum[2])
@@ -388,14 +414,14 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         switch (InNum)
         {
             case 0:
-                Debug.Log("4角形");
+
                 for (int i = 0; i < 4; i++)
                 {
                     NewPoint[i] = myPoint[i];
                 }
                 break;
             case 1:
-                Debug.Log("5角形");
+
                 NewPoint[0] = kouten[1];
                 NewPoint[1] = kouten[0];
 
@@ -405,7 +431,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
                 break;
             case 2:
-                Debug.Log("4角形");
                 NewPoint[0] = kouten[1];
                 NewPoint[1] = kouten[0];
 
@@ -413,13 +438,12 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 NewPoint[3] = Dainyuu[1];               
                 break;
             case 3:
-                Debug.Log("３角形");
                 NewPoint[0] = kouten[1];
                 NewPoint[1] = kouten[0];
                 NewPoint[2] = Dainyuu[0];
                 break;
             case 4:
-                Debug.Log("0角形");
+            
                 break;
         }
 
@@ -486,9 +510,27 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             if (CrossNum > 3)
             {
                 CutFg = false;
+                VibrateFg = true;
+
+                this.initPosition = transform.localPosition.x;
+                this.newPosition = this.initPosition;
+                this.minPosition = this.initPosition - this.vibrateRange;
+                this.maxPosition = this.initPosition + this.vibrateRange;
+                this.directionToggle = false;
             }
-            Debug.Log(CrossNum + "点まじわりました");
+          
             CrossNum = 0;
+        }
+        if(Check(NewPoint,P_Pos,new Vector3(0, 0, 1f)))
+        {
+            CutFg = false;
+            VibrateFg = true;
+
+            this.initPosition = transform.localPosition.x;
+            this.newPosition = this.initPosition;
+            this.minPosition = this.initPosition - this.vibrateRange;
+            this.maxPosition = this.initPosition + this.vibrateRange;
+            this.directionToggle = false;
         }
         return CutFg;
     }
@@ -506,5 +548,24 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             Upfg = true;
         }
         return Upfg;
+    }
+
+    private void Vibrate()
+    {
+
+        //ポジションが振動幅の範囲を超えた場合、振動方向を切り替える
+        if (this.newPosition <= this.minPosition ||
+            this.maxPosition <= this.newPosition)
+        {
+            this.directionToggle = !this.directionToggle;
+        }
+
+        //新規ポジションを設定
+        this.newPosition = this.directionToggle ?
+            this.newPosition + (vibrateSpeed * Time.deltaTime) :
+            this.newPosition - (vibrateSpeed * Time.deltaTime);
+        this.newPosition = Mathf.Clamp(this.newPosition, this.minPosition, this.maxPosition);
+
+        this.transform.localPosition = new Vector3(this.newPosition, transform.position.y, 1f);
     }
 }

@@ -14,6 +14,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     PlayerControl1 WalkCon;
     Post StopMono;
     bool OnceMove;
+    int PushNum = 0;
+    int IceNum = 0;
 
 
     void OnEnable()
@@ -60,56 +62,57 @@ public class CreateFlame : MonoBehaviour, IUpdatable
         {
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                
-                SpownMode = false;
-                if (OnceMove)
-                {
-                    WalkCon.LetsStart();
-                    OnceMove = false;
-                }
-                else
-                {
-                    WalkCon.StartWalk();
-                }
                
+                Transform KeepMask = null;
                 foreach (Transform child in this.transform)
                 {   
                     if (child.tag == "Mask")
                     {
-                        var col = child.GetComponent<PolygonCollider2D>();
-                        col.isTrigger = false;
-                        child.tag = "Delete";
+                        //マスクボックスを保存
+                        KeepMask = child;
                     }
                     else if(child.tag=="flame")
                     {
                         var sc = child.GetComponent<FlameMove>();
-                        if (sc.Mabiki())
+                        if (sc.Mabiki(Player.transform.position))
                         {
+                            var col = KeepMask.GetComponent<PolygonCollider2D>();
+                            col.isTrigger = false;
+
                             sc.CreateIce();
+
+                            SpownMode = false;
+                            if (OnceMove)
+                            {
+                                WalkCon.LetsStart();
+                                OnceMove = false;
+                            }
+                            else
+                            {
+                                WalkCon.StartWalk();
+                            }
+                            StopMono.enabled = false;
+                            Destroy(KeepMask.gameObject);
+
+                            DeleteChild();
+                            PushNum++;
+                            IceNum++;
+                            if (PushNum == DelNum - 1) 
+                            {
+                                transform.GetChild(0).gameObject.AddComponent<Tenmetu>();
+                            }
                         }
-                        else
-                        {
-                            Debug.Log("カットしちゃだめ");
-                        }
+                     
                     }
                    
                 }
-
-                foreach (Transform child in this.transform)
-                {
-                    if (child.tag == "Delete")
-                    {
-                        Destroy(child.gameObject);
-                    }
-                }
-                StopMono.enabled = false;
             }
         }
     }
 
     public void DeleteChild()
     {
-        if (this.transform.childCount > DelNum)
+        if (this.transform.childCount > DelNum) 
         {
             var child = transform.GetChild(0);
             //エフェクト発生
@@ -117,7 +120,17 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             Instantiate(obj, child.transform.position, Quaternion.identity);
 
             Destroy(child.gameObject);
+            transform.GetChild(1).gameObject.AddComponent<Tenmetu>();
+            IceNum--;
         }
     }
 
+    public int GetDelNum()
+    {
+        return DelNum;
+    }
+    public int GetIceNum()
+    {
+        return IceNum;
+    }
 }

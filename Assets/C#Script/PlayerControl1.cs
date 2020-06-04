@@ -18,17 +18,20 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool HitBoxCol = false;
 
     bool StopNow = true;
- 
+    int HitNum = 0;
+    bool Jp;
+
+    GameObject penguinChild;
     // Start is called before the first frame update
     void Start()
     {
-        this.peguin = GetComponent<Animator>();
-        //rs = new Vector2(0f, jumppower);
+        penguinChild = transform.GetChild(0).gameObject;
+        peguin = penguinChild.GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
       
         StartMove = false;
         KeepPos = transform.position;
-        //jp = anime.SetBool("Jump",false);
+        Jp = false;
     }
 
     void FixedUpdate()
@@ -37,16 +40,13 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         {
             rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, rb.velocity.y);
         }
-    }
-
-
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.tag == "block" || col.gameObject.tag == "Ground")
+        if (Jp)
         {
-            walk = true;
+            rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, 3f);
+            Jp = false;
         }
     }
+
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -54,6 +54,23 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         {
             //歩き出すよう
             if (col.gameObject.tag == "block")
+            {
+                HitNum++;
+            }
+        }
+    }
+
+
+    // Update is called once per frame
+    public void Update()
+    {
+        if (StopNow)
+        {
+            transform.position = KeepPos;
+        }
+        else
+        {
+            if (HitNum == 2)
             {
                 //反転処理
                 Vector3 temp = gameObject.transform.localScale;
@@ -68,18 +85,14 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 dir *= -1;
 
                 HitBoxCol = true;
-                Debug.Log(dir);
+                Jp = false;
+                HitNum = 0;
             }
-        }
-    }
-
-
-    // Update is called once per frame
-    public void Update()
-    {
-        if (StopNow)
-        {
-            transform.position = KeepPos;
+            else if (HitNum == 1)
+            {
+                SmallJump();
+                HitNum = 0;
+            }
         }
     }
 
@@ -113,6 +126,11 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         StartMove = true;
         walk = true;
         StopNow = false;
+    }
+
+   public void SmallJump()
+    {
+        Jp = true;
     }
 
 }

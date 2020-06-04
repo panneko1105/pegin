@@ -111,10 +111,7 @@
             "fullManagedTypeName": "UnityEngine.ComputeShader",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -277,7 +274,8 @@
             "fullManagedTypeName": "UnityEngine.AnimationClip",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity"
             ]
         },
         {
@@ -447,10 +445,7 @@
             "fullManagedTypeName": "UnityEngine.VFX.VisualEffect",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -459,10 +454,7 @@
             "fullManagedTypeName": "UnityEngine.VFX.VFXRenderer",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -471,7 +463,8 @@
             "fullManagedTypeName": "UnityEngine.Motion",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity"
             ]
         },
         {
@@ -480,7 +473,8 @@
             "fullManagedTypeName": "UnityEngine.RuntimeAnimatorController",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity"
             ]
         },
         {
@@ -503,7 +497,8 @@
             "fullManagedTypeName": "UnityEngine.Animator",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity"
             ]
         },
         {
@@ -540,7 +535,8 @@
             "fullManagedTypeName": "UnityEditor.Animations.AnimatorController",
             "moduleName": "Animation",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity"
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity"
             ]
         },
         {
@@ -645,10 +641,7 @@
             "fullManagedTypeName": "UnityEngine.VFX.VisualEffectAsset",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -657,10 +650,7 @@
             "fullManagedTypeName": "UnityEngine.VFX.VisualEffectObject",
             "moduleName": "VFX",
             "usedInScenes": [
-                "Assets/Scenes/BaseScene.unity",
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
+                "Assets/Scenes/BaseScene.unity"
             ]
         },
         {
@@ -792,11 +782,28 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "SkinnedMeshRenderer",
+            "fullManagedTypeName": "UnityEngine.SkinnedMeshRenderer",
+            "moduleName": "Core",
+            "usedInScenes": [
+                "Assets/Scenes/Stage/Stage2.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Avatar",
+            "fullManagedTypeName": "UnityEngine.Avatar",
+            "moduleName": "Animation",
+            "usedInScenes": [
+                "Assets/Scenes/Stage/Stage2.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "CapsuleCollider",
             "fullManagedTypeName": "UnityEngine.CapsuleCollider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/Stage/Stage2.unity",
                 "Assets/Scenes/Stage/Stage3.unity"
             ]
         },
@@ -895,13 +902,6 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "PauseManager",
-            "moduleName": "",
-            "usedInScenes": []
-        },
-        {
-            "managedAssemblyName": "Assembly-CSharp.dll",
-            "nativeClass": "",
-            "fullManagedTypeName": "PlayerCon",
             "moduleName": "",
             "usedInScenes": []
         },
