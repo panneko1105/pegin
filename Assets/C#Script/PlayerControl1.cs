@@ -42,7 +42,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         }
         if (Jp)
         {
-            rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, 3f);
+            rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, 6.5f);
             Jp = false;
         }
     }
