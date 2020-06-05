@@ -35,6 +35,8 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
     bool VibrateFg;
     private float VibrateTime;
+    GameObject MaskCube;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,14 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
         VibrateFg = false;
         VibrateTime = 0f;
+
+        foreach (Transform child in transform.root.transform)
+        {
+            if (child.tag == "Mask")
+            {
+                MaskCube = child.gameObject;
+            }
+        }
     }
 
     void OnEnable()
@@ -74,37 +84,83 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         }
         if (!VibrateFg)
         {
+            Vector3 vec;
             // 上移動
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
-                transform.position += new Vector3(0, 1f, 0);
+                vec = new Vector3(0, 10f * Time.deltaTime, 0);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    vec = new Vector3(0, 2f * Time.deltaTime, 0);
+                }
+                transform.position += vec;
+                MaskCube.transform.position += vec;
             }
             // 下移動
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
-                transform.position += new Vector3(0, -1f, 0);
+                vec = new Vector3(0, -10f * Time.deltaTime, 0);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    vec = new Vector3(0, -2f * Time.deltaTime, 0);
+                }
+                transform.position += vec;
+                MaskCube.transform.position += vec;
             }
             // 左に移動
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKey(KeyCode.D))
             {
-                transform.position += new Vector3(1f, 0, 0);
+                vec = new Vector3(10f * Time.deltaTime, 0, 0);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    vec = new Vector3(2f * Time.deltaTime, 0, 0);
+                }
+                transform.position += vec;
+                MaskCube.transform.position += vec;
             }
             // 右に移動
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKey(KeyCode.A))
             {
-                transform.position += new Vector3(-1f, 0, 0);
+                vec = new Vector3(-10f * Time.deltaTime, 0, 0);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    vec = new Vector3(-2f * Time.deltaTime, 0, 0);
+                }
+                transform.position += vec;
+                MaskCube.transform.position += vec;
             }
-            // 45度回転
-            // 左回転
-            if (Input.GetKey(KeyCode.LeftArrow))
+
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                float Chek_pos = MaskCube.transform.position.y - transform.position.y;
+                if (Chek_pos < 2.5f)
+                {
+                    MaskCube.transform.position += new Vector3(0, 2f * Time.deltaTime, 0);
+                }
+            }
+
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                float Chek_pos = MaskCube.transform.position.y - transform.position.y;
+                if (Chek_pos > 0.5f)
+                {
+                    MaskCube.transform.position += new Vector3(0, -2f * Time.deltaTime, 0);
+                }
+
+            }
+                // 45度回転
+                // 左回転
+                if (Input.GetKey(KeyCode.LeftArrow))
             {
                 Quaternion myRot = this.transform.rotation;
-                Quaternion rot = Quaternion.Euler(0, 0, 1);
-
+                Quaternion rot = Quaternion.Euler(0, 0, 60f * Time.deltaTime);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    rot = Quaternion.Euler(0, 0, 20f * Time.deltaTime);
+                }
                 // 現在の自身の回転の情報を取得する
                 this.transform.rotation = myRot * rot;
-
-
 
                 isRot = !isRot;
             }
@@ -112,8 +168,11 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             if (Input.GetKey(KeyCode.RightArrow))
             {
                 Quaternion myRot = this.transform.rotation;
-                Quaternion rot = Quaternion.Euler(0, 0, -1);
-
+                Quaternion rot = Quaternion.Euler(0, 0, -60f * Time.deltaTime);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    rot = Quaternion.Euler(0, 0, -20f * Time.deltaTime);
+                }
                 // 現在の自身の回転の情報を取得する
                 this.transform.rotation = myRot * rot;
 
@@ -194,6 +253,12 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         //名前付与
         this.gameObject.name = "ice" + num;
         num++;
+
+        foreach (GameObject K_pos in GR_Child)
+        {
+            Destroy(K_pos);
+        }
+
         Destroy(this);
 
 
@@ -308,7 +373,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
     public bool Mabiki(Vector3 P_Pos)
     {
-        //var mago = transform.GetChild(0);
         mago.transform.DetachChildren();
         myPoint.Clear();
         foreach (GameObject K_pos in GR_Child)
@@ -322,13 +386,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         bool CutFg = true;
         Vector3 ireru = new Vector3(0, 0, 0);
         Vector3[] watasu = {ireru, ireru , ireru, ireru };
-        foreach (Transform child in transform.root.transform)
-        {
-            if (child.tag == "Mask")
-            {
                 
-                float mx_pos = child.transform.position.x;
-                float my_pos = child.transform.position.y;
+                float mx_pos = MaskCube.transform.position.x;
+                float my_pos = MaskCube.transform.position.y;
                
                 float mx_ = (mx_pos + 1.5f);
                 float my_ = my_pos + 1.5f;
@@ -345,10 +405,8 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 mx_ = (mx_pos -1.5f);
                 my_ = my_pos + 1.5f;
                 watasu[3] = new Vector3(mx_, my_, 1f);
-                
-            }
-        }
-        
+    
+
         //マスク内に入ってる
         int InNum = 0;
         //何番目の頂点がはいってるか
@@ -443,7 +501,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 NewPoint[2] = Dainyuu[0];
                 break;
             case 4:
-            
+                CutFg = false;
                 break;
         }
 

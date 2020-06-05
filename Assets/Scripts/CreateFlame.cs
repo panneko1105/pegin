@@ -16,7 +16,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     bool OnceMove;
     int PushNum = 0;
     int IceNum = 0;
-
+    //点滅スクリプト保持
+    Tenmetu ten = null;
 
     void OnEnable()
     {
@@ -34,35 +35,54 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     // Use this for initialization
     public void UpdateMe()
     {
+        //氷生成中に追加で生成させないため
         if (!SpownMode)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                
+                //マスク処理用のCube生成-----------------------------------------------------------
                 GameObject obj2 = (GameObject)Resources.Load("maskBox");
                 Vector3 Setpos2 = maincamera.transform.position;
                 Setpos2.z = 1f;
                 Setpos2.y += 1f;
                 obj2 = Instantiate(obj2, Setpos2, Quaternion.identity);
                 obj2.transform.SetParent(this.transform);
-
+                //---------------------------------------------------------------------------------
+                
+                //flameの生成-----------------------------------------------------------------------
                 GameObject obj = (GameObject)Resources.Load("flame");
                 Vector3 Setpos = maincamera.transform.position;
                 Setpos.z = 1f;
                 obj = Instantiate(obj, Setpos, Quaternion.identity);
                 obj.transform.SetParent(this.transform);
                 obj.tag = "flame";
+                //---------------------------------------------------------------------------------
                 
+                //生成可能状態に
                 SpownMode = true;
-
+                //画面演出ON
                 StopMono.enabled = true;
+                //プレイヤーの歩行ストップ
                 WalkCon.StopWalk();
+
+                //点滅on
+                if (ten != null)
+                {
+                    ten.enabled = true;
+                }
+                Debug.Log(transform.GetChild(IceNum).root.name);
+                //var mmm = obj2.transform.root.GetComponent<maskBoxMove>();
+                //mmm.SetFlame(obj);
+                
             }
         }
         else
         {
+            //氷の生成
             if (Input.GetKeyDown(KeyCode.Return))
             {
-               
+               //マスクboxのキャッシュ削除
                 Transform KeepMask = null;
                 foreach (Transform child in this.transform)
                 {   
@@ -74,38 +94,72 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                     else if(child.tag=="flame")
                     {
                         var sc = child.GetComponent<FlameMove>();
+                        //生成可能か判定
                         if (sc.Mabiki(Player.transform.position))
                         {
+                            //くりぬきのためトリガーtrueに
                             var col = KeepMask.GetComponent<PolygonCollider2D>();
                             col.isTrigger = false;
-
                             sc.CreateIce();
-
+                            //生成可能状態に
                             SpownMode = false;
+                            //最初の動きだし用
                             if (OnceMove)
                             {
                                 WalkCon.LetsStart();
                                 OnceMove = false;
                             }
+                            //プレイヤーの移動開始
                             else
                             {
                                 WalkCon.StartWalk();
                             }
+                            //画面演出off
                             StopMono.enabled = false;
                             Destroy(KeepMask.gameObject);
-
+                            //生成されたので消す子供がいないかチェック
                             DeleteChild();
                             PushNum++;
                             IceNum++;
+                            //点滅スクリプトを最初だけつけるため
                             if (PushNum == DelNum - 1) 
                             {
-                                transform.GetChild(0).gameObject.AddComponent<Tenmetu>();
+                                ten = transform.GetChild(0).gameObject.AddComponent<Tenmetu>();
                             }
+                            ten.enabled = false;
                         }
                      
                     }
                    
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                //プレイヤーの移動開始
+                if (!OnceMove)
+                {
+                    WalkCon.StartWalk();
+                }
+
+                foreach (Transform child in this.transform)
+                {
+                    if (child.tag == "Mask")
+                    {
+                        Destroy(child.gameObject);
+                    }
+                    if (child.tag == "flame")
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
+                //生成可能状態に
+                SpownMode = false;
+                //画面演出off
+                StopMono.enabled = false;
+                ten.Cancel();
+                //点滅off
+                ten.enabled = false;
             }
         }
     }
@@ -117,10 +171,12 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             var child = transform.GetChild(0);
             //エフェクト発生
             GameObject obj = (GameObject)Resources.Load("icebreak");
-            Instantiate(obj, child.transform.position, Quaternion.identity);
+            Vector3 EfectPos = child.transform.position;
+            EfectPos.y -= 1.0f;
+            Instantiate(obj, EfectPos, Quaternion.identity);
 
             Destroy(child.gameObject);
-            transform.GetChild(1).gameObject.AddComponent<Tenmetu>();
+            ten = transform.GetChild(1).gameObject.AddComponent<Tenmetu>();
             IceNum--;
         }
     }

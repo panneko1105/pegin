@@ -22,6 +22,8 @@ public class GetStar : MonoBehaviour
         if (col.tag =="Player")
         {
             sc.ItemGetting(MyNumber);
+            GameObject obj = (GameObject)Resources.Load("CFX_Firework_Trails_Gravity");
+            Instantiate(obj, this.transform.position, Quaternion.identity); //パーティクル用ゲームオブジェクト生成
             Destroy(this.gameObject);
         }
     }

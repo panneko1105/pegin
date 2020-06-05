@@ -389,6 +389,28 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "ParticleSystem",
+            "fullManagedTypeName": "UnityEngine.ParticleSystem",
+            "moduleName": "ParticleSystem",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "ParticleSystemRenderer",
+            "fullManagedTypeName": "UnityEngine.ParticleSystemRenderer",
+            "moduleName": "ParticleSystem",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "Collider2D",
             "fullManagedTypeName": "UnityEngine.Collider2D",
             "moduleName": "Physics2D",
@@ -615,6 +637,7 @@
             "moduleName": "Core",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
                 "Assets/Scenes/StageSelect.unity",
                 "Assets/Scenes/Stage/Stage1.unity",
                 "Assets/Scenes/Stage/Stage2.unity",
@@ -817,6 +840,13 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
+            "fullManagedTypeName": "CFX_AutoDestructShuriken",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
             "fullManagedTypeName": "Carver",
             "moduleName": "",
             "usedInScenes": []
@@ -825,6 +855,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "CreateFlame",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "EffectFire",
             "moduleName": "",
             "usedInScenes": []
         },

@@ -106,6 +106,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             KeepPos = transform.position;
 
             StopNow = true;
+            rb.Sleep();
         }
     }
 
@@ -118,6 +119,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             rb.WakeUp();
            
             StopNow = false;
+            rb.WakeUp();
         }
     }
 

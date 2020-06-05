@@ -73,8 +73,8 @@ Material:
     - _DepthMaxDistance: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _FoamMaxDistance: 0.4
-    - _FoamMinDistance: 0.04
+    - _FoamMaxDistance: 0.48
+    - _FoamMinDistance: 1.82
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -87,15 +87,15 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _SurfaceDistortionAmount: 0.27
-    - _SurfaceNoiseCutoff: 0.409
+    - _SurfaceDistortionAmount: 0.567
+    - _SurfaceNoiseCutoff: 0.408
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DepthGradientDeep: {r: 0.15072408, g: 0, b: 0.9811321, a: 0.7490196}
-    - _DepthGradientShallow: {r: 0, g: 0.11852153, b: 0.9622642, a: 0.7254902}
+    - _DepthGradientShallow: {r: 0, g: 0.067044444, b: 0.5471698, a: 0.7254902}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FoamColor: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
     - _ShorelineColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SurfaceNoiseScroll: {r: 0.26, g: 0.31, b: 0, a: 0}
+    - _SurfaceNoiseScroll: {r: -0.19, g: 0.31, b: 0, a: 0}

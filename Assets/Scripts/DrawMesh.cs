@@ -13,6 +13,8 @@ public class DrawMesh : MonoBehaviour
     private Dictionary<int, bool> _verticesBuffer = new Dictionary<int, bool>();
 
     private Vector3 _prevDirection = Vector3.zero;
+    //頂点のポシション
+    List<Vector3> VPoint = new List<Vector3>();
 
     private bool _isIncluding = false;
     private int _curIndex;

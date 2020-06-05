@@ -125,7 +125,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
             {
                 selectFlg = StageSelectFlg.SCENE_CHANGE;
                 // シーン遷移
-                SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "Stage" + "1");
+                SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "Stage" + selecCursortpos);
             }
 
             //========================================

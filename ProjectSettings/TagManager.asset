@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Mask
   - Delete
+  - FlameBlock
   layers:
   - Default
   - TransparentFX

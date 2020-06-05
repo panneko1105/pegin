@@ -381,10 +381,11 @@ public class Carver : MonoBehaviour
         {
             //フレームの場合生成前に当たらないように
             colliderObject.tag = "Mask";
+          
             collider.isTrigger = true;
             //レイヤーをblockに変更
             colliderObject.layer = 13;
-            colliderObject.AddComponent<maskBoxMove>();
+           // colliderObject.AddComponent<maskBoxMove>();
         }
         //フレームの場合
         if (this.makeColliderTriggerOnCreateCollider)
