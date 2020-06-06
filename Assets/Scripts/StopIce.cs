@@ -8,6 +8,7 @@ public class StopIce : MonoBehaviour
     Rigidbody2D rb;
     bool Stopfg;
 
+    private List<float> Point = new List<float>();
     float StopTime;
     void Start()
     {
@@ -21,14 +22,15 @@ public class StopIce : MonoBehaviour
     {
         if (Stopfg)
         {
-            float sum = Mathf.Abs(rb.velocity.x);
+            float sum = Mathf.Abs(rb.velocity.x)+ Mathf.Abs(rb.velocity.y);
             if (sum < 0.5f)
             {
                 StopTime += Time.deltaTime;
                 if (StopTime > 0.5f)
                 {
-                    rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
-                    Destroy(this);
+                    rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                    Stopfg = false;
+                    StopTime = 0f;
                 }
             }
             else
@@ -43,6 +45,14 @@ public class StopIce : MonoBehaviour
         if (collision.gameObject.tag == "block")
         {
             Stopfg = true;
+        }
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "block")
+        {
+            Stopfg = false;
+            rb.constraints = RigidbodyConstraints2D.None;
         }
     }
 }

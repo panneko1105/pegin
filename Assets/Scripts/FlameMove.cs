@@ -231,7 +231,8 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
         Vector3[] test = mf.mesh.vertices;
 
-        float hozon;
+        Quaternion KeepmyRot = this.transform.rotation;
+        this.transform.rotation = Quaternion.Euler(0, 0, 0);
         foreach (Vector3 item in test)
         {
             obj = null;
@@ -241,21 +242,10 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             obj.transform.parent = this.transform;
             SphrePos += item;
             obj.transform.position = SphrePos;
-            Debug.Log(item);
             v.Add(item);
         }
+        this.transform.rotation = KeepmyRot;
 
-        for(int i = 0; i < v.Count()-1; i++)
-        {
-            hozon = GetAngle(new Vector2(v[i].x, v[i].y), new Vector2(v[i + 1].x, v[i + 1].y));
-           
-            if (i == v.Count() - 2)
-            {
-               
-                hozon = GetAngle(new Vector2(v[i+1].x, v[i+1].y), new Vector2(v[0].x, v[0].y));
-               // Debug.Log(hozon);
-            }
-        }
         dr.CreateMesh(v);
         var child = transform.GetChild(0);
 
@@ -367,7 +357,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     }
 
     //線分の交差判定
-    public static bool LineSegmentsIntersection(Vector2 p1,Vector2 p2,Vector2 p3,Vector3 p4,out Vector2 intersection)
+   static bool LineSegmentsIntersection(Vector2 p1,Vector2 p2,Vector2 p3,Vector3 p4,out Vector2 intersection)
     {
         intersection = Vector2.zero;
 
@@ -646,15 +636,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         this.newPosition = Mathf.Clamp(this.newPosition, this.minPosition, this.maxPosition);
 
         this.transform.localPosition = new Vector3(this.newPosition, transform.position.y, 1f);
-    }
-
-    float GetAngle(Vector2 start, Vector2 target)
-    {
-        Vector2 dt = target - start;
-        float rad = Mathf.Atan2(dt.y, dt.x);
-        float degree = rad * Mathf.Rad2Deg;
-
-        return degree;
     }
 
     public void SetYuka(PhysicsMaterial2D mate)

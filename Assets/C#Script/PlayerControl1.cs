@@ -27,19 +27,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool HitWall;
     GameObject penguinChild;
 
-    //------------------実験-----------------------------------------------------------
-    [System.NonSerialized]
-    public Vector3 groundNormal = Vector3.zero;
-
-    private Vector3 lastGroundNormal = Vector3.zero;
-
-    [System.NonSerialized]
-    public Vector3 lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
-
-    protected float groundAngle = 0;
-    //--------------------------------------------------------------------------------
-
-
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -69,14 +57,39 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         }
     }
 
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "block")
+    //    {
+    //        foreach (ContactPoint2D point in collision.contacts)
+    //        {
+    //            Debug.Log(point.point);
+    //        }
+    //    }
+    //}
 
-    void OnTriggerEnter2D(Collider2D col)
+        void OnTriggerEnter2D(Collider2D col)
     {
         if (!HantenFg)
         {
             if (col.gameObject.tag == "block")
             {
                 HitJpCheck = true;
+                //Debug.Log(col.ClosestPoint(this.transform.position));
+                Vector2 No1 = col.ClosestPoint(this.transform.position);
+                Vector3 I_Pos;
+                for (int i = 1; i < col.transform.childCount - 1; i++)
+                {
+                    I_Pos = col.transform.GetChild(i).position;
+                    if(Mathf.Approximately(No1.x, I_Pos.x))
+                    {
+                        if (Mathf.Approximately(No1.y, I_Pos.y))
+                        {
+                            Debug.Log(I_Pos);
+                        }
+                    }
+                }
+                //CheckCrossPoint(col.transform, watasu);
             }
 
         }
@@ -163,4 +176,58 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         HantenFg = true;
     }
 
+     static bool LineSegmentsIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector3 p4, out Vector2 intersection)
+    {
+        intersection = Vector2.zero;
+
+        var d = (p2.x - p1.x) * (p4.y - p3.y) - (p2.y - p1.y) * (p4.x - p3.x);
+
+        if (d == 0.0f)
+        {
+            return false;
+        }
+
+        var u = ((p3.x - p1.x) * (p4.y - p3.y) - (p3.y - p1.y) * (p4.x - p3.x)) / d;
+        var v = ((p3.x - p1.x) * (p2.y - p1.y) - (p3.y - p1.y) * (p2.x - p1.x)) / d;
+
+        if (u < 0.0f || u > 1.0f || v < 0.0f || v > 1.0f)
+        {
+            return false;
+        }
+
+        intersection.x = p1.x + u * (p2.x - p1.x);
+        intersection.y = p1.y + u * (p2.y - p1.y);
+
+        return true;
+    }
+
+    void CheckCrossPoint(Transform ParentIce, Vector2 Hitpos)
+    {
+        Vector2 CrossPoint;
+        Vector2 my_pos = new Vector2(transform.position.x, transform.position.y);
+        Vector2 Pos1, Pos2;
+        Vector3 I_pos, I_pos2;
+        for (int i = 1; i < ParentIce.childCount - 1; i++)
+        {
+            I_pos = ParentIce.GetChild(i).position;
+            I_pos2 = ParentIce.GetChild(i + 1).position;
+            Pos1 = new Vector2(I_pos.x, I_pos.y);
+            Pos2 = new Vector2(I_pos2.x, I_pos2.y);
+            if (LineSegmentsIntersection(my_pos, Hitpos, Pos1, Pos2, out CrossPoint))
+            {
+                Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                Debug.Log(seikou);
+            }
+            if (i == ParentIce.childCount - 1)
+            {
+                I_pos2 = ParentIce.GetChild(1).position;
+                Pos2 = new Vector2(I_pos2.x, I_pos2.y);
+                if (LineSegmentsIntersection(my_pos, Hitpos, Pos1, Pos2, out CrossPoint))
+                {
+                    Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                    Debug.Log(seikou);
+                }
+            }
+        }
+    }
 }
