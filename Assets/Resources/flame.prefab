@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8d058a997cf5f4d9cf49742c9d9996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  yuka: {fileID: 6200000, guid: c12534f9aa0785848bf4d9fc066a214c, type: 2}
   attachRigidbodyOnCreateCollider: 0
   makeColliderTriggerOnCreateCollider: 1
   notflame: 0

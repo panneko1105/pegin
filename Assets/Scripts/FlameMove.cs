@@ -37,6 +37,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     private float VibrateTime;
     GameObject MaskCube;
 
+    private PhysicsMaterial2D yuka;
     // Start is called before the first frame update
     void Start()
     {
@@ -207,7 +208,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
         m_ObjectCollider.isTrigger = false;
         var rb = this.gameObject.AddComponent<Rigidbody2D>();
+        this.gameObject.AddComponent<StopIce>();
         rb.mass = 100f;
+        rb.sharedMaterial = yuka;
 
         this.gameObject.layer = 0;
 
@@ -222,18 +225,28 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             .Where(c => c != null);
         var thisCarver = targetCollider.GetComponentInChildren<Carver>();
 
-        Debug.Log(
-            $"Carve {targetCollider.name} with {string.Join(", ", carvers.Select(c => c.Collider2D.name))}.");
         Carver.Carve(thisCarver, carvers);
 
         //メッシュの生成
         MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
         Vector3[] test = mf.mesh.vertices;
 
-
+        float Max_Angle = 0f;
+        float hozon;
         foreach (Vector3 item in test)
         {
             v.Add(item);
+        }
+        for(int i = 0; i < v.Count()-1; i++)
+        {
+            hozon = GetAngle(new Vector2(v[i].x, v[i].y), new Vector2(v[i + 1].x, v[i + 1].y));
+            Debug.Log(hozon);
+            if (i == v.Count() - 2)
+            {
+               
+                hozon = GetAngle(new Vector2(v[i+1].x, v[i+1].y), new Vector2(v[0].x, v[0].y));
+               // Debug.Log(hozon);
+            }
         }
         dr.CreateMesh(v);
         var child = transform.GetChild(0);
@@ -625,5 +638,19 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         this.newPosition = Mathf.Clamp(this.newPosition, this.minPosition, this.maxPosition);
 
         this.transform.localPosition = new Vector3(this.newPosition, transform.position.y, 1f);
+    }
+
+    float GetAngle(Vector2 start, Vector2 target)
+    {
+        Vector2 dt = target - start;
+        float rad = Mathf.Atan2(dt.y, dt.x);
+        float degree = rad * Mathf.Rad2Deg;
+
+        return degree;
+    }
+
+    public void SetYuka(PhysicsMaterial2D mate)
+    {
+        yuka = mate;
     }
 }

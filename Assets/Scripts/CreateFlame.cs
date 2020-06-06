@@ -70,11 +70,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 if (ten != null)
                 {
                     ten.enabled = true;
-                }
-                Debug.Log(transform.GetChild(IceNum).root.name);
-                //var mmm = obj2.transform.root.GetComponent<maskBoxMove>();
-                //mmm.SetFlame(obj);
-                
+                } 
             }
         }
         else

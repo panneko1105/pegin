@@ -20,8 +20,26 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool StopNow = true;
     int HitNum = 0;
     bool Jp;
-
+    //反転判定
+    bool HantenFg;
+    //jpフラグをonにするか
+    bool HitJpCheck;
+    bool HitWall;
     GameObject penguinChild;
+
+    //------------------実験-----------------------------------------------------------
+    [System.NonSerialized]
+    public Vector3 groundNormal = Vector3.zero;
+
+    private Vector3 lastGroundNormal = Vector3.zero;
+
+    [System.NonSerialized]
+    public Vector3 lastHitPoint = new Vector3(Mathf.Infinity, 0, 0);
+
+    protected float groundAngle = 0;
+    //--------------------------------------------------------------------------------
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +50,10 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         StartMove = false;
         KeepPos = transform.position;
         Jp = false;
+        HantenFg = false;
+        HitJpCheck = false;
+        HitWall = false;
+        dir = 1;
     }
 
     void FixedUpdate()
@@ -39,10 +61,10 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         if (walk)
         {
             rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, rb.velocity.y);
-        }
+                    }
         if (Jp)
         {
-            rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, 6.5f);
+            rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, 5.3f);        
             Jp = false;
         }
     }
@@ -50,13 +72,17 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (!StopNow)
+        if (!HantenFg)
         {
-            //歩き出すよう
             if (col.gameObject.tag == "block")
             {
-                HitNum++;
+                HitJpCheck = true;
             }
+
+        }
+        if (col.gameObject.tag == "Wall")
+        {
+            HitWall = true;
         }
     }
 
@@ -70,7 +96,12 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         }
         else
         {
-            if (HitNum == 2)
+            if (HitJpCheck)
+            {
+                Jp = true;
+                HitJpCheck = false;
+            }
+            if (HitWall||HantenFg)
             {
                 //反転処理
                 Vector3 temp = gameObject.transform.localScale;
@@ -86,13 +117,10 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
                 HitBoxCol = true;
                 Jp = false;
-                HitNum = 0;
+                HitWall = false;
+                HantenFg = false;
             }
-            else if (HitNum == 1)
-            {
-                SmallJump();
-                HitNum = 0;
-            }
+            
         }
     }
 
@@ -130,9 +158,9 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         StopNow = false;
     }
 
-   public void SmallJump()
+    public void HitChild()
     {
-        Jp = true;
+        HantenFg = true;
     }
 
 }

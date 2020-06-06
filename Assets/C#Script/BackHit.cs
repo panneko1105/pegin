@@ -15,8 +15,7 @@ public class BackHit : MonoBehaviour
     {
         if (col.tag == "block")
         {
-            P_con.SmallJump();
-            Debug.Log("俺が先");
+          
         }
     }
 }

@@ -10,6 +10,8 @@ TagManager:
   - Mask
   - Delete
   - FlameBlock
+  - FxTemporaire
+  - Wall
   layers:
   - Default
   - TransparentFX

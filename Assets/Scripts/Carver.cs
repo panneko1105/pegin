@@ -11,13 +11,15 @@ using UnityEngine.Rendering;
 public class Carver : MonoBehaviour
 {
     private const float Precision = 1024.0f;
-    
+    public PhysicsMaterial2D yuka;
+
     private static readonly Clipper clipper = new Clipper(Clipper.ioStrictlySimple);
    
     [SerializeField] private bool attachRigidbodyOnCreateCollider;
     [SerializeField] private bool makeColliderTriggerOnCreateCollider;
     [SerializeField] private bool notflame;
     [SerializeField] private bool maskBox;
+    [SerializeField] private bool BreakBlock;
     private readonly List<List<IntPoint>> outlines = new List<List<IntPoint>>();
     private Mesh pathMesh;
     private (Renderer, (Material, int)[])[] renderers = new (Renderer, (Material, int)[])[0];
@@ -376,6 +378,7 @@ public class Carver : MonoBehaviour
             var rb=colliderObject.AddComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
             rb.mass = 100f;
+            rb.sharedMaterial = yuka;
         }
         if (this.maskBox)
         {
@@ -392,12 +395,20 @@ public class Carver : MonoBehaviour
         {
             //フレームの場合生成前に当たらないように
             colliderObject.tag = "flame";
-            colliderObject.AddComponent<FlameMove>();
+            var fl_move = colliderObject.AddComponent<FlameMove>();
             var dr = colliderObject.AddComponent<DrawMesh>();
-            
+
+            fl_move.SetYuka(yuka);
             collider.isTrigger = this.makeColliderTriggerOnCreateCollider;
             //レイヤーをblockに変更
             colliderObject.layer = 14;
+        }
+        if (this.BreakBlock)
+        {
+            colliderObject.tag = "block";
+            var rb = colliderObject.AddComponent<Rigidbody2D>();
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            colliderObject.AddComponent<BreakWall>();
         }
         
         return collider;

@@ -18,7 +18,6 @@ public class Particle : MonoBehaviour
         if (collision.gameObject.tag == "block")
         {
             
-            Debug.Log(rb.velocity.y);
             if (rb.velocity.y > 0.3f)
             {
                  //エフェクト発生

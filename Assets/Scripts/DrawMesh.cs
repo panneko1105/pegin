@@ -134,7 +134,7 @@ public class DrawMesh : MonoBehaviour
 
         GetComponent<MeshFilter>().sharedMesh = mesh;
         GetComponent<MeshFilter>().sharedMesh.name = "myMesh";
-
+   
 
         Mesh mesh2 = GetComponent<MeshFilter>().mesh;
 
