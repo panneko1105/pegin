@@ -26,7 +26,6 @@ public class Carver : MonoBehaviour
     public PolygonCollider2D Collider2D { get; private set; }
 
     public Material _material;
-    public Mesh comn;
 
     [SerializeField] private Material Flamematerial;
 
@@ -41,10 +40,6 @@ public class Carver : MonoBehaviour
         }
          Destroy(transform.parent.GetComponent<MeshFilter>());
          Destroy(transform.parent.GetComponent<MeshRenderer>());
-
-        Mesh mesh2 = Instantiate(comn);
-        
-        GetComponent<MeshFilter>().sharedMesh = mesh2;
     }
 
     public void Change()

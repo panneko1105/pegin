@@ -231,16 +231,24 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
         Vector3[] test = mf.mesh.vertices;
 
-        float Max_Angle = 0f;
         float hozon;
         foreach (Vector3 item in test)
         {
+            obj = null;
+            obj = (GameObject)Resources.Load("ToumeiSphre");
+            Vector3 SphrePos = transform.position;
+            obj = Instantiate(obj, transform.position, Quaternion.identity);
+            obj.transform.parent = this.transform;
+            SphrePos += item;
+            obj.transform.position = SphrePos;
+            Debug.Log(item);
             v.Add(item);
         }
+
         for(int i = 0; i < v.Count()-1; i++)
         {
             hozon = GetAngle(new Vector2(v[i].x, v[i].y), new Vector2(v[i + 1].x, v[i + 1].y));
-            Debug.Log(hozon);
+           
             if (i == v.Count() - 2)
             {
                
