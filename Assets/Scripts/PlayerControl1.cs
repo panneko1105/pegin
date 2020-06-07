@@ -43,6 +43,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
       
         StartMove = false;
         KeepPos = transform.position;
+        KeepVec = rb.velocity;
         Jp = false;
         HantenFg = false;
         HitJpCheck = false;
@@ -219,7 +220,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             StopNow = false;
             rb.WakeUp();
             rb.velocity = KeepVec;
-
         }
     }
 
@@ -230,6 +230,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         walk = true;
         StopNow = false;
         transform.position = KeepPos;
+        rb.velocity = KeepVec;
     }
 
     public void HitChild()
