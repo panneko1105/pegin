@@ -11,6 +11,8 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     Animator peguin;
     private float dir = 1f;
 
+    public GameObject StageManager;
+    ItemManager StarManager;
     bool walk = false;
     bool StartMove;
 
@@ -18,7 +20,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool HitBoxCol = false;
 
     bool StopNow = true;
-    int HitNum = 0;
+    float HitNum = 0f;
     bool Jp;
     //反転判定
     bool HantenFg;
@@ -26,14 +28,18 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool HitJpCheck;
     bool HitWall;
     GameObject penguinChild;
+    GameObject SakaBlock;
+    //坂道落下中
+    bool DownFg;
+    Vector2 KeepVec;
 
-  
     // Start is called before the first frame update
     void Start()
     {
         penguinChild = transform.GetChild(0).gameObject;
         peguin = penguinChild.GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        StarManager = StarManager.GetComponent<ItemManager>();
       
         StartMove = false;
         KeepPos = transform.position;
@@ -43,6 +49,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         HitWall = false;
         dir = 1;
         rb.Sleep();
+        DownFg = false;
     }
 
     void FixedUpdate()
@@ -53,40 +60,79 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     }
         if (Jp)
         {
-            rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, 5.3f);        
+            Debug.Log("飛んだ");
+            if (HitNum < 2f)
+            {
+                rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed * 0.3f,3.5f);
+            }
+            else if(HitNum<3f)
+            {
+                rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed * 0.3f,5.5f);
+            }
+            
+            HitNum = 0f;
             Jp = false;
         }
     }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject == SakaBlock)
+        {
+            walk = true;
+            DownFg = false;
+            HitNum = 0;
 
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "block")
-    //    {
-    //        foreach (ContactPoint2D point in collision.contacts)
-    //        {
-    //            Debug.Log(point.point);
-    //        }
-    //    }
-    //}
+        }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //坂道下っているか判定
+        if (collision.gameObject.tag == "block")
+        {
+            foreach (ContactPoint2D point in collision.contacts)
+            {
+                Vector2 kudari = new Vector2(point.point.x, point.point.y);
+                Vector2 kudari2 = kudari;
 
+                kudari.x += 3f;
+                kudari2.x -= 3f;
+                Vector2 saka = CheckKudari(collision.transform, kudari, kudari2);
+                if (Mathf.Abs(saka.x) > 0.5f)
+                {
+                    if (Mathf.Abs(saka.y) > 0.5f)
+                    {
+                        SakaBlock = collision.gameObject;
+                        walk = false;
+                        DownFg = true;
+                    }
+                }
+            }
+        }
+    }
+
+    //ジャンプ判定用
     void OnTriggerEnter2D(Collider2D col)
     {
         if (!HantenFg)
         {
             if (col.gameObject.tag == "block")
             {
+                //ジャンプ力調整のため
+                HitNum+=1f;
+
                 HitJpCheck = true;
                 Vector2 watasu = col.ClosestPoint(this.transform.position);
                 Vector2 watasu2 = col.ClosestPoint(this.transform.position);
 
-
-                watasu2.x += 3f;
-                watasu.x -= 3f;
-
-
-                //Debug.Log(watasu);
-                //Debug.Log(watasu2);
-                CheckCrossPoint(col.transform, watasu, watasu2);
+                watasu2.x += 6f;
+                watasu.x -= 6f;
+                float back = CheckCrossPoint(col.transform, watasu, watasu2);
+                if (Mathf.Abs(back) > 0f)
+                {
+                    HitJpCheck = false;
+                    HantenFg = true;
+                }
+                    
             }
 
         }
@@ -111,8 +157,10 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 Jp = true;
                 HitJpCheck = false;
             }
+
             if (HitWall||HantenFg)
             {
+
                 //反転処理
                 Vector3 temp = gameObject.transform.localScale;
 
@@ -130,7 +178,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 HitWall = false;
                 HantenFg = false;
             }
-            
         }
     }
 
@@ -144,6 +191,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             KeepPos = transform.position;
 
             StopNow = true;
+            KeepVec = rb.velocity;
             rb.Sleep();
         }
     }
@@ -152,12 +200,17 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     {
         if (StartMove)
         {
-            walk = true;
+            if (!DownFg)
+            {
+                walk = true;
+            }
 
             rb.WakeUp();
-           
+
             StopNow = false;
             rb.WakeUp();
+            rb.velocity = KeepVec;
+
         }
     }
 
@@ -199,13 +252,26 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         return true;
     }
 
-    void CheckCrossPoint(Transform ParentIce, Vector2 Hitpos,Vector2 P_pos)
+    //坂道で反転するため
+    float CheckCrossPoint(Transform ParentIce, Vector2 Hitpos,Vector2 P_pos)
     {
         Vector2 CrossPoint;
+        
+        float nearpoint;
+        Vector2 TouchVec = new Vector2(0, 0);
+        //右向き
+        if (dir > 0f)
+        {
+            nearpoint = 1000f;
+        }
+        else
+        {
+            nearpoint = -1000f;
+        }
+
         Vector2 Pos1, Pos2;
         Vector3 I_pos, I_pos2;
-        //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
-        //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
+       
         //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
         for (int i = 1; i < ParentIce.childCount-1; i++)
         {
@@ -215,9 +281,25 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             Pos2 = new Vector2(I_pos2.x, I_pos2.y);
             if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
             {
-
-                Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                Debug.Log(seikou);
+                if (dir > 0f)
+                {
+                    if (nearpoint > CrossPoint.x)
+                    {
+                        Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                        nearpoint = CrossPoint.x;
+                        TouchVec = seikou;
+                    }
+                }
+                else
+                {
+                    if (nearpoint < CrossPoint.x)
+                    {
+                        Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                        nearpoint = CrossPoint.x;
+                        TouchVec = seikou;
+                    }
+                }
+                
             }
          
             if (i == ParentIce.childCount - 2)
@@ -228,11 +310,118 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
                 {
 
-                    Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                    Debug.Log(seikou);
+                    if (dir > 0)
+                    {
+                        if (nearpoint > CrossPoint.x)
+                        {
+                            Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                            nearpoint = CrossPoint.x;
+                            TouchVec = seikou;
+                        }
+                    }
+                    else
+                    {
+                        if (nearpoint < CrossPoint.x)
+                        {
+                            Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                            nearpoint = CrossPoint.x;
+                            TouchVec = seikou;
+                        }
+                    }
                 }
             }
 
         }
+        if (TouchVec.y > 0f)
+        {
+            TouchVec = -TouchVec;
+        }
+        return TouchVec.x;
+    }
+
+    Vector2 CheckKudari(Transform ParentIce, Vector2 Hitpos, Vector2 P_pos)
+    {
+        Vector2 CrossPoint;
+
+        float nearpoint;
+        Vector2 TouchVec = new Vector2(0, 0);
+        //右向き
+        if (dir < 0f)
+        {
+            nearpoint = 1000f;
+        }
+        else
+        {
+            nearpoint = -1000f;
+        }
+
+        Vector2 Pos1, Pos2;
+        Vector3 I_pos, I_pos2;
+
+        //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
+        for (int i = 1; i < ParentIce.childCount - 1; i++)
+        {
+            I_pos = ParentIce.GetChild(i).position;
+            I_pos2 = ParentIce.GetChild(i + 1).position;
+            Pos1 = new Vector2(I_pos.x, I_pos.y);
+            Pos2 = new Vector2(I_pos2.x, I_pos2.y);
+            if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
+            {
+                if (dir > 0f)
+                {
+                    if (nearpoint < CrossPoint.x)
+                    {
+                        Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                        nearpoint = CrossPoint.x;
+                        TouchVec = seikou;
+                    }
+                }
+                else
+                {
+                    if (nearpoint > CrossPoint.x)
+                    {
+                        Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                        nearpoint = CrossPoint.x;
+                        TouchVec = seikou;
+                    }
+                }
+
+            }
+
+            if (i == ParentIce.childCount - 2)
+            {
+                I_pos = ParentIce.GetChild(1).position;
+                Pos1 = new Vector2(I_pos.x, I_pos.y);
+
+                if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
+                {
+
+                    if (dir > 0)
+                    {
+                        if (nearpoint < CrossPoint.x)
+                        {
+                            Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                            nearpoint = CrossPoint.x;
+                            TouchVec = seikou;
+                        }
+                    }
+                    else
+                    {
+                        if (nearpoint > CrossPoint.x)
+                        {
+                            Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                            nearpoint = CrossPoint.x;
+                            TouchVec = seikou;
+                        }
+                    }
+                }
+            }
+
+        }
+        if (TouchVec.y > 0f)
+        {
+            TouchVec = -TouchVec;
+        }
+        return TouchVec;
     }
 }

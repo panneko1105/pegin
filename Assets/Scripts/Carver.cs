@@ -355,6 +355,11 @@ public class Carver : MonoBehaviour
     // さらに描画処理を担当するRenderingHelperもアタッチする
     private PolygonCollider2D CreateCollider()
     {
+        List<Transform> ChiKeep = new List<Transform>();
+        foreach(Transform item in this.transform)
+        {
+            ChiKeep.Add(item);
+        }
         var siblingIndex = this.transform.GetSiblingIndex();
         var colliderObject = new GameObject(this.gameObject.name);
         colliderObject.transform.SetParent(this.transform.parent, false);
@@ -374,6 +379,10 @@ public class Carver : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
             rb.mass = 100f;
             rb.sharedMaterial = yuka;
+           foreach(Transform item in ChiKeep)
+           {
+                item.parent = colliderObject.transform;
+           }
         }
         if (this.maskBox)
         {
@@ -404,6 +413,10 @@ public class Carver : MonoBehaviour
             var rb = colliderObject.AddComponent<Rigidbody2D>();
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
             colliderObject.AddComponent<BreakWall>();
+            foreach (Transform item in ChiKeep)
+            {
+                item.parent = colliderObject.transform;
+            }
         }
         
         return collider;

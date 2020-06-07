@@ -171,7 +171,6 @@ public class DrawMesh : MonoBehaviour
 
         if (IsIncludePoint())
         {
-            Debug.Log("Point is including.");
 
             // try to find other point.
             _isIncluding = true;

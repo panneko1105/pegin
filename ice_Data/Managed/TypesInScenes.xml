@@ -23,14 +23,18 @@
 		<type fullname="UnityEngine.Renderer" preserve="nothing"/>
 		<type fullname="UnityEngine.Light" preserve="nothing"/>
 		<type fullname="UnityEngine.MeshFilter" preserve="nothing"/>
+		<type fullname="UnityEngine.SkinnedMeshRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.MeshRenderer" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioBehaviour" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioListener" preserve="nothing"/>
 		<type fullname="UnityEngine.Texture" preserve="nothing"/>
 		<type fullname="UnityEngine.ParticleSystem" preserve="nothing"/>
 		<type fullname="UnityEngine.ParticleSystemRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.CircleCollider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Canvas" preserve="nothing"/>
 		<type fullname="UnityEngine.RectTransform" preserve="nothing"/>
 		<type fullname="UnityEngine.VFX.VisualEffect" preserve="nothing"/>
@@ -42,6 +46,7 @@
 		<type fullname="UnityEngine.Component" preserve="nothing"/>
 		<type fullname="UnityEngine.MonoBehaviour" preserve="nothing"/>
 		<type fullname="UnityEditor.Animations.AnimatorController" preserve="nothing"/>
+		<type fullname="UnityEngine.Avatar" preserve="nothing"/>
 		<type fullname="UnityEngine.GameObject" preserve="nothing"/>
 		<type fullname="UnityEngine.LightmapSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.Font" preserve="nothing"/>
@@ -53,13 +58,9 @@
 		<type fullname="UnityEngine.VFX.VisualEffectObject" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioClip" preserve="nothing"/>
 		<type fullname="UnityEngine.RenderSettings" preserve="nothing"/>
+		<type fullname="UnityEngine.PhysicsMaterial2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Collider" preserve="nothing"/>
 		<type fullname="UnityEngine.MeshCollider" preserve="nothing"/>
-		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
-		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
-		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
-		<type fullname="UnityEngine.SkinnedMeshRenderer" preserve="nothing"/>
-		<type fullname="UnityEngine.Avatar" preserve="nothing"/>
 		<type fullname="UnityEngine.CapsuleCollider" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Assembly-CSharp">
@@ -73,11 +74,13 @@
 		<type fullname="GameDataManager" preserve="nothing"/>
 		<type fullname="GetStar" preserve="nothing"/>
 		<type fullname="GokUtil.UpdateManager.UpdateManager" preserve="nothing"/>
+		<type fullname="Hanten" preserve="nothing"/>
 		<type fullname="IceBreak" preserve="nothing"/>
 		<type fullname="ItemManager" preserve="nothing"/>
 		<type fullname="LoadingScene" preserve="nothing"/>
 		<type fullname="Mybutton" preserve="nothing"/>
 		<type fullname="OutlinePostEffect" preserve="nothing"/>
+		<type fullname="Particle" preserve="nothing"/>
 		<type fullname="PauseManager" preserve="nothing"/>
 		<type fullname="PlayerControl1" preserve="nothing"/>
 		<type fullname="Post" preserve="nothing"/>
@@ -93,6 +96,9 @@
 		<type fullname="TitleManager" preserve="nothing"/>
 		<type fullname="camera" preserve="nothing"/>
 		<type fullname="vfx" preserve="nothing"/>
+	</assembly>
+	<assembly fullname="Unity.ProBuilder">
+		<type fullname="UnityEngine.ProBuilder.ProBuilderMesh" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.RenderPipelines.Core.Runtime">
 		<type fullname="UnityEngine.Rendering.UI.DebugUIHandlerBitField" preserve="nothing"/>

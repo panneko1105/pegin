@@ -280,7 +280,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         if (col.tag =="block")
         {
             //現在接触中のオブジェクトのリストに追加
-            TrigeerStayObj.Add(col.gameObject.transform.GetChild(0).gameObject.transform);
+            TrigeerStayObj.Add(col.gameObject.transform);
         }
     }
 
@@ -357,7 +357,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     }
 
     //線分の交差判定
-   static bool LineSegmentsIntersection(Vector2 p1,Vector2 p2,Vector2 p3,Vector3 p4,out Vector2 intersection)
+   static bool LineSegmentsIntersection(Vector3 p1,Vector3 p2,Vector3 p3,Vector3 p4,out Vector2 intersection)
     {
         intersection = Vector2.zero;
 
@@ -477,9 +477,13 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 }
             }
         }
-
+        int DamyInNum = InNum;
+        if (InNum == 0)
+        {
+            InNum = 2;
+        }
         Vector3[] NewPoint = new Vector3[6 - InNum];
-        switch (InNum)
+        switch (DamyInNum)
         {
             case 0:
 
@@ -517,21 +521,18 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
         //トリガーの頂点
         Vector3[] TriPos = { ireru, ireru, ireru, ireru, ireru, ireru, ireru };
-        Vector3 HoziPos;
-        Vector3 HoziSize;
-        Vector3 Tyouten;
         int CrossNum = 0;
 
         //現在当たっているブロックの頂点で分断されないかのチェック-------------------------------------------------------
         foreach (Transform TriObj in TrigeerStayObj)
         {
-            for (int i = 0; i < TriObj.childCount; i++)
+            for (int i2 = 1; i2 < TriObj.childCount; i2++)
             {
-                TriPos[i] = TriObj.GetChild(i).position;
+                TriPos[i2] = TriObj.GetChild(i2).position;
             }
 
             //現在ヒット中のobj
-            for (int i = 0; i < TriObj.childCount-1; i++)
+            for (int i = 0; i < TriObj.childCount-2; i++)
             {
                 //マスクボックスとflameでできた新しい頂点のfor文
                 for (int j = 0; j < 5 - InNum; j++)
@@ -550,7 +551,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                     }
                 }
 
-                if (i == TriObj.childCount-2)
+                if (i == TriObj.childCount-3)
                 {
                     for (int j = 0; j < 5 - InNum; j++)
                     {
@@ -580,7 +581,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 this.maxPosition = this.initPosition + this.vibrateRange;
                 this.directionToggle = false;
             }
-
             CrossNum = 0;
         }
         //---------------------------------------------------------------------------------------------------------------

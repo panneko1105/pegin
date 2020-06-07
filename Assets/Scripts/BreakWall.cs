@@ -16,7 +16,7 @@ public class BreakWall : MonoBehaviour
                 if (Mathf.Abs(collision.relativeVelocity.x) > 2.5f)
                 {
                     Destroy(this.gameObject);
-                    rb.velocity = new Vector2(collision.relativeVelocity.x * 0.4f, collision.relativeVelocity.x * -0.4f);
+                    rb.velocity = new Vector2(collision.relativeVelocity.x * 0.3f, collision.relativeVelocity.x * 0.3f);
                 }
             }
         }

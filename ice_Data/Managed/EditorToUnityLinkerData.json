@@ -334,6 +334,16 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "SkinnedMeshRenderer",
+            "fullManagedTypeName": "UnityEngine.SkinnedMeshRenderer",
+            "moduleName": "Core",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "MeshRenderer",
             "fullManagedTypeName": "UnityEngine.MeshRenderer",
             "moduleName": "Core",
@@ -411,6 +421,18 @@
         },
         {
             "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Rigidbody2D",
+            "fullManagedTypeName": "UnityEngine.Rigidbody2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "Collider2D",
             "fullManagedTypeName": "UnityEngine.Collider2D",
             "moduleName": "Physics2D",
@@ -429,6 +451,31 @@
             "moduleName": "Physics2D",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "CapsuleCollider2D",
+            "fullManagedTypeName": "UnityEngine.CapsuleCollider2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "BoxCollider2D",
+            "fullManagedTypeName": "UnityEngine.BoxCollider2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Title.unity",
+                "Assets/Scenes/Stage/Stage1.unity",
                 "Assets/Scenes/Stage/Stage2.unity",
                 "Assets/Scenes/Stage/Stage3.unity"
             ]
@@ -555,6 +602,16 @@
             "managedAssemblyName": "UnityEngine.dll",
             "nativeClass": "AnimatorController",
             "fullManagedTypeName": "UnityEditor.Animations.AnimatorController",
+            "moduleName": "Animation",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage2.unity"
+            ]
+        },
+        {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "Avatar",
+            "fullManagedTypeName": "UnityEngine.Avatar",
             "moduleName": "Animation",
             "usedInScenes": [
                 "Assets/Scenes/BaseScene.unity",
@@ -718,6 +775,18 @@
             ]
         },
         {
+            "managedAssemblyName": "UnityEngine.dll",
+            "nativeClass": "PhysicsMaterial2D",
+            "fullManagedTypeName": "UnityEngine.PhysicsMaterial2D",
+            "moduleName": "Physics2D",
+            "usedInScenes": [
+                "Assets/Scenes/BaseScene.unity",
+                "Assets/Scenes/Stage/Stage1.unity",
+                "Assets/Scenes/Stage/Stage2.unity",
+                "Assets/Scenes/Stage/Stage3.unity"
+            ]
+        },
+        {
             "managedAssemblyName": "",
             "nativeClass": "NavMeshSettings",
             "fullManagedTypeName": "",
@@ -767,58 +836,6 @@
                 "Assets/Scenes/Stage/Stage1.unity",
                 "Assets/Scenes/Stage/Stage2.unity",
                 "Assets/Scenes/Stage/Stage3.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "BoxCollider2D",
-            "fullManagedTypeName": "UnityEngine.BoxCollider2D",
-            "moduleName": "Physics2D",
-            "usedInScenes": [
-                "Assets/Scenes/Title.unity",
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Rigidbody2D",
-            "fullManagedTypeName": "UnityEngine.Rigidbody2D",
-            "moduleName": "Physics2D",
-            "usedInScenes": [
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "CapsuleCollider2D",
-            "fullManagedTypeName": "UnityEngine.CapsuleCollider2D",
-            "moduleName": "Physics2D",
-            "usedInScenes": [
-                "Assets/Scenes/Stage/Stage1.unity",
-                "Assets/Scenes/Stage/Stage2.unity",
-                "Assets/Scenes/Stage/Stage3.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "SkinnedMeshRenderer",
-            "fullManagedTypeName": "UnityEngine.SkinnedMeshRenderer",
-            "moduleName": "Core",
-            "usedInScenes": [
-                "Assets/Scenes/Stage/Stage2.unity"
-            ]
-        },
-        {
-            "managedAssemblyName": "UnityEngine.dll",
-            "nativeClass": "Avatar",
-            "fullManagedTypeName": "UnityEngine.Avatar",
-            "moduleName": "Animation",
-            "usedInScenes": [
-                "Assets/Scenes/Stage/Stage2.unity"
             ]
         },
         {
@@ -903,6 +920,13 @@
         {
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
+            "fullManagedTypeName": "Hanten",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
             "fullManagedTypeName": "IceBreak",
             "moduleName": "",
             "usedInScenes": []
@@ -932,6 +956,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "OutlinePostEffect",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "Particle",
             "moduleName": "",
             "usedInScenes": []
         },
@@ -1037,6 +1068,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "vfx",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Unity.ProBuilder.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "UnityEngine.ProBuilder.ProBuilderMesh",
             "moduleName": "",
             "usedInScenes": []
         },
