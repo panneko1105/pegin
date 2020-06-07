@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using System.Linq;
+using GokUtil.UpdateManager;
 
 //
 // 参考サイト：https://qiita.com/waken/items/a0288c9b160a20022635
@@ -24,7 +25,7 @@ public class SoundVolume
     }
 }
 
-public class SoundManager : SingletonMonoBehaviour<SoundManager>
+public class SoundManager : SingletonMonoBehaviour<SoundManager>, IUpdatable
 {
     public SoundVolume volume = new SoundVolume();
 
@@ -64,6 +65,13 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         for (int i = 0; i < seClips.Length; ++i)
         {
             seIndexes[seClips[i].name] = i;
+
+            // 足音loop用
+            if (seClips[i].name == "Step_EX")
+            {
+                Debug.Log("いいね!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"); 
+                seSources[i].loop = true;
+            }
         }
 
         for (int i = 0; i < bgmClips.Length; ++i)
@@ -79,7 +87,18 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     }
 
     //------------------------------------------------------------------------------
-    void Update()
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
+
+    // Update is called once per frame
+    public void UpdateMe()
     {
         bgmSource.mute = volume.mute;
         foreach (var source in seSources)
@@ -185,6 +204,15 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         }
     }
 
+    public void PlaySeEX(string name)
+    {
+        int index = GetSeIndex(name);
+
+        seSources[index].Stop();
+        seSources[index].clip = seClips[index];
+        seSources[index].Play();
+    }
+
     //------------------------------------------------------------------------------
     public void StopSe()
     {
@@ -194,6 +222,14 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
             source.Stop();
             source.clip = null;
         }
+    }
+
+    public void StopSeEX(string name)
+    {
+        int index = GetSeIndex(name);
+
+        seSources[index].Stop();
+        seSources[index].clip = null;
     }
 
     //------------------------------------------------------------------------------

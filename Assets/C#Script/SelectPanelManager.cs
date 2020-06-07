@@ -9,9 +9,11 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
 {
     [SerializeField] private int    stageNo = 1;                      //!< ステージNo.(1～)
 
+    const int stageMax = 8;                                           //!< ステージ最大数 (※)
     const int itemMax = 3;                                            //!< アイテム合計数
     [SerializeField] GameObject[] itemObj = new GameObject[itemMax];  //!< アイテムObj
-    [SerializeField] GameObject text;                                 //!< テキストObj
+    [SerializeField] GameObject text;                                 //!< STAGE○テキストObj
+    [SerializeField] GameObject text2;                                //!< 氷制限数テキストObj
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
         //itemObj[2] = obj.Find("Star_3").gameObject;
 
         // アイテム情報をセット
-        SetItem();
+        //SetItem();
     }
 
     void OnEnable()
@@ -65,12 +67,30 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
 
     public void SetInfo(int _stageNo)
     {
+        if (_stageNo < 1)
+        {
+            stageNo = 1;
+        }
+        //
+        // デバッグ用！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+        //
+        else if (_stageNo > 3) {
+            _stageNo = 3;
+        }
+
         stageNo = _stageNo;
         // アイテム画像の変更
-        SetItem();
-        // テキスト
+        //SetItem();
+
+        //「Stage○」テキスト
         Text t = text.GetComponent<Text>();
         t.text = "STAGE " + _stageNo;
+
+        // 氷制限数テキスト
+        Text t2 = text2.GetComponent<Text>();
+        int a = GameDataManager.Instance.GetIceMax(stageNo);
+        Debug.Log(a);
+        t2.text = a.ToString();
     }
 
     public IEnumerator MoveAnimation(float seconds)

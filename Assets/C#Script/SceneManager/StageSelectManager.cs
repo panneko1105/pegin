@@ -20,8 +20,8 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     [SerializeField] int firstSelect = 1;         //!< ステージ選択カーソル初期位置 (基本は１じゃね)
     [SerializeField] float cursorSpeed = 0.16f;   //!< ステージ選択カーソル移動速度
     const float panelSpeed = 0.15f;               //!< パネル生成アニメーションの速度
-    int selecCursortpos = 1;                      //!< ステージ選択カーソル箇所
-    const int stageMax = 3;
+    int selectCursortpos = 1;                      //!< ステージ選択カーソル箇所 (1～)
+    const int stageMax = 8;                       //!< ステージ最大数 (※)
     StageSelectFlg selectFlg = StageSelectFlg.START;
 
     /* ステージセレクト位置設定関連 */
@@ -34,18 +34,22 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     void Start()
     {
         // BGMの再生
-        //SoundManager.Instance.PlayBgm("BGM_Test01");
+        SoundManager.Instance.PlayBgm("Stage_Asa");
+        selectCursortpos = firstSelect;
+
         if (BaseSceneManager.Instance != null)
         {
             // シーンの初期化
             LoadingScene.Instance.InitScene();
             // シーンイン演出処理
             SceneChangeManager.Instance.SceneChangeIn(SceneChangeType.SLIDE_RIGHT, sceneInSpeed);
+            Debug.Log(GameDataManager.Instance.StageSelectPos);
+            // カーソル位置の読み込み
+            selectCursortpos = GameDataManager.Instance.StageSelectPos;
         }
 
-        selecCursortpos = firstSelect;
         // カーソル位置を合わせる
-        cursorObj.transform.position = mapPlane[selecCursortpos - 1].transform.position;
+        cursorObj.transform.position = mapPlane[selectCursortpos - 1].transform.position;
 
         // セレクトパネルを更新
         SetFirstPanel();
@@ -54,7 +58,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
 
     void SetFirstPanel()
     {
-        ChangeSelectPanel(selecCursortpos);
+        ChangeSelectPanel(selectCursortpos);
     }
 
     void OnEnable()
@@ -70,6 +74,19 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     // Update is called once per frame
     public void UpdateMe()
     {
+        bool isChageCursor = false;
+
+        // L Stick
+        float lsh = Input.GetAxis("L_Stick_H");
+        float lsv = Input.GetAxis("L_Stick_V");
+        //if (lsh != 0)
+        //{
+        //    Debug.Log(lsh);
+        //}
+        // 十字キー
+        float dph = Input.GetAxis("D_Pad_H");
+        float dpv = Input.GetAxis("D_Pad_V");
+
         // 通常営業時のみ操作狩野英孝
         if (selectFlg == StageSelectFlg.NOMAL)
         {
@@ -77,55 +94,82 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
             // カーソル移動
             //========================================
             // ←
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A) || lsh < -0.1f || dph < -0.0f)
             {
-                selecCursortpos--;
+                selectCursortpos--;
                 // 左端
-                if (selecCursortpos < 1)
+                if (selectCursortpos < 1)
                 {
-                    selecCursortpos = 1;
+                    selectCursortpos = 1;
                 }
                 else
                 {
-                    // カーソル移動開始
-                    StartCoroutine(StartCursorMove(selecCursortpos + 1, selecCursortpos));
+                    if (!isChageCursor)
+                    {
+                        // カーソル移動開始
+                        // 左と右のダブりは禁物でっせ
+                        isChageCursor = true;
+                        selectFlg = StageSelectFlg.MOVE;
+                        StartCoroutine(StartCursorMove(selectCursortpos + 1, selectCursortpos));
+                    }
                 }
             }
             // →
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D) || lsh > 0.1f || dph > 0.0f)
             {
-                selecCursortpos++;
+                selectCursortpos++;
                 // 左端
-                if (selecCursortpos > stageMax)
+                if (selectCursortpos > stageMax)
                 {
-                    selecCursortpos = stageMax;
+                    selectCursortpos = stageMax;
                 }
                 else
                 {
                     // カーソル移動開始
-                    StartCoroutine(StartCursorMove(selecCursortpos - 1, selecCursortpos));
+                    // 左と右のダブりは禁物でっせ
+                    if (!isChageCursor)
+                    {
+                        StartCoroutine(StartCursorMove(selectCursortpos - 1, selectCursortpos));
+                        selectFlg = StageSelectFlg.MOVE;
+                        isChageCursor = true;
+                    }
                 }
             }
 
             //========================================
-            // 決定
+            // 決定 (Aボタン)
             //========================================
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 selectFlg = StageSelectFlg.SCENE_CHANGE;
+                // SE
+                SoundManager.Instance.PlaySe("small_ice1");
+                // カーソル位置の保存
+                GameDataManager.Instance.StageSelectPos = selectCursortpos;
                 // シーン遷移
-                SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "Stage" + "1");
+                //
+                // デバッグ用！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+                //
+                if(selectCursortpos > 3)
+                {
+                    selectCursortpos = 3;
+                }
+                SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "Stage" + selectCursortpos);
             }
 
             //========================================
-            // タイトルに戻る
+            // タイトルに戻る (Bボタン)
             //========================================
-            if (Input.GetKeyDown(KeyCode.Backspace))
+            if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown("joystick button 1"))
             {
                 selectFlg = StageSelectFlg.SCENE_CHANGE;
+                // SE
+                SoundManager.Instance.PlaySe("pa1");
                 // シーン遷移
                 SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.4f, "Title");
             }
+
+            isChageCursor = false;
         }
     }
 
@@ -148,13 +192,14 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
         Vector3 lastPos = mapPlane[_nextCursorPos - 1].transform.position;
         yield return StartCoroutine(stageSelectCursorCS.MoveAnimation(cursorSpeed, firstPos, lastPos));
 
+        // SE
+        SoundManager.Instance.PlaySeEX("pa1");
+
         // flg切り替え (操作可能に)
         selectFlg = StageSelectFlg.NOMAL;
 
-
-
         // カーソル移動が終了次第、新規セレクトパネル生成
-        ChangeSelectPanel(selecCursortpos);
+        ChangeSelectPanel(selectCursortpos);
     }
 
     //========================================
@@ -162,24 +207,26 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     //========================================
     void ChangeSelectPanel(int _stageNo)
     {
+        //----------------------------------
         //!< パネルを生成
+        //----------------------------------
         GameObject prefab = (GameObject)Resources.Load("SELECT_PANEL_SET");
         selectPanelObj = Instantiate(prefab, cursorObj.transform.position, Quaternion.identity);
         // キャンバスに配置
         //selectPanelObj.transform.SetParent(GameObject.Find("Canvas").transform);
         selectPanelObj.transform.SetParent(cursorObj.transform);
         // 角度傾き
-        selectPanelObj.transform.Rotate(0.0f, 0.0f, 4.0f, Space.World);
-        //!< パネルに情報をセット
+        //selectPanelObj.transform.Rotate(0.0f, 0.0f, 4.0f, Space.World);
+        //!< パネルにステージ情報をセット
         SelectPanelManager selectPanelManager = selectPanelObj.GetComponent<SelectPanelManager>();
-        selectPanelManager.SetInfo(selecCursortpos);
+        selectPanelManager.SetInfo(selectCursortpos);
 
-        // アニメーション作成
+        // アニメーション開始
         //yield return StartCoroutine(selectPanelManager.MoveAnimation(0.1f));
         panelAnimEvent = selectPanelManager.MoveAnimation(panelSpeed);
         StartCoroutine(panelAnimEvent);
 
-        // パネルがアニメーション終了してからflg切り替え (操作可能に)
+        //  (操作可能に)
         selectFlg = StageSelectFlg.NOMAL;
     }
 }

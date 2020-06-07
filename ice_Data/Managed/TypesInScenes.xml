@@ -18,6 +18,7 @@
 		<type fullname="UnityEngine.QualitySettings" preserve="nothing"/>
 		<type fullname="UnityEditor.Physics2DSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.Transform" preserve="nothing"/>
+		<type fullname="UnityEngine.AnimationClip" preserve="nothing"/>
 		<type fullname="UnityEngine.Camera" preserve="nothing"/>
 		<type fullname="UnityEngine.Renderer" preserve="nothing"/>
 		<type fullname="UnityEngine.Light" preserve="nothing"/>
@@ -26,13 +27,19 @@
 		<type fullname="UnityEngine.AudioBehaviour" preserve="nothing"/>
 		<type fullname="UnityEngine.AudioListener" preserve="nothing"/>
 		<type fullname="UnityEngine.Texture" preserve="nothing"/>
+		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.CircleCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.Canvas" preserve="nothing"/>
 		<type fullname="UnityEngine.RectTransform" preserve="nothing"/>
 		<type fullname="UnityEngine.VFX.VisualEffect" preserve="nothing"/>
 		<type fullname="UnityEngine.VFX.VFXRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.Motion" preserve="nothing"/>
+		<type fullname="UnityEngine.RuntimeAnimatorController" preserve="nothing"/>
 		<type fullname="UnityEngine.Behaviour" preserve="nothing"/>
+		<type fullname="UnityEngine.Animator" preserve="nothing"/>
 		<type fullname="UnityEngine.Component" preserve="nothing"/>
 		<type fullname="UnityEngine.MonoBehaviour" preserve="nothing"/>
+		<type fullname="UnityEditor.Animations.AnimatorController" preserve="nothing"/>
 		<type fullname="UnityEngine.GameObject" preserve="nothing"/>
 		<type fullname="UnityEngine.LightmapSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.Font" preserve="nothing"/>
@@ -46,33 +53,41 @@
 		<type fullname="UnityEngine.RenderSettings" preserve="nothing"/>
 		<type fullname="UnityEngine.Collider" preserve="nothing"/>
 		<type fullname="UnityEngine.MeshCollider" preserve="nothing"/>
-		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
-		<type fullname="UnityEngine.Collider2D" preserve="nothing"/>
-		<type fullname="UnityEngine.CircleCollider2D" preserve="nothing"/>
-		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
 		<type fullname="UnityEngine.BoxCollider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.Rigidbody2D" preserve="nothing"/>
+		<type fullname="UnityEngine.CapsuleCollider2D" preserve="nothing"/>
+		<type fullname="UnityEngine.SkinnedMeshRenderer" preserve="nothing"/>
+		<type fullname="UnityEngine.Avatar" preserve="nothing"/>
+		<type fullname="UnityEngine.CapsuleCollider" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="BaseSceneManager" preserve="nothing"/>
 		<type fullname="Carver" preserve="nothing"/>
 		<type fullname="CreateFlame" preserve="nothing"/>
-		<type fullname="EffectFire" preserve="nothing"/>
-		<type fullname="Fade" preserve="nothing"/>
+		<type fullname="FadeManager" preserve="nothing"/>
 		<type fullname="FpsDisplay" preserve="nothing"/>
+		<type fullname="GameDataManager" preserve="nothing"/>
+		<type fullname="GetStar" preserve="nothing"/>
 		<type fullname="GokUtil.UpdateManager.UpdateManager" preserve="nothing"/>
 		<type fullname="IceBreak" preserve="nothing"/>
 		<type fullname="ItemManager" preserve="nothing"/>
 		<type fullname="LoadingScene" preserve="nothing"/>
+		<type fullname="Mybutton" preserve="nothing"/>
 		<type fullname="OutlinePostEffect" preserve="nothing"/>
 		<type fullname="PauseManager" preserve="nothing"/>
 		<type fullname="PlayerControl1" preserve="nothing"/>
 		<type fullname="Post" preserve="nothing"/>
+		<type fullname="SceneChangeManager" preserve="nothing"/>
 		<type fullname="ScrollManager" preserve="nothing"/>
+		<type fullname="SelectPanelManager" preserve="nothing"/>
 		<type fullname="SoundManager" preserve="nothing"/>
 		<type fullname="StageManager" preserve="nothing"/>
+		<type fullname="StageSelectCursor" preserve="nothing"/>
+		<type fullname="StageSelectManager" preserve="nothing"/>
+		<type fullname="StartEvent" preserve="nothing"/>
+		<type fullname="TextEffect" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
 		<type fullname="camera" preserve="nothing"/>
-		<type fullname="star" preserve="nothing"/>
 		<type fullname="vfx" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.RenderPipelines.Core.Runtime">

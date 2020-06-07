@@ -14,6 +14,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     PlayerControl1 WalkCon;
     Post StopMono;
     bool OnceMove;
+    int PushNum = 0;
+    int IceNum = 0;
 
 
     void OnEnable()
@@ -32,9 +34,18 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     // Use this for initialization
     public void UpdateMe()
     {
+        // 操作不可
+        if (StageManager.Instance.GetFlg() != StageFlg.NOMAL)
+        {
+            return;
+        }
+
         if (!SpownMode)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            //----------------------------------------------
+            //  氷生成モード (Xボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 2"))
             {
                 GameObject obj2 = (GameObject)Resources.Load("maskBox");
                 Vector3 Setpos2 = maincamera.transform.position;
@@ -52,60 +63,79 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 
                 SpownMode = true;
 
-                //  PauseChild();
                 StopMono.enabled = true;
-                WalkCon.ChangeWalk();
-
+                WalkCon.StopWalk();
             }
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Return))
+            // ポーズ解除と同時に氷が落ちるのを防止
+            if (PauseManager.Instance.GetPauseEndCnt() < 1)
             {
-                
-                SpownMode = false;
-                if (OnceMove)
-                {
-                    WalkCon.LetsStart();
-                    OnceMove = false;
-                }
-                else
-                {
-                    WalkCon.ChangeWalk();
-                }
-               
+                return;
+            }
+
+            //----------------------------------------------
+            //  氷生成モード (Aボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+            {
+                Transform KeepMask = null;
                 foreach (Transform child in this.transform)
                 {   
                     if (child.tag == "Mask")
                     {
-                        var col = child.GetComponent<PolygonCollider2D>();
-                        col.isTrigger = false;
-                        child.tag = "Delete";
+                        //マスクボックスを保存
+                        KeepMask = child;
                     }
-                    else if(child.tag=="flame")
+                    else if(child.tag == "flame")
                     {
                         var sc = child.GetComponent<FlameMove>();
-                        sc.CreateIce();
+                        if (sc.Mabiki(Player.transform.position))
+                        {
+                            //SoundManager.Instance.StopSe();
+                            // SE再生
+                            SoundManager.Instance.PlaySe("凍る・コチーン");
+
+                            var col = KeepMask.GetComponent<PolygonCollider2D>();
+                            col.isTrigger = false;
+
+                            sc.CreateIce();
+
+                            SpownMode = false;
+                            if (OnceMove)
+                            {
+                                WalkCon.LetsStart();
+                                OnceMove = false;
+                            }
+                            else
+                            {
+                                // 歩き出すよ
+                                WalkCon.StartWalk();
+                            }
+                            StopMono.enabled = false;
+                            Destroy(KeepMask.gameObject);
+
+                            DeleteChild();
+                            PushNum++;
+                            IceNum++;
+                            if (PushNum == DelNum - 1) 
+                            {
+                                transform.GetChild(0).gameObject.AddComponent<Tenmetu>();
+                            }
+                        }
+                     
                     }
                    
                 }
-
-                foreach (Transform child in this.transform)
-                {
-                    if (child.tag == "Delete")
-                    {
-                        Destroy(child.gameObject);
-                    }
-                }
-                StopMono.enabled = false;
-                //StartChild();
+                SoundManager.Instance.StopSeEX("near_a_brook");
             }
         }
     }
 
     public void DeleteChild()
     {
-        if (this.transform.childCount > DelNum)
+        if (this.transform.childCount > DelNum) 
         {
             var child = transform.GetChild(0);
             //エフェクト発生
@@ -113,35 +143,17 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             Instantiate(obj, child.transform.position, Quaternion.identity);
 
             Destroy(child.gameObject);
+            transform.GetChild(1).gameObject.AddComponent<Tenmetu>();
+            IceNum--;
         }
     }
 
-    public void PauseChild()
+    public int GetDelNum()
     {
-        Debug.Log("入ったよ");
-        foreach (Transform child in transform)
-        {
-
-           if (child.tag == "flame")
-            {
-                //var s = child.GetComponent<FlameMove>();
-                //s.CCCCC();
-            }
-            //cnt++;
-        }
-        Debug.Log(transform.childCount);
+        return DelNum;
     }
-
-    public void StartChild()
+    public int GetIceNum()
     {
-        int cnt = 0;
-        foreach (Transform child in transform)
-        {
-            if (child.tag == "block")
-            {
-               
-            }
-            cnt++;
-        }
+        return IceNum;
     }
 }

@@ -16,7 +16,7 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
     [SerializeField] GameObject[] foot = new GameObject[footMax];   //!< 足跡Obj
 
     /* フェード設定関連 */
-    [SerializeField] private float seconds = 0.15f;
+    [SerializeField] private float seconds = 0.25f;
     [SerializeField] private float minAlpha = 0.3f;
     [SerializeField] private float maxAlpha = 0.8f;
     /* 演出制御関連 */
@@ -112,7 +112,9 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
         }
 
         // 足跡1の繰り返し演出開始
-        IEnumerator cor = foot[0].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        FadeManager fadeManager = foot[0].GetComponent<FadeManager>();
+        fadeManager.SetFadeInfo(seconds, minAlpha, maxAlpha);
+        IEnumerator cor = fadeManager.StartFadeLoop();
         StartCoroutine(cor);
         
         for(int i = 0; i < waitCnt; i++)
@@ -122,7 +124,9 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
         }
 
         // 足跡2の繰り返し演出開始
-        cor = foot[1].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        fadeManager = foot[1].GetComponent<FadeManager>();
+        fadeManager.SetFadeInfo(seconds, minAlpha, maxAlpha);
+        cor = fadeManager.StartFadeLoop();
         StartCoroutine(cor);
 
         for (int i = 0; i < waitCnt; i++)
@@ -132,7 +136,9 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
         }
 
         // 足跡3の繰り返し演出開始
-        cor = foot[2].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        fadeManager = foot[2].GetComponent<FadeManager>();
+        fadeManager.SetFadeInfo(seconds, minAlpha, maxAlpha);
+        cor = fadeManager.StartFadeLoop();
         StartCoroutine(cor);
 
         for (int i = 0; i < waitCnt; i++)
@@ -142,7 +148,9 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
         }
 
         // 足跡4の繰り返し演出開始
-        cor = foot[3].GetComponent<FadeManager>().StartFadeLoop(seconds, minAlpha, maxAlpha);
+        fadeManager = foot[3].GetComponent<FadeManager>();
+        fadeManager.SetFadeInfo(seconds, minAlpha, maxAlpha);
+        cor = fadeManager.StartFadeLoop();
         StartCoroutine(cor);
     }
 }

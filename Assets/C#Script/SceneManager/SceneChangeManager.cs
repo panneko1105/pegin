@@ -103,6 +103,11 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
         obj.transform.SetParent(GameObject.Find("Canvas").transform, false);
         obj.transform.localScale = new Vector3(1.1f, 1.1f, 1);
         obj.transform.Rotate(0.0f, 0.0f, 3.0f, Space.World);
+
+        //!< 保存用
+        Vector3 pos = obj.transform.localPosition;
+
+
         //!< ラジアンに変換 (3.0度→)
         float rad = 3.0f * Mathf.Deg2Rad;  
 
@@ -110,7 +115,7 @@ public class SceneChangeManager : SingletonMonoBehaviour<SceneChangeManager>
         {
 
             float move = Easing.QuintOut(processTimer.TotalSeconds, seconds, 0, 2050.0f);
-            obj.transform.localPosition = new Vector3(move * Mathf.Cos(rad), move * Mathf.Sin(rad), 0);
+            obj.transform.localPosition = new Vector3(pos.x + move * Mathf.Cos(rad), pos.y + move * Mathf.Sin(rad), 0);
             // 継続
             yield return null;
         }

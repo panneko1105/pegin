@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using GokUtil.UpdateManager;
 
-public class TextEffect : MonoBehaviour
+public class TextEffect : MonoBehaviour, IUpdatable
 {
     [SerializeField] private bool isFadeLoop = false;
     [SerializeField] private float seconds = 2.0f;
     [SerializeField] private float minAlpha = 0.3f;
     [SerializeField] private float maxAlpha = 0.8f;
+    IEnumerator coroutine;
+    IEnumerator parentCoroutine;
 
     // Use this for initialization
     void Start()
@@ -24,25 +27,68 @@ public class TextEffect : MonoBehaviour
 
         if (isFadeLoop)
         {
-            StartCoroutine(StartFadeLoop(seconds, minAlpha, maxAlpha));
+            StartCoroutine(StartFadeLoop());
         }
     }
 
-    public IEnumerator StartFadeLoop(float _seconds, float _minAlpha = 0.0f, float _maxAlpha = 1.0f)
+    void OnEnable()
+    {
+        UpdateManager.AddUpdatable(this);
+    }
+
+    void OnDisable()
+    {
+        UpdateManager.RemoveUpdatable(this);
+    }
+
+    // Update is called once per frame
+    public void UpdateMe()
+    {
+
+    }
+
+    public void SetFadeInfo(float _seconds, float _minAlpha = 0.0f, float _maxAlpha = 1.0f)
+    {
+        //StopFadeCoroutines();
+
+        seconds = _seconds;
+        minAlpha = _minAlpha;
+        maxAlpha = _maxAlpha;
+
+        //StartCoroutine(StartFadeLoop());
+    }
+
+    public IEnumerator StartFadeLoop()
     {
         // フェードアウト
-        yield return StartCoroutine(FadeOut(_seconds, _minAlpha, _maxAlpha));
+        coroutine = FadeOut();
+        yield return StartCoroutine(coroutine);
         // フェードイン
-        yield return StartCoroutine(FadeIn(_seconds, _minAlpha, _maxAlpha));
+        coroutine = FadeIn();
+        yield return StartCoroutine(coroutine);
 
         // ↑の繰り返し
-        StartCoroutine(StartFadeLoop(_seconds, _minAlpha, _maxAlpha));
+        parentCoroutine = StartFadeLoop();
+        StartCoroutine(parentCoroutine);
+    }
+
+    void StopFadeCoroutines()
+    {
+        Debug.Log("やべぇ");
+        StopCoroutine(parentCoroutine);
+        parentCoroutine = null;
+        Debug.Log("やべぇ");
+        StopCoroutine(coroutine);
+        coroutine = null;
+        Debug.Log("やべぇ");
+        // これで済ますのはまずそうだからやめといた
+        //StopAllCoroutines();
     }
 
     //========================================
     // フェードアウト [秒] 指定（1.0→0.0）
     //========================================
-    public IEnumerator FadeOut(float _seconds, float _minAlpha = 0.0f, float _maxAlpha = 1.0f)
+    public IEnumerator FadeOut()
     {
         Debug.Log("Text_フェードアウト開始");
 
@@ -54,13 +100,13 @@ public class TextEffect : MonoBehaviour
         Text text = GetComponent<Text>();
         Color col = text.color;
 
-        while (alpha > _minAlpha)
+        while (alpha > minAlpha)
         {
             // α値どんどん薄くなるよ
-            alpha = _maxAlpha - (Time.time - startTime) / _seconds * (_maxAlpha - _minAlpha);
-            if (alpha < _minAlpha)
+            alpha = maxAlpha - (Time.time - startTime) / seconds * (maxAlpha - minAlpha);
+            if (alpha < minAlpha)
             {
-                alpha = _minAlpha;
+                alpha = minAlpha;
             }
             text.color = new Color(col.r, col.g, col.b, alpha);
 
@@ -73,7 +119,7 @@ public class TextEffect : MonoBehaviour
     //========================================
     // フェードイン [秒] 指定（0.0→1.0）
     //========================================
-    public IEnumerator FadeIn(float _seconds, float _minAlpha = 0.0f, float _maxAlpha = 1.0f)
+    public IEnumerator FadeIn()
     {
         Debug.Log("Text_フェードイン開始");
 
@@ -85,13 +131,13 @@ public class TextEffect : MonoBehaviour
         Text text = GetComponent<Text>();
         Color col = text.color;
 
-        while (alpha < _maxAlpha)
+        while (alpha < maxAlpha)
         {
             // α値どんどん濃くなるよ
-            alpha = _minAlpha + (Time.time - startTime) / _seconds * (_maxAlpha - _minAlpha);
-            if (alpha > _maxAlpha)
+            alpha = minAlpha + (Time.time - startTime) / seconds * (maxAlpha - minAlpha);
+            if (alpha > maxAlpha)
             {
-                alpha = _maxAlpha;
+                alpha = maxAlpha;
             }
             text.color = new Color(col.r, col.g, col.b, alpha);
 
