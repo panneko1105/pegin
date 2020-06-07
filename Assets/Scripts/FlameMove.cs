@@ -11,7 +11,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     [HideInInspector] public int flg = 0;
     [HideInInspector] public bool isRot = false;        //trueで傾いている
     private List<Vector3> v = new List<Vector3>();
-    private List<GameObject> TrigeerStayObj=new List<GameObject>();
+    private List<Transform> TrigeerStayObj=new List<Transform>();
     List<Vector3> myPoint = new List<Vector3>();
     List<Vector3> Dainyuu = new List<Vector3>();
     //孫のリスト
@@ -280,7 +280,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         if (col.tag =="block")
         {
             //現在接触中のオブジェクトのリストに追加
-            TrigeerStayObj.Add(col.gameObject);  
+            TrigeerStayObj.Add(col.gameObject.transform.GetChild(0).gameObject.transform);
         }
     }
 
@@ -288,7 +288,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     {
         if (col.tag == "block")
         {
-            foreach(GameObject item in TrigeerStayObj)
+            foreach(Transform item in TrigeerStayObj)
             {
                 //離れたオブジェクトの削除
                 if (col.name == item.name)
@@ -384,41 +384,40 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
     public bool Mabiki(Vector3 P_Pos)
     {
-        mago.transform.DetachChildren();
         myPoint.Clear();
         foreach (GameObject K_pos in GR_Child)
         {
             myPoint.Add(K_pos.transform.position);
-            K_pos.transform.parent = transform.GetChild(0).transform;
         }
 
 
         //カットしていいかのフラグ
         bool CutFg = true;
         Vector3 ireru = new Vector3(0, 0, 0);
-        Vector3[] watasu = {ireru, ireru , ireru, ireru };
-                
-                float mx_pos = MaskCube.transform.position.x;
-                float my_pos = MaskCube.transform.position.y;
-               
-                float mx_ = (mx_pos + 1.5f);
-                float my_ = my_pos + 1.5f;
-                watasu[0] = new Vector3(mx_, my_, 1f);
+        Vector3[] watasu = { ireru, ireru, ireru, ireru };
 
-                mx_ = (mx_pos + 1.5f);
-                my_ = my_pos - 1.5f;
-                watasu[1] = new Vector3(mx_, my_, 1f);
-                
-                mx_ = mx_pos - 1.5f;
-                my_ = my_pos - 1.5f;
-                watasu[2] = new Vector3(mx_, my_, 1f);
-                
-                mx_ = (mx_pos -1.5f);
-                my_ = my_pos + 1.5f;
-                watasu[3] = new Vector3(mx_, my_, 1f);
-    
+        //マスクボックスの４頂点-------------------------------------------------------
+        float mx_pos = MaskCube.transform.position.x;
+        float my_pos = MaskCube.transform.position.y;
 
-        //マスク内に入ってる
+        float mx_ = (mx_pos + 1.5f);
+        float my_ = my_pos + 1.5f;
+        watasu[0] = new Vector3(mx_, my_, 1f);
+
+        mx_ = (mx_pos + 1.5f);
+        my_ = my_pos - 1.5f;
+        watasu[1] = new Vector3(mx_, my_, 1f);
+
+        mx_ = mx_pos - 1.5f;
+        my_ = my_pos - 1.5f;
+        watasu[2] = new Vector3(mx_, my_, 1f);
+
+        mx_ = (mx_pos - 1.5f);
+        my_ = my_pos + 1.5f;
+        watasu[3] = new Vector3(mx_, my_, 1f);
+        //------------------------------------------------------------------------------
+
+        //マスク内に入ってる頂点の数
         int InNum = 0;
         //何番目の頂点がはいってるか
         int[] VtxNum = { 4, 5, 6 };
@@ -435,7 +434,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         }
         int kazu = 0;
         Dainyuu.Clear();
-        foreach(Vector3 item in myPoint)
+        foreach (Vector3 item in myPoint)
         {
             if (kazu != VtxNum[0] && kazu != VtxNum[1] && kazu != VtxNum[2])
             {
@@ -443,15 +442,15 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             }
             kazu++;
         }
-       
+
         Vector2 Kousa;
         Vector3[] kouten = { ireru, ireru };
         int CrossCnt = 0;
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            if(LineSegmentsIntersection(watasu[1],watasu[2],myPoint[i],myPoint[i+1],out Kousa))
+            if (LineSegmentsIntersection(watasu[1], watasu[2], myPoint[i], myPoint[i + 1], out Kousa))
             {
-                if(CheckUpVec(myPoint[i], myPoint[i + 1]))
+                if (CheckUpVec(myPoint[i], myPoint[i + 1]))
                 {
                     kouten[1] = new Vector3(Kousa.x, Kousa.y, 1f);
                 }
@@ -459,12 +458,12 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 {
                     kouten[0] = new Vector3(Kousa.x, Kousa.y, 1f);
                 }
-                
+
                 CrossCnt++;
             }
             if (i == 2)
             {
-                if(LineSegmentsIntersection(watasu[1], watasu[2], myPoint[3], myPoint[0], out Kousa))
+                if (LineSegmentsIntersection(watasu[1], watasu[2], myPoint[3], myPoint[0], out Kousa))
                 {
                     if (CheckUpVec(myPoint[3], myPoint[0]))
                     {
@@ -504,7 +503,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 NewPoint[1] = kouten[0];
 
                 NewPoint[2] = Dainyuu[0];
-                NewPoint[3] = Dainyuu[1];               
+                NewPoint[3] = Dainyuu[1];
                 break;
             case 3:
                 NewPoint[0] = kouten[1];
@@ -517,58 +516,52 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         }
 
         //トリガーの頂点
-        Vector3[] TriPos = { ireru, ireru, ireru, ireru };
+        Vector3[] TriPos = { ireru, ireru, ireru, ireru, ireru, ireru, ireru };
         Vector3 HoziPos;
         Vector3 HoziSize;
         Vector3 Tyouten;
         int CrossNum = 0;
-  
-        foreach (GameObject TriObj in TrigeerStayObj)
+
+        //現在当たっているブロックの頂点で分断されないかのチェック-------------------------------------------------------
+        foreach (Transform TriObj in TrigeerStayObj)
         {
-            HoziPos = TriObj.transform.position;
-            HoziSize = TriObj.transform.GetChild(0).localScale;
-            Tyouten = new Vector3(HoziPos.x + HoziSize.x * 0.5f, HoziPos.y + HoziSize.y * 0.5f, 1.0f);
-            TriPos[0] = Tyouten;
-
-            Tyouten = new Vector3(HoziPos.x + HoziSize.x*0.5f, HoziPos.y - HoziSize.y * 0.5f, 1.0f);
-            TriPos[1] = Tyouten;
-
-            Tyouten = new Vector3(HoziPos.x - HoziSize.x * 0.5f, HoziPos.y - HoziSize.y * 0.5f, 1.0f);
-            TriPos[2] = Tyouten;
-
-            Tyouten = new Vector3(HoziPos.x - HoziSize.x * 0.5f, HoziPos.y + HoziSize.y * 0.5f, 1.0f);
-            TriPos[3] = Tyouten;
-
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < TriObj.childCount; i++)
             {
+                TriPos[i] = TriObj.GetChild(i).position;
+            }
+
+            //現在ヒット中のobj
+            for (int i = 0; i < TriObj.childCount-1; i++)
+            {
+                //マスクボックスとflameでできた新しい頂点のfor文
                 for (int j = 0; j < 5 - InNum; j++)
                 {
 
-                    if (LineSegmentsIntersection(TriPos[i], TriPos[i+1], NewPoint[j], NewPoint[j + 1], out Kousa))
+                    if (LineSegmentsIntersection(TriPos[i], TriPos[i + 1], NewPoint[j], NewPoint[j + 1], out Kousa))
                     {
                         CrossNum++;
                     }
                     if (j == 4 - InNum)
                     {
-                        if (LineSegmentsIntersection(TriPos[i], TriPos[i + 1], NewPoint[j+1], NewPoint[0], out Kousa))
+                        if (LineSegmentsIntersection(TriPos[i], TriPos[i + 1], NewPoint[j + 1], NewPoint[0], out Kousa))
                         {
                             CrossNum++;
                         }
                     }
                 }
 
-                if (i == 2)
+                if (i == TriObj.childCount-2)
                 {
                     for (int j = 0; j < 5 - InNum; j++)
                     {
-                        if (LineSegmentsIntersection(TriPos[3], TriPos[0], NewPoint[j], NewPoint[j + 1], out Kousa))
+                        if (LineSegmentsIntersection(TriPos[i+1], TriPos[0], NewPoint[j], NewPoint[j + 1], out Kousa))
                         {
                             CrossNum++;
                         }
                         if (j == 4 - InNum)
                         {
-                            if (LineSegmentsIntersection(TriPos[3], TriPos[0], NewPoint[j+1], NewPoint[0], out Kousa))
-                            {               
+                            if (LineSegmentsIntersection(TriPos[i+1], TriPos[0], NewPoint[j + 1], NewPoint[0], out Kousa))
+                            {
                                 CrossNum++;
                             }
                         }
@@ -587,10 +580,11 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 this.maxPosition = this.initPosition + this.vibrateRange;
                 this.directionToggle = false;
             }
-          
+
             CrossNum = 0;
         }
-        if(Check(NewPoint,P_Pos,new Vector3(0, 0, 1f)))
+        //---------------------------------------------------------------------------------------------------------------
+        if (Check(NewPoint, P_Pos, new Vector3(0, 0, 1f)))
         {
             CutFg = false;
             VibrateFg = true;

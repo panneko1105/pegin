@@ -4,17 +4,30 @@ using UnityEngine;
 
 public class BreakWall : MonoBehaviour
 {
+    bool BreakFg = false;
+    GameObject KeepBlock;
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "block")
         {
-            var rb = collision.gameObject.GetComponent<Rigidbody2D>();
-            if (Mathf.Abs(collision.relativeVelocity.x) > 1f)
+            if (KeepBlock == collision.gameObject)
             {
-                Destroy(this.gameObject);
-                rb.velocity = new Vector2(collision.relativeVelocity.x * 0.4f, collision.relativeVelocity.x * -0.4f);
+                var rb = collision.gameObject.GetComponent<Rigidbody2D>();
+                if (Mathf.Abs(collision.relativeVelocity.x) > 2.5f)
+                {
+                    Destroy(this.gameObject);
+                    rb.velocity = new Vector2(collision.relativeVelocity.x * 0.4f, collision.relativeVelocity.x * -0.4f);
+                }
             }
         }
 
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == "block")
+        {
+            KeepBlock = col.gameObject;
+        }
     }
 }

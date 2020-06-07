@@ -42,6 +42,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         HitJpCheck = false;
         HitWall = false;
         dir = 1;
+        rb.Sleep();
     }
 
     void FixedUpdate()
@@ -68,28 +69,24 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     //    }
     //}
 
-        void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if (!HantenFg)
         {
             if (col.gameObject.tag == "block")
             {
                 HitJpCheck = true;
-                //Debug.Log(col.ClosestPoint(this.transform.position));
-                Vector2 No1 = col.ClosestPoint(this.transform.position);
-                Vector3 I_Pos;
-                for (int i = 1; i < col.transform.childCount - 1; i++)
-                {
-                    I_Pos = col.transform.GetChild(i).position;
-                    if(Mathf.Approximately(No1.x, I_Pos.x))
-                    {
-                        if (Mathf.Approximately(No1.y, I_Pos.y))
-                        {
-                            Debug.Log(I_Pos);
-                        }
-                    }
-                }
-                //CheckCrossPoint(col.transform, watasu);
+                Vector2 watasu = col.ClosestPoint(this.transform.position);
+                Vector2 watasu2 = col.ClosestPoint(this.transform.position);
+
+
+                watasu2.x += 3f;
+                watasu.x -= 3f;
+
+
+                //Debug.Log(watasu);
+                //Debug.Log(watasu2);
+                CheckCrossPoint(col.transform, watasu, watasu2);
             }
 
         }
@@ -166,6 +163,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
     public void LetsStart()
     {
+        rb.WakeUp();
         StartMove = true;
         walk = true;
         StopNow = false;
@@ -176,7 +174,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         HantenFg = true;
     }
 
-     static bool LineSegmentsIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector3 p4, out Vector2 intersection)
+     static bool LineSegmentsIntersection(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, out Vector2 intersection)
     {
         intersection = Vector2.zero;
 
@@ -201,33 +199,40 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         return true;
     }
 
-    void CheckCrossPoint(Transform ParentIce, Vector2 Hitpos)
+    void CheckCrossPoint(Transform ParentIce, Vector2 Hitpos,Vector2 P_pos)
     {
         Vector2 CrossPoint;
-        Vector2 my_pos = new Vector2(transform.position.x, transform.position.y);
         Vector2 Pos1, Pos2;
         Vector3 I_pos, I_pos2;
-        for (int i = 1; i < ParentIce.childCount - 1; i++)
+        //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
+        //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
+        //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
+        for (int i = 1; i < ParentIce.childCount-1; i++)
         {
             I_pos = ParentIce.GetChild(i).position;
             I_pos2 = ParentIce.GetChild(i + 1).position;
             Pos1 = new Vector2(I_pos.x, I_pos.y);
             Pos2 = new Vector2(I_pos2.x, I_pos2.y);
-            if (LineSegmentsIntersection(my_pos, Hitpos, Pos1, Pos2, out CrossPoint))
+            if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
             {
+
                 Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                 Debug.Log(seikou);
             }
-            if (i == ParentIce.childCount - 1)
+         
+            if (i == ParentIce.childCount - 2)
             {
-                I_pos2 = ParentIce.GetChild(1).position;
-                Pos2 = new Vector2(I_pos2.x, I_pos2.y);
-                if (LineSegmentsIntersection(my_pos, Hitpos, Pos1, Pos2, out CrossPoint))
+                I_pos = ParentIce.GetChild(1).position;
+                Pos1 = new Vector2(I_pos.x, I_pos.y);
+             
+                if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
                 {
+
                     Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                     Debug.Log(seikou);
                 }
             }
+
         }
     }
 }

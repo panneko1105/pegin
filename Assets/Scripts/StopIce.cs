@@ -26,7 +26,7 @@ public class StopIce : MonoBehaviour
             if (sum < 0.5f)
             {
                 StopTime += Time.deltaTime;
-                if (StopTime > 0.5f)
+                if (StopTime > 1.5f)
                 {
                     rb.constraints = RigidbodyConstraints2D.FreezeAll;
                     Stopfg = false;
