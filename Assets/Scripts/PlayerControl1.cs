@@ -39,7 +39,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         penguinChild = transform.GetChild(0).gameObject;
         peguin = penguinChild.GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        StarManager = StarManager.GetComponent<ItemManager>();
+        StarManager = StageManager.GetComponent<ItemManager>();
       
         StartMove = false;
         KeepPos = transform.position;
@@ -63,11 +63,11 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             Debug.Log("飛んだ");
             if (HitNum < 2f)
             {
-                rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed * 0.3f,3.5f);
+                rb.velocity = new Vector2(0,3.7f);
             }
             else if(HitNum<3f)
             {
-                rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed * 0.3f,5.5f);
+                rb.velocity = new Vector2(0f,5.5f);
             }
             
             HitNum = 0f;
@@ -81,7 +81,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             walk = true;
             DownFg = false;
             HitNum = 0;
-
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -127,10 +126,12 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 watasu2.x += 6f;
                 watasu.x -= 6f;
                 float back = CheckCrossPoint(col.transform, watasu, watasu2);
+                //坂だった場合反転
                 if (Mathf.Abs(back) > 0f)
                 {
                     HitJpCheck = false;
                     HantenFg = true;
+                    HitNum = 0;
                 }
                     
             }
@@ -228,6 +229,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         StartMove = true;
         walk = true;
         StopNow = false;
+        transform.position = KeepPos;
     }
 
     public void HitChild()

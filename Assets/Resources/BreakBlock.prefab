@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 860b21a2a25290e45af227b12c4cced0, type: 2}
+  - {fileID: 2100000, guid: b8c5b9ecb72b59b4da6ad1b4ca127645, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   notflame: 1
   maskBox: 0
   BreakBlock: 1
-  _material: {fileID: 2100000, guid: 860b21a2a25290e45af227b12c4cced0, type: 2}
+  _material: {fileID: 2100000, guid: b8c5b9ecb72b59b4da6ad1b4ca127645, type: 2}
   Flamematerial: {fileID: 0}
 --- !u!61 &6091102314028546594
 BoxCollider2D:
