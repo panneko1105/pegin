@@ -140,6 +140,14 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         {
             HitWall = true;
         }
+        if (StarManager.GetAllFlg())
+        {
+            if (col.gameObject.tag == "Goal")
+            {
+                peguin.SetBool("Goal_1", true);
+                playerspeed = 0;
+            }
+        }
     }
 
 

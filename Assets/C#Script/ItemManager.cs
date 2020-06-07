@@ -157,7 +157,7 @@ public class ItemManager : MonoBehaviour, IUpdatable
     //========================================
     // アイテム全部取得したかの情報
     //========================================
-    bool GetAllFlg()
+    public bool GetAllFlg()
     {
         for (int i = 0; i < itemNum; i++)
         {

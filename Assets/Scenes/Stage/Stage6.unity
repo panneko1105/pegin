@@ -977,6 +977,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: kamakura
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 81726a1eba8318b4dbe766938134e403,
+        type: 3}
+      propertyPath: m_TagString
+      value: Goal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81726a1eba8318b4dbe766938134e403, type: 3}
 --- !u!1001 &605158523
@@ -2054,7 +2059,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff16b0974e3f58c4a9b30ef864cc6ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraObj: {fileID: 0}
+  penguinObj: {fileID: 0}
   canvasData: {fileID: 1803629300}
+  clearObj1: {fileID: 0}
+  clearObj2: {fileID: 0}
+  stageEndButton: {fileID: 0}
 --- !u!4 &1079571143
 Transform:
   m_ObjectHideFlags: 0
@@ -3464,6 +3474,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 909882178920989632, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: StageManager
+      value: 
+      objectReference: {fileID: 1079571138}
     - target: {fileID: 909882178920989634, guid: 538e17bd95534ca47a87e22c9d8a75ba,
         type: 3}
       propertyPath: m_Name

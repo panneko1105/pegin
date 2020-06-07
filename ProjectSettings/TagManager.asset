@@ -12,6 +12,7 @@ TagManager:
   - FlameBlock
   - FxTemporaire
   - Wall
+  - Goal
   layers:
   - Default
   - TransparentFX
