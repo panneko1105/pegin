@@ -359,6 +359,7 @@ MonoBehaviour:
   - {fileID: 5701238371709566937}
   - {fileID: 2380191443138339306}
   text: {fileID: 8994127844111973947}
+  text2: {fileID: 5840678087003030368}
 --- !u!1 &4096679067077633553
 GameObject:
   m_ObjectHideFlags: 0

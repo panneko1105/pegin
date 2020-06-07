@@ -76,7 +76,7 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
             // 十字キー
             float dpv = Input.GetAxis("D_Pad_V");
 
-            // 押した判定
+            // 押してない判定
             if (lsv == 0 && dpv == 0)
             {
                 pushFlg = false;
@@ -222,6 +222,9 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
 
                 // Obj生成、アニメーション開始
                 CreatePauseObj();
+
+                // SE
+                //SoundManager.Instance.PlaySe("星・キラーン07");
             }
         }
     }

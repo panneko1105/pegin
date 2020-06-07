@@ -14,7 +14,8 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
     void Start()
     {
         // BGMの再生
-        //SoundManager.Instance.PlayBgm("BGM_Test01");
+        SoundManager.Instance.PlayBgm("Stage_Asa");
+        SoundManager.Instance.PlaySe("small_footsteps");
         // シーンの初期化
         LoadingScene.Instance.InitScene();
         // シーンイン演出処理
@@ -48,8 +49,12 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
 
         if (flg)
         {
+            float triggerLR = Input.GetAxis("L_R_Trigger");
+
             // Aボタン
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+            if (Input.GetKeyDown(KeyCode.Return)
+                || Input.GetKeyDown("joystick button 0") || Input.GetKeyDown("joystick button 1") || Input.GetKeyDown("joystick button 2") || Input.GetKeyDown("joystick button 3")
+                || Input.GetKeyDown("joystick button 4") || Input.GetKeyDown("joystick button 5") || triggerLR !=0)
             {
                 flg = false;
                 // シーン遷移
@@ -58,9 +63,9 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
                 GameObject gameObject = GameObject.Find("PUSH ANY BUTTON");
                 //gameObject.GetComponent<Text>().color = Color.red;
                 TextEffect textEffect = gameObject.GetComponent<TextEffect>();
-                Debug.Log("やべぇ");
                 textEffect.SetFadeInfo(0.1f, 0.2f, 1.0f);
-                //StartCoroutine(textEffect.StartFadeLoop());
+                // SE
+                SoundManager.Instance.PlaySe("凍る・コチーン");
             }
         }
     }

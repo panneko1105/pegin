@@ -27,11 +27,11 @@ public class ItemManager : MonoBehaviour, IUpdatable
             isGetFlg[i] = false;
 
             // 未取得処理 (保存情報から)
-            if (GameDataManager.Instance.GetItemFlg(stageNo, i + 1))
-            {
-                // 取得済みにする
-                FirstItemGetting(i + 1);
-            }
+            //if (GameDataManager.Instance.GetItemFlg(stageNo, i + 1))
+            //{
+            //    // 取得済みにする
+            //    FirstItemGetting(i + 1);
+            //}
 
             //=========================
             // Obj生成
@@ -71,18 +71,18 @@ public class ItemManager : MonoBehaviour, IUpdatable
         //========================================
         // デバッグ用アイテム取得処理　※本番は必ず消すこと！！！！！！！！！！！！！！！！！！！！！！！
         //========================================
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ItemGetting(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ItemGetting(2);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ItemGetting(3);
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    ItemGetting(1);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    ItemGetting(2);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    ItemGetting(3);
+        //}
     }
 
 
@@ -101,12 +101,12 @@ public class ItemManager : MonoBehaviour, IUpdatable
         isGetFlg[num - 1] = true;
 
         // 画像切り替え
-        //Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
-        //Image image = itemObj[num - 1].GetComponent<Image>();
-        //image.sprite = afterPic;
+        Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+        Image image = itemObj[num - 1].GetComponent<Image>();
+        image.sprite = afterPic;
 
         // 色切り替え
-        Image image = itemObj[num - 1].GetComponent<Image>();
+        //Image image = itemObj[num - 1].GetComponent<Image>();
         image.color = new Color(1.0f, 1.0f, 100.0f / 255.0f, 1.0f);
     }
 
@@ -125,13 +125,13 @@ public class ItemManager : MonoBehaviour, IUpdatable
             isGetFlg[num - 1] = true;
 
             // 画像切り替え
-            //Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
-            //Image image = itemObj[num - 1].GetComponent<Image>();
-            //image.sprite = afterPic;
+            Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
+            Image image = itemObj[num - 1].GetComponent<Image>();
+            image.sprite = afterPic;
 
             // 色切り替え
-            Image image = itemObj[num - 1].GetComponent<Image>();
-            image.color = new Color(1.0f, 1.0f, 100.0f / 255.0f, 1.0f);
+            //Image image = itemObj[num - 1].GetComponent<Image>();
+            //image.color = new Color(1.0f, 1.0f, 100.0f / 255.0f, 1.0f);
 
             // アニメーション開始
             StartCoroutine(ItemGettingAnim(num, 0.08f));
@@ -141,17 +141,34 @@ public class ItemManager : MonoBehaviour, IUpdatable
             if(isGetFlg[0] && isGetFlg[1] && isGetFlg[2])
             {
                 // 旗処理
-                StartCoroutine(GoalUIAnim(0.2f, 0.12f));
+                StartCoroutine(GoalUIAnim(0.1f, 0.12f));
 
                 // SE再生
-                SoundManager.Instance.PlaySe("SE_Test_01");
+                //SoundManager.Instance.PlaySe("SE_Test_01");
             }
             else
             {
                 // SE再生
-                SoundManager.Instance.PlaySe("SE_Test_01");
+                //SoundManager.Instance.PlaySe("SE_Test_01");
             }
         }
+    }
+
+    //========================================
+    // アイテム全部取得したかの情報
+    //========================================
+    bool GetAllFlg()
+    {
+        for (int i = 0; i < itemNum; i++)
+        {
+            // 未取得発見
+            if (!isGetFlg[i])
+            {
+                return false;
+            }
+        }
+        // 全部取得しとるやんけぇ
+        return true;
     }
 
     //========================================
@@ -191,22 +208,28 @@ public class ItemManager : MonoBehaviour, IUpdatable
         //!< 時間計測開始
         float startTime = Time.time;
         float scal = goalFlgObj.transform.localScale.x;
+        Quaternion rdEX = goalFlgObj.transform.localRotation;
+        goalFlgObj.GetComponent<Image>().color = new Color(1.0f, 255.0f / 255.0f, 0.0f / 255.0f, 1.0f);
+        //goalFlgObj.GetComponent<Image>().color = Color.yellow;
 
         // 
         while (seconds > Time.time - startTime)
         {
-            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 250.0f, scal);
+            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 300.0f, scal);
+            float rd = Easing.CubicOut(Time.time - startTime, seconds, rdEX.z * 100.0f, rdEX.z);
             //float w = Easing.BackOut(Time.time - startTime, seconds, scal / 100.0f * 150.0f, scal, 5.0f);
             if (w < 0.0f)
             {
                 w = 0.0f;
             }
             goalFlgObj.transform.localScale = new Vector3(w, w, 1);
+            goalFlgObj.transform.localRotation = new Quaternion(rdEX.x, rdEX.y, rd, rdEX.w);
 
             // 継続
             yield return null;
         }
         // 調整用
         goalFlgObj.transform.localScale = new Vector3(scal, scal, 1);
+        goalFlgObj.transform.localRotation = rdEX;
     }
 }

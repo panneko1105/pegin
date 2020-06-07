@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
 {
-    private static int stageMax = 9;                                //!< ステージ最大数 (固定、ここ以外で弄れない)
+    private static int stageMax = 8;                                //!< ステージ最大数 (固定、ここ以外で弄れない)
     private static int itemMax = 3;                                 //!< １ステージのアイテム最大数 (固定、ここ以外で弄れない)
     private bool[,] isItemGetFlg = new bool[stageMax, itemMax];     //!< 取得の有無 (今後ステージ分これ用意したい)
     private int nowStageNo = 1;                                     //!< 現在のステージNo.
-
+    private int stageSelectPos = 1;                                 //!< ステージセレクトのカーソル位置保存
+    private int[] stageIceMax = new int[stageMax];                  //!< 各ステージの氷制限数
+    int[] iceYeah = new int[]                                       //!< 氷制限数設定
+    {
+        1, 3, 3, 3,
+        3, 3, 3, 3,
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +27,12 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
                 // アイテムは全て未取得からスタート
                 isItemGetFlg[i, j] = false;
             }
+        }
+
+        // 氷制限初期化
+        for(int i = 0; i < stageMax; i++)
+        {
+            stageIceMax[i] = iceYeah[i];
         }
     }
 
@@ -123,6 +135,13 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
         get { return itemMax; }
     }
 
+    public int StageSelectPos
+    {
+        get { return stageSelectPos; }
+        set { stageSelectPos = value; }
+    }
+
+
     //====================================================================
     // 現在のステージNo.を更新
     //====================================================================
@@ -146,5 +165,22 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     public int GetNowStageNo()
     {
         return nowStageNo;
+    }
+
+    //====================================================================
+    // 氷制限数を取得
+    //====================================================================
+    public int GetIceMax(int _stageNo)
+    {
+        if (_stageNo < 1)
+        {
+            _stageNo = 1;
+        }
+        else if (_stageNo > stageMax)
+        {
+            _stageNo = stageMax;
+        }
+
+        return stageIceMax[_stageNo - 1];
     }
 }
