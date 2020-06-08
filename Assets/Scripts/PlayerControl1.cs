@@ -20,7 +20,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool HitBoxCol = false;
 
     bool StopNow = true;
-    float HitNum = 0f;
+    int HitNum = 0;
     bool Jp;
     //反転判定
     bool HantenFg;
@@ -32,7 +32,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     //坂道落下中
     bool DownFg;
     Vector2 KeepVec;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +50,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         dir = 1;
         rb.Sleep();
         DownFg = false;
+        SakaBlock = null;
     }
 
     void FixedUpdate()
@@ -62,17 +62,18 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         if (Jp)
         {
             Debug.Log("飛んだ");
-            if (HitNum < 2f)
+
+            if (HitNum == 1)
             {
-                rb.velocity = new Vector2(0,3.7f);
+                rb.velocity = new Vector2(dir*0.5f, 4f);
             }
-            else if(HitNum<3f)
+            else
             {
-                rb.velocity = new Vector2(0f,5.5f);
+                rb.velocity = new Vector2(dir * 0.5f, 6f);
             }
-            
-            HitNum = 0f;
+            HitNum = 0;
             Jp = false;
+            walk = false;
         }
     }
     void OnCollisionExit2D(Collision2D collision)
@@ -82,6 +83,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             walk = true;
             DownFg = false;
             HitNum = 0;
+            SakaBlock=null:
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -89,6 +91,12 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         //坂道下っているか判定
         if (collision.gameObject.tag == "block")
         {
+            //坂に触れていない場合
+            if (SakaBlock == null)
+            {
+                walk = true;
+            }
+
             foreach (ContactPoint2D point in collision.contacts)
             {
                 Vector2 kudari = new Vector2(point.point.x, point.point.y);
@@ -118,7 +126,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             if (col.gameObject.tag == "block")
             {
                 //ジャンプ力調整のため
-                HitNum+=1f;
+                HitNum++;
 
                 HitJpCheck = true;
                 Vector2 watasu = col.ClosestPoint(this.transform.position);

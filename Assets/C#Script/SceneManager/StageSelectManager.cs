@@ -150,9 +150,9 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
                 //
                 // デバッグ用！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                 //
-                if(selectCursortpos > 3)
+                if(selectCursortpos > 6)
                 {
-                    selectCursortpos = 3;
+                    selectCursortpos = 6;
                 }
                 SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "Stage" + selectCursortpos);
             }

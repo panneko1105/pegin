@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.42279816, y: 0.34208465}
+  m_Offset: {x: -0.42279816, y: 0.42561007}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.19439411, y: 0.5985112}
+  m_Size: {x: 0.19439411, y: 0.43146038}
   m_EdgeRadius: 0
 --- !u!114 &909882178326778516
 MonoBehaviour:
@@ -137,7 +137,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0109266825, y: -0.010933373}
+  m_Offset: {x: -0.010773573, y: -0.008062282}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -148,7 +148,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0048419945, y: 0.023765966}
+  m_Size: {x: 0.0045357645, y: 0.030047582}
   m_EdgeRadius: 0
 --- !u!50 &909882178920989633
 Rigidbody2D:
@@ -184,6 +184,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerspeed: 3
+  StageManager: {fileID: 0}
+  Jp_fase1: 0
+  Jp_fase2: 0
+  Jp_fase3: 0
+  Jp_fase4: 0
+  Jp_fase5: 0
+  Jp_fase6: 0
 --- !u!61 &5517733721234619621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -197,7 +204,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.010927979, y: -0.004882976}
+  m_Offset: {x: -0.010779583, y: -0.01435185}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -208,7 +215,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.0048419945, y: 0.011684285}
+  m_Size: {x: 0.0045452025, y: 0.017218802}
   m_EdgeRadius: 0
 --- !u!1 &909882179368889447
 GameObject:

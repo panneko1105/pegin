@@ -13,7 +13,7 @@ public class BreakWall : MonoBehaviour
             if (KeepBlock == collision.gameObject)
             {
                 var rb = collision.gameObject.GetComponent<Rigidbody2D>();
-                if (Mathf.Abs(collision.relativeVelocity.x) > 2.5f)
+                if (Mathf.Abs(collision.relativeVelocity.x) > 1f)
                 {
                     Destroy(this.gameObject);
                     rb.velocity = new Vector2(collision.relativeVelocity.x * 0.3f, collision.relativeVelocity.x * 0.3f);
