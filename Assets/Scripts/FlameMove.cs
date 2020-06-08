@@ -38,6 +38,11 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     GameObject MaskCube;
 
     private PhysicsMaterial2D yuka;
+
+    //bool pushFlg = false;         //!< 入力フラグ
+    //int pushCnt = 0;              //!< 押し続け
+    bool upDwnSeFlg = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -85,8 +90,33 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         }
         if (!VibrateFg)
         {
-            Vector3 vec;
-            // 上移動
+            // L Stick
+            float lsv = Input.GetAxis("L_Stick_V");
+            float lsh = Input.GetAxis("L_Stick_H");
+            // 十字キー
+            float dpv = Input.GetAxis("D_Pad_V");
+            float dph = Input.GetAxis("D_Pad_H");
+            if (lsh != 0)
+            {
+                Debug.Log("スティック" + lsh);
+            }
+            if (dph != 0)
+            {
+                Debug.Log("ボタン" + dph);
+            }
+
+            // 押してない判定
+            //if (lsv == 0 && dpv == 0 && lsh == 0 && dph == 0)
+            //{
+            //    pushFlg = false;
+            //    pushCnt = 0;
+            //}
+
+            Vector3 vec = new Vector3(0, 0, 0);
+            //----------------------------------------------
+            //  フレーム移動 (左スティック)
+            //----------------------------------------------
+            // 上移動 (キーボード)
             if (Input.GetKey(KeyCode.W))
             {
                 vec = new Vector3(0, 10f * Time.deltaTime, 0);
@@ -97,7 +127,26 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 transform.position += vec;
                 MaskCube.transform.position += vec;
             }
-            // 下移動
+            bool isUp = false;
+            // 十字キー
+            if (dpv > 0.0f)
+            {
+                vec = new Vector3(0, 2f * Time.deltaTime, 0);
+                isUp = true;
+            }
+            // スティック
+            if(lsv > 0.1f)
+            {
+                vec = new Vector3(0, 10f * Time.deltaTime, 0);
+                isUp = true;
+            }
+            if (isUp)
+            {
+                transform.position += vec;
+                MaskCube.transform.position += vec;
+            }
+
+            // 下移動 (キーボード)
             if (Input.GetKey(KeyCode.S))
             {
                 vec = new Vector3(0, -10f * Time.deltaTime, 0);
@@ -108,7 +157,26 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 transform.position += vec;
                 MaskCube.transform.position += vec;
             }
-            // 左に移動
+            bool isDown = false;
+            // 十字キー
+            if (dpv < 0.0f)
+            {
+                vec = new Vector3(0, -2f * Time.deltaTime, 0);
+                isDown = true;
+            }
+            // スティック
+            if (lsv < -0.1f)
+            {
+                vec = new Vector3(0, -10f * Time.deltaTime, 0);
+                isDown = true;
+            }
+            if (isDown)
+            {
+                transform.position += vec;
+                MaskCube.transform.position += vec;
+            }
+
+            // 右に移動 (キーボード)
             if (Input.GetKey(KeyCode.D))
             {
                 vec = new Vector3(10f * Time.deltaTime, 0, 0);
@@ -119,7 +187,27 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 transform.position += vec;
                 MaskCube.transform.position += vec;
             }
-            // 右に移動
+            bool isRight = false;
+            // 十字キー
+            if (dph > 0.0f)
+            {
+                vec = new Vector3(2f * Time.deltaTime, 0, 0);
+                isRight = true;
+            }
+            // スティック
+            if (lsh > 0.1f)
+            {
+                vec = new Vector3(10f * Time.deltaTime, 0, 0);
+                isRight = true;
+            }
+            if (isRight)
+            {
+                Debug.Log("おおおおい");
+                transform.position += vec;
+                MaskCube.transform.position += vec;
+            }
+
+            // 左に移動 (キーボード)
             if (Input.GetKey(KeyCode.A))
             {
                 vec = new Vector3(-10f * Time.deltaTime, 0, 0);
@@ -130,29 +218,79 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 transform.position += vec;
                 MaskCube.transform.position += vec;
             }
+            bool isLeft = false;
+            // 十字キー
+            if (dph < 0.0f)
+            {
+                vec = new Vector3(-2f * Time.deltaTime, 0, 0);
+                isLeft = true;
+            }
+            // スティック
+            if (lsh < -0.1f)
+            {
+                vec = new Vector3(-10f * Time.deltaTime, 0, 0);
+                isLeft = true;
+            }
+            if (isLeft)
+            {
+                transform.position += vec;
+                MaskCube.transform.position += vec;
+            }
 
-            if (Input.GetKey(KeyCode.UpArrow))
+            //----------------------------------------------
+            //  水位の上下 (LB, RB)
+            //----------------------------------------------
+            float triggerLR = Input.GetAxis("L_R_Trigger");
+            bool upDownFlg = false;
+
+            if (Input.GetKey(KeyCode.UpArrow) || triggerLR > 0)
             {
                 float Chek_pos = MaskCube.transform.position.y - transform.position.y;
                 if (Chek_pos < 2.5f)
                 {
                     MaskCube.transform.position += new Vector3(0, 2f * Time.deltaTime, 0);
                 }
+                upDownFlg = true;
             }
 
-
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow) || triggerLR < 0)
             {
                 float Chek_pos = MaskCube.transform.position.y - transform.position.y;
                 if (Chek_pos > 0.5f)
                 {
                     MaskCube.transform.position += new Vector3(0, -2f * Time.deltaTime, 0);
                 }
-
+                upDownFlg = true;
             }
-                // 45度回転
-                // 左回転
-                if (Input.GetKey(KeyCode.LeftArrow))
+
+            // 上下開始でSE再生
+            if (upDownFlg)
+            {
+                // SE再生
+                if (!upDwnSeFlg)
+                {
+                    SoundManager.Instance.PlaySeEX("near_a_brook");
+                    upDwnSeFlg = true;
+                }
+            }
+            // 上下終了でSE停止
+            else
+            {
+                // SE停止
+                if (upDwnSeFlg)
+                {
+                    Debug.Log("SEストップ");
+                    //SoundManager.Instance.StopSe();
+                    SoundManager.Instance.StopSeEX("near_a_brook");
+                    upDwnSeFlg = false;
+                }
+            }
+            
+            //----------------------------------------------
+            //  フレーム回転 (LR)
+            //----------------------------------------------
+            // 左回転
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey("joystick button 4"))
             {
                 Quaternion myRot = this.transform.rotation;
                 Quaternion rot = Quaternion.Euler(0, 0, 60f * Time.deltaTime);
@@ -166,7 +304,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isRot = !isRot;
             }
             // 右回転
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey("joystick button 5"))
             {
                 Quaternion myRot = this.transform.rotation;
                 Quaternion rot = Quaternion.Euler(0, 0, -60f * Time.deltaTime);
@@ -176,7 +314,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 }
                 // 現在の自身の回転の情報を取得する
                 this.transform.rotation = myRot * rot;
-
 
                 isRot = !isRot;
             }

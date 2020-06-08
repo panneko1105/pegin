@@ -83,7 +83,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             walk = true;
             DownFg = false;
             HitNum = 0;
-            SakaBlock=null:
+            SakaBlock = null;
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
