@@ -128,6 +128,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 909882178326778515, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.5398805
+      objectReference: {fileID: 0}
+    - target: {fileID: 909882178326778515, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.20291948
+      objectReference: {fileID: 0}
     - target: {fileID: 909882178920989632, guid: 538e17bd95534ca47a87e22c9d8a75ba,
         type: 3}
       propertyPath: StageManager
@@ -192,6 +202,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 909882178920989647, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.0042809346
+      objectReference: {fileID: 0}
+    - target: {fileID: 909882178920989647, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.037610274
+      objectReference: {fileID: 0}
+    - target: {fileID: 5517733721234619621, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.016931778
+      objectReference: {fileID: 0}
+    - target: {fileID: 5517733721234619621, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.012058947
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 538e17bd95534ca47a87e22c9d8a75ba, type: 3}
@@ -1064,7 +1094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &757635019
 MonoBehaviour:
   m_ObjectHideFlags: 0

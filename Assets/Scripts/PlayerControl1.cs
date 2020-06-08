@@ -62,15 +62,21 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         if (Jp)
         {
             Debug.Log("飛んだ");
+            switch (HitNum)
+            {
+                case 1:
+                    rb.velocity = new Vector2(dir * 0.7f, 2f);
+                    break;
 
-            if (HitNum == 1)
-            {
-                rb.velocity = new Vector2(dir*0.5f, 4f);
+                case 2:
+                    rb.velocity = new Vector2(dir * 0.7f, 4f);
+                    break;
+
+                case 3:
+                    rb.velocity = new Vector2(dir * 0.7f, 5f);
+                    break;
             }
-            else
-            {
-                rb.velocity = new Vector2(dir * 0.5f, 6f);
-            }
+          
             HitNum = 0;
             Jp = false;
             walk = false;
@@ -83,7 +89,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             walk = true;
             DownFg = false;
             HitNum = 0;
-            SakaBlock=null:
+            SakaBlock = null;
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -125,8 +131,11 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         {
             if (col.gameObject.tag == "block")
             {
-                //ジャンプ力調整のため
-                HitNum++;
+                if (Mathf.Abs(rb.velocity.y) < 1.0f)
+                {
+                    //ジャンプ力調整のため
+                    HitNum++;
+                }
 
                 HitJpCheck = true;
                 Vector2 watasu = col.ClosestPoint(this.transform.position);
