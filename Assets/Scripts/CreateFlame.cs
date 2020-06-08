@@ -35,12 +35,22 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     // Use this for initialization
     public void UpdateMe()
     {
+        // 操作不可
+        if (StageManager.Instance.GetFlg() != StageFlg.NOMAL)
+        {
+            return;
+        }
+
         //氷生成中に追加で生成させないため
         if (!SpownMode)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            //----------------------------------------------
+            //  氷生成モード (Xボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 2"))
+
             {
-                
+
                 //マスク処理用のCube生成-----------------------------------------------------------
                 GameObject obj2 = (GameObject)Resources.Load("maskBox");
                 Vector3 Setpos2 = maincamera.transform.position;
@@ -75,10 +85,18 @@ public class CreateFlame : MonoBehaviour, IUpdatable
         }
         else
         {
-            //氷の生成
-            if (Input.GetKeyDown(KeyCode.Return))
+            // ポーズ解除と同時に氷が落ちるのを防止
+            if (PauseManager.Instance.GetPauseEndCnt() < 1)
             {
-               //マスクboxのキャッシュ削除
+                return;
+            }
+
+            //----------------------------------------------
+            //  氷生成モード (Aボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+            {
+                //マスクboxのキャッシュ削除
                 Transform KeepMask = null;
                 foreach (Transform child in this.transform)
                 {   
@@ -93,6 +111,10 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                         //生成可能か判定
                         if (sc.Mabiki(Player.transform.position))
                         {
+                            //SoundManager.Instance.StopSe();
+                            // SE再生
+                            SoundManager.Instance.PlaySe("凍る・コチーン");
+
                             //くりぬきのためトリガーtrueに
                             var col = KeepMask.GetComponent<PolygonCollider2D>();
                             col.isTrigger = false;
@@ -128,6 +150,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                     }
                    
                 }
+                // 水位上下のSE停止
+                SoundManager.Instance.StopSeEX("near_a_brook");
             }
 
             if (Input.GetKeyDown(KeyCode.X))

@@ -74,8 +74,8 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
         //
         // デバッグ用！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
         //
-        else if (_stageNo > 3) {
-            _stageNo = 3;
+        else if (_stageNo > 6) {
+            _stageNo = 6;
         }
 
         stageNo = _stageNo;

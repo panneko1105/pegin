@@ -43,23 +43,18 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
             // BGMの再生
             switch (stageNo) {
                 case 1:
-                    SoundManager.Instance.PlayBgm("Stage_Asa");
-                    break;
                 case 2:
-                    SoundManager.Instance.PlayBgm("Stage_Yugata");
-                    break;
                 case 3:
-                    SoundManager.Instance.PlayBgm("Stage_Yoru");
+                    SoundManager.Instance.PlayBgm("Stage_Asa");
                     break;
                 case 4:
                 case 5:
-                case 6:
-                    SoundManager.Instance.PlayBgm("Stage_Asa");
+                    SoundManager.Instance.PlayBgm("Stage_Yugata");
                     break;
+                case 6:
                 case 7:
                 case 8:
-                case 9:
-                    SoundManager.Instance.PlayBgm("Stage_Asa");
+                    SoundManager.Instance.PlayBgm("Stage_Yoru");
                     break;
             }
         }
@@ -101,10 +96,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
             }
         }
         // GGGGGGGGG
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(GoalEvent());
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    StartCoroutine(GoalEvent());
+        //}
     }
 
     //====================================================================
