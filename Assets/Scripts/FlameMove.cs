@@ -317,6 +317,10 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
                 isRot = !isRot;
             }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                this.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
 
         if (VibrateFg)
@@ -665,7 +669,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         {
             for (int i2 = 1; i2 < TriObj.childCount; i2++)
             {
-                TriPos[i2] = TriObj.GetChild(i2).position;
+                TriPos[i2-1] = TriObj.GetChild(i2).position;
             }
 
             //現在ヒット中のobj

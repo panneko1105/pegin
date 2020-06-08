@@ -32,6 +32,10 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     //坂道落下中
     bool DownFg;
     Vector2 KeepVec;
+
+    public Vector2 Jp_Fase1;
+    public Vector2 Jp_Fase2;
+    public Vector2 Jp_Fase3;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,15 +69,15 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             switch (HitNum)
             {
                 case 1:
-                    rb.velocity = new Vector2(dir * 0.7f, 2f);
+                    rb.velocity = Jp_Fase1;
                     break;
 
                 case 2:
-                    rb.velocity = new Vector2(dir * 0.7f, 4f);
+                    rb.velocity = Jp_Fase2;
                     break;
 
                 case 3:
-                    rb.velocity = new Vector2(dir * 0.7f, 5f);
+                    rb.velocity = Jp_Fase3;
                     break;
             }
           

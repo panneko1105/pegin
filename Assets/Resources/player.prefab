@@ -79,12 +79,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 909882178920989645}
-  - component: {fileID: 909882178920989646}
   - component: {fileID: 909882178920989647}
   - component: {fileID: 909882178920989633}
   - component: {fileID: 909882178920989632}
   - component: {fileID: 5517733721234619621}
   - component: {fileID: 402285665335308151}
+  - component: {fileID: 3016146171927825998}
   m_Layer: 9
   m_Name: player
   m_TagString: Player
@@ -109,22 +109,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!70 &909882178920989646
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 909882178920989634}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0011090359, y: 0.001143388}
-  m_Size: {x: 0.023282843, y: 0.052194864}
-  m_Direction: 0
 --- !u!61 &909882178920989647
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -237,6 +221,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 0.004560748, y: 0.013078101}
+  m_EdgeRadius: 0
+--- !u!61 &3016146171927825998
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909882178920989634}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00055374205, y: 0.00082471967}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.022976302, y: 0.043202795}
   m_EdgeRadius: 0
 --- !u!1 &909882179368889447
 GameObject:
