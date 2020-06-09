@@ -121,17 +121,19 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                         //生成可能か判定
                         if (sc.Mabiki(Player.transform.position))
                         {
+
                             //SoundManager.Instance.StopSe();
+                            // 水位上下のSE停止
+                            SoundManager.Instance.StopSeEX("near_a_brook");
                             // SE再生
                             SoundManager.Instance.PlaySeEX("氷1");
-                            SoundManager.Instance.PlaySeEX("氷3");
-                            //SoundManager.Instance.PlaySeEX("magic-cure1"); 
 
                             //くりぬきのためトリガーtrueに
                             var col = KeepMask.GetComponent<PolygonCollider2D>();
                             col.isTrigger = false;
                             sc.CreateIce();
                             //生成可能状態に
+                            Debug.Log("あああ");
                             SpownMode = false;
                             //最初の動きだし用
                             if (OnceMove)
@@ -143,7 +145,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                             //プレイヤーの移動開始
                             else
                             {
-                                SoundManager.Instance.PlaySeEX("Step_EX");
+                                //SoundManager.Instance.PlaySeEX("Step_EX");
                                 WalkCon.StartWalk();
                             }
                             //画面演出off

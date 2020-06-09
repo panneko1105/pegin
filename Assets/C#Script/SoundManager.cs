@@ -208,7 +208,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>, IUpdatable
     {
         int index = GetSeIndex(name);
 
-        seSources[index].Stop();
+        //seSources[index].Stop();
         seSources[index].clip = seClips[index];
         seSources[index].Play();
     }
