@@ -128,18 +128,14 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
                 kudari.x += 3f;
                 kudari2.x -= 3f;
-                Vector2 saka = CheckKudari(collision.transform, kudari, kudari2);
-                if (Mathf.Abs(saka.x) > 0.5f)
+                float baxk = CheckKudari(collision.transform, kudari, kudari2);
+                if (baxk > 20f)
                 {
-                    if (Mathf.Abs(saka.y) > 0.5f)
-                    {
-                        //坂道下り始め
-                        SakaBlock = collision.gameObject;
-                        walk = false;
-                        DownFg = true;
-                        peguin.SetBool("SaKa", true);//坂アニメーション開始
-                        Debug.Log("坂下り中");
-                    }
+                    //坂道下り始め
+                    SakaBlock = collision.gameObject;
+                    walk = false;
+                    DownFg = true;
+                    peguin.SetBool("SaKa", true);//坂アニメーション開始
                 }
             }
         }
@@ -166,7 +162,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 watasu.x -= 6f;
                 float back = CheckCrossPoint(col.transform, watasu, watasu2);
                 //坂だった場合反転
-                if (back > 25f)
+                if (back > 43f)
                 {
                     Debug.Log("坂道です" + back);
                     HitJpCheck = false;
@@ -440,7 +436,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         return S_Angle;
     }
 
-    Vector2 CheckKudari(Transform ParentIce, Vector2 Hitpos, Vector2 P_pos)
+    float CheckKudari(Transform ParentIce, Vector2 Hitpos, Vector2 P_pos)
     {
         Vector2 CrossPoint;
 
@@ -459,6 +455,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         Vector2 Pos1, Pos2;
         Vector3 I_pos, I_pos2;
 
+        float S_Angle = 0f;
         //交差した頂点を保存しておいて　Playerのポジションと比較をして近いほうの傾きを利用して判断する
         for (int i = 1; i < ParentIce.childCount - 1; i++)
         {
@@ -473,7 +470,16 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     if (nearpoint < CrossPoint.x)
                     {
                         Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                        
+
+                        if (Pos1.y < Pos2.y)
+                        {
+                            S_Angle = GetAngle(Pos1, Pos2);
+                        }
+                        else
+                        {
+                            S_Angle = GetAngle(Pos2, Pos1);
+                        }
+
                         nearpoint = CrossPoint.x;
                         TouchVec = seikou;
                     }
@@ -483,7 +489,15 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     if (nearpoint > CrossPoint.x)
                     {
                         Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                        
+                        if (Pos1.y < Pos2.y)
+                        {
+                            S_Angle = GetAngle(Pos1, Pos2);
+                        }
+                        else
+                        {
+                            S_Angle = GetAngle(Pos2, Pos1);
+                        }
+
                         nearpoint = CrossPoint.x;
                         TouchVec = seikou;
                     }
@@ -504,7 +518,14 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                         if (nearpoint < CrossPoint.x)
                         {
                             Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                            
+                            if (Pos1.y < Pos2.y)
+                            {
+                                S_Angle = GetAngle(Pos1, Pos2);
+                            }
+                            else
+                            {
+                                S_Angle = GetAngle(Pos2, Pos1);
+                            }
                             nearpoint = CrossPoint.x;
                             TouchVec = seikou;
                         }
@@ -514,7 +535,16 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                         if (nearpoint > CrossPoint.x)
                         {
                             Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                            
+
+                            if (Pos1.y < Pos2.y)
+                            {
+                                S_Angle = GetAngle(Pos1, Pos2);
+                            }
+                            else
+                            {
+                                S_Angle = GetAngle(Pos2, Pos1);
+                            }
+
                             nearpoint = CrossPoint.x;
                             TouchVec = seikou;
                         }
@@ -523,11 +553,21 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             }
 
         }
-        if (TouchVec.y > 0f)
+        if (S_Angle > 90f)
         {
-            TouchVec = -TouchVec;
+            S_Angle = 180f - S_Angle;
         }
-        return TouchVec;
+
+        if (S_Angle > 85f)
+        {
+            S_Angle = 0f;
+        }
+        if (Mathf.Abs(TouchVec.x) < 0.3f || Mathf.Abs(TouchVec.y) < 0.3f)
+        {
+            S_Angle = 0;
+        }
+
+        return S_Angle;
     }
 
     public float GetAngle(Vector2 p1, Vector2 p2)
