@@ -202,7 +202,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             }
             if (isRight)
             {
-                Debug.Log("おおおおい");
+                //Debug.Log("おおおおい");
                 transform.position += vec;
                 MaskCube.transform.position += vec;
             }
@@ -238,12 +238,13 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             }
 
             //----------------------------------------------
-            //  水位の上下 (LB, RB)
+            //  水位の上下 (LB, RB→スティックに変更)
             //----------------------------------------------
-            float triggerLR = Input.GetAxis("L_R_Trigger");
+            //float triggerLR = Input.GetAxis("L_R_Trigger");
+            float rsv = Input.GetAxis("R_Stick_V");
             bool upDownFlg = false;
 
-            if (Input.GetKey(KeyCode.UpArrow) || triggerLR > 0)
+            if (Input.GetKey(KeyCode.UpArrow) || rsv > 0)
             {
                 float Chek_pos = MaskCube.transform.position.y - transform.position.y;
                 if (Chek_pos < 2.5f)
@@ -253,7 +254,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 upDownFlg = true;
             }
 
-            if (Input.GetKey(KeyCode.DownArrow) || triggerLR < 0)
+            if (Input.GetKey(KeyCode.DownArrow) || rsv < 0)
             {
                 float Chek_pos = MaskCube.transform.position.y - transform.position.y;
                 if (Chek_pos > 0.5f)
@@ -316,10 +317,6 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 this.transform.rotation = myRot * rot;
 
                 isRot = !isRot;
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                this.transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
 
@@ -669,7 +666,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         {
             for (int i2 = 1; i2 < TriObj.childCount; i2++)
             {
-                TriPos[i2-1] = TriObj.GetChild(i2).position;
+                TriPos[i2] = TriObj.GetChild(i2).position;
             }
 
             //現在ヒット中のobj

@@ -88,9 +88,12 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
 
         // 氷制限数テキスト
         Text t2 = text2.GetComponent<Text>();
-        int a = GameDataManager.Instance.GetIceMax(stageNo);
-        Debug.Log(a);
-        t2.text = a.ToString();
+        if (GameDataManager.Instance != null)
+        {
+            int a = GameDataManager.Instance.GetIceMax(stageNo);
+            Debug.Log(a);
+            t2.text = a.ToString();
+        }
     }
 
     public IEnumerator MoveAnimation(float seconds)

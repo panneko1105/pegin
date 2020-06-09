@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using GokUtil.UpdateManager;
+using UnityEngine.UI;
 
 public class CreateFlame : MonoBehaviour, IUpdatable
 {
@@ -19,12 +20,21 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     //点滅スクリプト保持
     Tenmetu ten = null;
 
+    //
+    //[SerializeField] GameObject iceNumtext; //!< 氷制限数の表記
+    //
+
     void OnEnable()
     {
         UpdateManager.AddUpdatable(this);
         WalkCon = Player.GetComponent<PlayerControl1>();
         OnceMove = true;
         StopMono = Camera.GetComponent<Post>();
+
+        // 氷制限数の表記更新
+        GameObject iceNumtext = GameObject.Find("Text_IceNum");
+        Text t = iceNumtext.GetComponent<Text>();
+        t.text = DelNum.ToString();
     }
 
     void OnDisable()
@@ -48,7 +58,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             //  氷生成モード (Xボタン)
             //----------------------------------------------
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 2"))
-
             {
 
                 //マスク処理用のCube生成-----------------------------------------------------------
@@ -83,6 +92,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 } 
             }
         }
+        // 氷生成モード中
         else
         {
             // ポーズ解除と同時に氷が落ちるのを防止
@@ -90,15 +100,11 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             {
                 return;
             }
-            //現在生成されている氷の全削除
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                DeleteAllChild();
-            }
-                //----------------------------------------------
-                //  氷生成モード (Aボタン)
-                //----------------------------------------------
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+
+            //----------------------------------------------
+            //  氷生成モード (Aボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 //マスクboxのキャッシュ削除
                 Transform KeepMask = null;
@@ -117,7 +123,9 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                         {
                             //SoundManager.Instance.StopSe();
                             // SE再生
-                            SoundManager.Instance.PlaySe("凍る・コチーン");
+                            SoundManager.Instance.PlaySeEX("氷1");
+                            SoundManager.Instance.PlaySeEX("氷3");
+                            //SoundManager.Instance.PlaySeEX("magic-cure1"); 
 
                             //くりぬきのためトリガーtrueに
                             var col = KeepMask.GetComponent<PolygonCollider2D>();
@@ -128,12 +136,14 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                             //最初の動きだし用
                             if (OnceMove)
                             {
+                                SoundManager.Instance.PlaySeEX("Step_EX");
                                 WalkCon.LetsStart();
                                 OnceMove = false;
                             }
                             //プレイヤーの移動開始
                             else
                             {
+                                SoundManager.Instance.PlaySeEX("Step_EX");
                                 WalkCon.StartWalk();
                             }
                             //画面演出off
@@ -150,7 +160,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                             }
                             ten.enabled = false;
                         }
-                     
                     }
                    
                 }
@@ -158,7 +167,10 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 SoundManager.Instance.StopSeEX("near_a_brook");
             }
 
-            if (Input.GetKeyDown(KeyCode.X))
+            //----------------------------------------------
+            //  氷生成キャンセル (Xボタン)
+            //----------------------------------------------
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown("joystick button 2"))
             {
                 //プレイヤーの移動開始
                 if (!OnceMove)
@@ -202,24 +214,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             Destroy(child.gameObject);
             ten = transform.GetChild(1).gameObject.AddComponent<Tenmetu>();
             IceNum--;
-        }
-    }
-
-    void DeleteAllChild()
-    {
-        foreach (Transform child in this.transform)
-        {
-            if (child.tag == "block")
-            {
-                GameObject obj = (GameObject)Resources.Load("icebreak");
-                Vector3 EfectPos = child.transform.position;
-                EfectPos.y -= 1.0f;
-                Instantiate(obj, EfectPos, Quaternion.identity);
-
-                Destroy(child.gameObject);
-                PushNum = 0;
-                IceNum = 0;
-            }
         }
     }
 
