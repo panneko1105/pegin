@@ -9,7 +9,7 @@ using GokUtil.UpdateManager;
 // 参考サイト：https://qiita.com/waken/items/a0288c9b160a20022635
 //
 
-[System.Serializable]
+//[System.Serializable]
 public class SoundVolume
 {
     public float bgm = 1.0f;
@@ -69,7 +69,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>, IUpdatable
             // 足音loop用
             if (seClips[i].name == "Step_EX")
             {
-                Debug.Log("いいね!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"); 
+                //Debug.Log("いいね!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"); 
                 seSources[i].loop = true;
             }
         }

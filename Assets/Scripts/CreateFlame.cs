@@ -154,7 +154,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                             PushNum++;
                             IceNum++;
                             //点滅スクリプトを最初だけつけるため
-                            if (PushNum == DelNum - 1) 
+                            if (PushNum == DelNum) 
                             {
                                 ten = transform.GetChild(0).gameObject.AddComponent<Tenmetu>();
                             }
@@ -202,7 +202,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
 
     public void DeleteChild()
     {
-        if (this.transform.childCount > DelNum) 
+        if (this.transform.childCount > DelNum + 1) 
         {
             var child = transform.GetChild(0);
             //エフェクト発生
