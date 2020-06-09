@@ -70,6 +70,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             transform.position = BackPos;
          
             Vector2 Jp_Power;
+            //peguin.SetTrigger("Jump");
             switch (HitNum)
             {
                 case 1:
@@ -105,6 +106,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             DownFg = false;
             HitNum = 0;
             SakaBlock = null;
+            peguin.SetBool("SaKa", false);//坂アニメーション終了
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -135,6 +137,8 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                         SakaBlock = collision.gameObject;
                         walk = false;
                         DownFg = true;
+                        peguin.SetBool("SaKa", true);//坂アニメーション開始
+                        Debug.Log("坂下り中");
                     }
                 }
             }
@@ -202,6 +206,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             {
                 Jp = true;
                 HitJpCheck = false;
+               // peguin.SetTrigger("Jump");
             }
 
             if (HitWall||HantenFg)
