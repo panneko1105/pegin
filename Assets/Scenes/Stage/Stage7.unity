@@ -3228,6 +3228,21 @@ PrefabInstance:
       propertyPath: StaManager
       value: 
       objectReference: {fileID: 1835285774}
+    - target: {fileID: 5748881741470771064, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: Jp_Fase1.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748881741470771064, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: Jp_Fase2.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748881741470771064, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: Jp_Fase3.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6209964673473486222, guid: 538e17bd95534ca47a87e22c9d8a75ba,
         type: 3}
       propertyPath: m_LocalPosition.x

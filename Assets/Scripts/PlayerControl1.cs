@@ -159,7 +159,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 watasu.x -= 6f;
                 float back = CheckCrossPoint(col.transform, watasu, watasu2);
                 //坂だった場合反転
-                if (back > 40f)
+                if (back > 25f)
                 {
                     Debug.Log("坂道です" + back);
                     HitJpCheck = false;
