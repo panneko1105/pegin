@@ -100,6 +100,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     {
         if (collision.gameObject == SakaBlock)
         {
+            //坂道から降りた
             walk = true;
             DownFg = false;
             HitNum = 0;
@@ -114,6 +115,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             //坂に触れていない場合
             if (SakaBlock == null)
             {
+                //ジャンプモーション終了
                 walk = true;
             }
 
@@ -129,6 +131,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 {
                     if (Mathf.Abs(saka.y) > 0.5f)
                     {
+                        //坂道下り始め
                         SakaBlock = collision.gameObject;
                         walk = false;
                         DownFg = true;
