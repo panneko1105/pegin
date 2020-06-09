@@ -64,7 +64,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 GameObject obj2 = (GameObject)Resources.Load("maskBox");
                 Vector3 Setpos2 = maincamera.transform.position;
                 Setpos2.z = 1f;
-                Setpos2.y += 1f;
+                Setpos2.y += 2.5f;
                 obj2 = Instantiate(obj2, Setpos2, Quaternion.identity);
                 obj2.transform.SetParent(this.transform);
                 //---------------------------------------------------------------------------------

@@ -15,6 +15,12 @@ public class BreakWall : MonoBehaviour
                 var rb = collision.gameObject.GetComponent<Rigidbody2D>();
                 if (Mathf.Abs(collision.relativeVelocity.x) > 1f)
                 {
+                    //エフェクト発生
+                    GameObject obj = (GameObject)Resources.Load("icebreak");
+                    Vector3 EfectPos = transform.position;
+                    EfectPos.y -= 1.0f;
+                    Instantiate(obj, EfectPos, Quaternion.identity);
+
                     Destroy(this.gameObject);
                     rb.velocity = new Vector2(collision.relativeVelocity.x * 0.3f, collision.relativeVelocity.x * 0.3f);
                 }

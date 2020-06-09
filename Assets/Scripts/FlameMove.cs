@@ -247,7 +247,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             if (Input.GetKey(KeyCode.UpArrow) || rsv > 0)
             {
                 float Chek_pos = MaskCube.transform.position.y - transform.position.y;
-                if (Chek_pos < 2.5f)
+                if (Chek_pos < 3f)
                 {
                     MaskCube.transform.position += new Vector3(0, 2f * Time.deltaTime, 0);
                 }
