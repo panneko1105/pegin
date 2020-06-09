@@ -25,7 +25,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     StageSelectFlg selectFlg = StageSelectFlg.START;
 
     /* ステージセレクト位置設定関連 */
-    [SerializeField] GameObject cursorObj;        //!< カーソル用Obj
+    [SerializeField] private GameObject cursorObj;        //!< カーソル用Obj
     [SerializeField] GameObject[] mapPlane = new GameObject[stageMax];   //!< 各ステージの足場のObj
     GameObject selectPanelObj;                    //!< セレクトパネル用Obj
     IEnumerator panelAnimEvent;                   //!< パネルアニメーションイベント用

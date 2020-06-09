@@ -76,6 +76,9 @@ public class StartEvent : MonoBehaviour
         this.transform.localScale = new Vector3(0.6f, 0.6f, 1.0f);
         image.color = new Color(col.r, col.g, col.b, 0.5f);
 
+        // SE
+        SoundManager.Instance.PlaySeEX("ホイッスル4");
+
         //=====================================================
         // サイズ拡大+α値↓
         //=====================================================

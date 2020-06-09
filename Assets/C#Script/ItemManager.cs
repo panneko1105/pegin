@@ -144,12 +144,13 @@ public class ItemManager : MonoBehaviour, IUpdatable
                 StartCoroutine(GoalUIAnim(0.1f, 0.12f));
 
                 // SE再生
-                //SoundManager.Instance.PlaySe("SE_Test_01");
+                SoundManager.Instance.PlaySeEX("magic-cure1");
             }
             else
             {
                 // SE再生
-                //SoundManager.Instance.PlaySe("SE_Test_01");
+                //SoundManager.Instance.PlaySeEX("magic-cure1");
+                SoundManager.Instance.PlaySeEX("magic-stick1");
             }
         }
     }

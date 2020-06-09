@@ -56,6 +56,9 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
                 case 8:
                     SoundManager.Instance.PlayBgm("Stage_Yoru");
                     break;
+                default:
+                    SoundManager.Instance.PlayBgm("Stage_Asa");
+                    break;
             }
         }
         else
@@ -96,10 +99,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
             }
         }
         // GGGGGGGGG
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    StartCoroutine(GoalEvent());
-        //}
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StartCoroutine(GoalEvent());
+        }
     }
 
     //====================================================================
@@ -142,8 +145,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         stageFlg = StageFlg.GAME_CLEAR;
 
         // BGM
+        SoundManager.Instance.StopSe();
+        SoundManager.Instance.StopSeEX("Step_EX");
         SoundManager.Instance.StopBgm();
-        SoundManager.Instance.PlayBgm("Stage_Asa");
+        SoundManager.Instance.PlaySeEX("ファンファーレ2");
 
         // いらんUI削除
         GameObject.Find("ALL_UI").SetActive(false);

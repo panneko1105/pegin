@@ -179,8 +179,8 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                         break;
                 }
             }
-            // Escapeでとりあえず閉じる
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 3"))
+            // Escapeでとりあえず閉じる (スタートボタン)
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))
             {
                 ClosePauseMenu();
                 // このまま閉じる
@@ -204,9 +204,9 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
 
             // 開くよ
             //========================================
-            // 選択 (Yボタン)
+            // 選択 (スタートボタン)
             //========================================
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 3"))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown("joystick button 7"))
             {
                 // ポーズ中に切り替え
                 isPause = true;
@@ -222,9 +222,6 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
 
                 // Obj生成、アニメーション開始
                 CreatePauseObj();
-
-                // SE
-                //SoundManager.Instance.PlaySe("星・キラーン07");
             }
         }
     }
@@ -403,6 +400,9 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
 
         pauseEvent = cursor.AddComponent<PauseEvent>();
         yield return StartCoroutine(pauseEvent.AnimLeftRight2(0.0f, 0.5f, 2080));
+
+        // SE再生
+        SoundManager.Instance.PlaySeEX("氷3");
 
         // 操作可能に
         StageManager.Instance.SetFlg(StageFlg.PAUSE_MENU);
