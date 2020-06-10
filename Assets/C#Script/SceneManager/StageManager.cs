@@ -49,9 +49,9 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
                     break;
                 case 4:
                 case 5:
+                case 6:
                     SoundManager.Instance.PlayBgm("Stage_Yugata");
                     break;
-                case 6:
                 case 7:
                 case 8:
                     SoundManager.Instance.PlayBgm("Stage_Yoru");
@@ -95,14 +95,19 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
             {
                 // セレクト画面へ
                 SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "StageSelect");
+                // SE
+                SoundManager.Instance.PlaySe("凍る・コチーン");
+
                 stageFlg = StageFlg.OTHER;
             }
         }
-        // GGGGGGGGG
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(GoalEvent());
-        }
+        //---------------------------------
+        // GGGGGGGGG (※本番は必ず消すこと！！！！！！！！！！！！！！！！！！！！！！
+        //---------------------------------
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    StartCoroutine(GoalEvent());
+        //}
     }
 
     //====================================================================

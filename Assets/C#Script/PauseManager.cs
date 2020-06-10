@@ -398,11 +398,11 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
         pauseEvent = pauseText.AddComponent<PauseEvent>();
         StartCoroutine(pauseEvent.AnimLeftRight(0.09f, 0.61f, -850));
 
+        // SE再生
+        //SoundManager.Instance.PlaySeEX("氷3");
+
         pauseEvent = cursor.AddComponent<PauseEvent>();
         yield return StartCoroutine(pauseEvent.AnimLeftRight2(0.0f, 0.5f, 2080));
-
-        // SE再生
-        SoundManager.Instance.PlaySeEX("氷3");
 
         // 操作可能に
         StageManager.Instance.SetFlg(StageFlg.PAUSE_MENU);

@@ -12,8 +12,8 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     private int[] stageIceMax = new int[stageMax];                  //!< 各ステージの氷制限数
     int[] iceYeah = new int[]                                       //!< 氷制限数設定
     {
-        1, 3, 3, 3,
-        3, 3, 3, 3,
+        1, 1, 1, 1,
+        1, 3, 5, 99,
     };
 
     // Start is called before the first frame update

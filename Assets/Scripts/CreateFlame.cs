@@ -100,12 +100,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             {
                 return;
             }
-            //氷全削除
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                DeleteAllChild();
-                IceNum = 0;
-            }
 
             //----------------------------------------------
             //  氷生成モード (Aボタン)
@@ -127,17 +121,19 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                         //生成可能か判定
                         if (sc.Mabiki(Player.transform.position))
                         {
+
                             //SoundManager.Instance.StopSe();
+                            // 水位上下のSE停止
+                            SoundManager.Instance.StopSeEX("near_a_brook");
                             // SE再生
                             SoundManager.Instance.PlaySeEX("氷1");
-                            SoundManager.Instance.PlaySeEX("氷3");
-                            //SoundManager.Instance.PlaySeEX("magic-cure1"); 
 
                             //くりぬきのためトリガーtrueに
                             var col = KeepMask.GetComponent<PolygonCollider2D>();
                             col.isTrigger = false;
                             sc.CreateIce();
                             //生成可能状態に
+                            Debug.Log("あああ");
                             SpownMode = false;
                             //最初の動きだし用
                             if (OnceMove)
@@ -149,7 +145,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                             //プレイヤーの移動開始
                             else
                             {
-                                SoundManager.Instance.PlaySeEX("Step_EX");
+                                //SoundManager.Instance.PlaySeEX("Step_EX");
                                 WalkCon.StartWalk();
                             }
                             //画面演出off
@@ -169,9 +165,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                     }
                    
                 }
-             
-                    // 水位上下のSE停止
-                    SoundManager.Instance.StopSeEX("near_a_brook");
+                // 水位上下のSE停止
+                SoundManager.Instance.StopSeEX("near_a_brook");
             }
 
             //----------------------------------------------
@@ -209,7 +204,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
 
     public void DeleteChild()
     {
-        if (this.transform.childCount > DelNum+1) 
+        if (this.transform.childCount > DelNum + 1) 
         {
             var child = transform.GetChild(0);
             //エフェクト発生
@@ -231,22 +226,5 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     public int GetIceNum()
     {
         return IceNum;
-    }
-
-    void DeleteAllChild()
-    {
-        foreach(Transform child in this.transform)
-        {
-            if (child.tag == "block")
-            {
-                //エフェクト発生
-                GameObject obj = (GameObject)Resources.Load("icebreak");
-                Vector3 EfectPos = child.transform.position;
-                EfectPos.y -= 1.0f;
-                Instantiate(obj, EfectPos, Quaternion.identity);
-                Destroy(child.gameObject);
-                PushNum = 0;
-            }
-        }
     }
 }
