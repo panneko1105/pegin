@@ -35,7 +35,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>, IUpdatable
     private Dictionary<string, int> seIndexes = new Dictionary<string, int>();
     private Dictionary<string, int> bgmIndexes = new Dictionary<string, int>();
 
-    const int cNumChannel = 16;
+    const int cNumChannel = 24; // 16
     private AudioSource bgmSource;
     private AudioSource[] seSources = new AudioSource[cNumChannel];
 
@@ -69,9 +69,18 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>, IUpdatable
             // 足音loop用
             if (seClips[i].name == "Step_EX")
             {
-                //Debug.Log("いいね!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"); 
+                //Debug.Log("いいね!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 seSources[i].loop = true;
             }
+            if (seClips[i].name == "cute-sad1_EX")
+            {
+                seSources[i].loop = true;
+            }
+            //if (seClips[i].name == "cute-sad1")
+            //{
+                
+            //    seSources[i].loop = true;
+            //}
         }
 
         for (int i = 0; i < bgmClips.Length; ++i)
@@ -208,7 +217,13 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>, IUpdatable
     {
         int index = GetSeIndex(name);
 
-        //seSources[index].Stop();
+        // 既に流れているなら止めてから再生
+        if (seSources[index].clip == seClips[index])
+        {
+            seSources[index].Stop();
+        }
+
+        //
         seSources[index].clip = seClips[index];
         seSources[index].Play();
     }

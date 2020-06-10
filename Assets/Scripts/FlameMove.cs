@@ -96,14 +96,14 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             // 十字キー
             float dpv = Input.GetAxis("D_Pad_V");
             float dph = Input.GetAxis("D_Pad_H");
-            if (lsh != 0)
-            {
-                Debug.Log("スティック" + lsh);
-            }
-            if (dph != 0)
-            {
-                Debug.Log("ボタン" + dph);
-            }
+            //if (lsh != 0)
+            //{
+            //    Debug.Log("スティック" + lsh);
+            //}
+            //if (dph != 0)
+            //{
+            //    Debug.Log("ボタン" + dph);
+            //}
 
             // 押してない判定
             //if (lsv == 0 && dpv == 0 && lsh == 0 && dph == 0)
@@ -135,9 +135,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isUp = true;
             }
             // スティック
-            if(lsv > 0.1f)
+            if(lsv > 0.05f)
             {
-                vec = new Vector3(0, 10f * Time.deltaTime, 0);
+                vec = new Vector3(0, 12f * lsv * Time.deltaTime, 0);
                 isUp = true;
             }
             if (isUp)
@@ -165,9 +165,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isDown = true;
             }
             // スティック
-            if (lsv < -0.1f)
+            if (lsv < -0.05f)
             {
-                vec = new Vector3(0, -10f * Time.deltaTime, 0);
+                vec = new Vector3(0, 12f * lsv * Time.deltaTime, 0);
                 isDown = true;
             }
             if (isDown)
@@ -195,9 +195,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isRight = true;
             }
             // スティック
-            if (lsh > 0.1f)
+            if (lsh > 0.05f)
             {
-                vec = new Vector3(10f * Time.deltaTime, 0, 0);
+                vec = new Vector3(12f * lsh * Time.deltaTime, 0, 0);
                 isRight = true;
             }
             if (isRight)
@@ -226,9 +226,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isLeft = true;
             }
             // スティック
-            if (lsh < -0.1f)
+            if (lsh < -0.05f)
             {
-                vec = new Vector3(-10f * Time.deltaTime, 0, 0);
+                vec = new Vector3(12f * lsh * Time.deltaTime, 0, 0);
                 isLeft = true;
             }
             if (isLeft)
@@ -242,6 +242,10 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             //----------------------------------------------
             //float triggerLR = Input.GetAxis("L_R_Trigger");
             float rsv = Input.GetAxis("R_Stick_V");
+            //if (rsv != 0)
+            //{
+            //    Debug.Log(rsv);
+            //}
             bool upDownFlg = false;
 
             if (Input.GetKey(KeyCode.UpArrow) || rsv > 0)
@@ -249,7 +253,16 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 float Chek_pos = MaskCube.transform.position.y - transform.position.y;
                 if (Chek_pos < 3f)
                 {
-                    MaskCube.transform.position += new Vector3(0, 2f * Time.deltaTime, 0);
+                    // キーボード
+                    if (rsv == 0)
+                    {
+                        MaskCube.transform.position += new Vector3(0, 2f * Time.deltaTime, 0);
+                    }
+                    // コントローラ
+                    else
+                    {
+                        MaskCube.transform.position += new Vector3(0, 2.5f * rsv * Time.deltaTime, 0);
+                    }
                 }
                 upDownFlg = true;
             }
@@ -259,7 +272,16 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 float Chek_pos = MaskCube.transform.position.y - transform.position.y;
                 if (Chek_pos > 0.5f)
                 {
-                    MaskCube.transform.position += new Vector3(0, -2f * Time.deltaTime, 0);
+                    // キーボード
+                    if (rsv == 0)
+                    {
+                        MaskCube.transform.position += new Vector3(0, -2f * Time.deltaTime, 0);
+                    }
+                    // コントローラ
+                    else
+                    {
+                        MaskCube.transform.position += new Vector3(0, 2.5f * rsv * Time.deltaTime, 0);
+                    }
                 }
                 upDownFlg = true;
             }

@@ -108,6 +108,8 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             HitNum = 0;
             SakaBlock = null;
             peguin.SetBool("SaKa", false);//坂アニメーション終了
+            // 滑りSE停止
+            SoundManager.Instance.StopSeEX("cute-sad1_EX");
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -119,6 +121,8 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             if (SakaBlock == null)
             {
                 //足音再開！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+                // 
+                SoundManager.Instance.PlaySeEX("Step_EX");
                 //ジャンプモーション終了
                 OnceJpFg = false;
                 walk = true;
@@ -130,7 +134,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 Vector3 efePos = transform.position;
                 efePos.y -= 0.6f;
                 Instantiate(obj2, efePos, Quaternion.identity);
-
             }
 
             foreach (ContactPoint2D point in collision.contacts)
@@ -148,6 +151,8 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     walk = false;
                     DownFg = true;
                     peguin.SetBool("SaKa", true);//坂アニメーション開始
+                    // 滑りSE開始
+                    SoundManager.Instance.PlaySeEX("cute-sad1_EX");
                 }
             }
         }
@@ -218,6 +223,10 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 if (!OnceJpFg)
                 {
                     //ジャンプ音入れて足音STOP！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+                    // SE
+                    SoundManager.Instance.StopSeEX("Step_EX");
+                    SoundManager.Instance.PlaySeEX("かわいく跳ねる・ジャンプ03");
+
                     Debug.Log("とんだ");
                     OnceJpFg = true;
                 }
