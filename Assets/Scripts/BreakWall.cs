@@ -16,6 +16,9 @@ public class BreakWall : MonoBehaviour
                 if (Mathf.Abs(collision.relativeVelocity.x) > 1f)
                 {
                     //壁破壊！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+                    // SE
+                    //SoundManager.Instance.PlaySeEX("Step_EX");
+
                     //エフェクト発生
                     GameObject obj = (GameObject)Resources.Load("icebreak");
                     Vector3 EfectPos = transform.position;
