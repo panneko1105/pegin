@@ -671,9 +671,9 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         //現在当たっているブロックの頂点で分断されないかのチェック-------------------------------------------------------
         foreach (Transform TriObj in TrigeerStayObj)
         {
-            for (int i2 = 0; i2 < TriObj.childCount; i2++)
+            for (int i2 = 1; i2 < TriObj.childCount; i2++)
             {
-                TriPos[i2] = TriObj.GetChild(i2).position;
+                TriPos[i2-1] = TriObj.GetChild(i2).position;
             }
 
             //現在ヒット中のobj
