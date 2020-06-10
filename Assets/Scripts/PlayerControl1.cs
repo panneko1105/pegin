@@ -144,7 +144,12 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 kudari.x += 3f;
                 kudari2.x -= 3f;
                 float baxk = CheckKudari(collision.transform, kudari, kudari2);
-                if (baxk > 20f)
+                float gori = 54f - baxk;
+                if (Mathf.Abs(gori) < 1f)
+                {
+                    Debug.Log("坂だけど坂じゃないです");
+                }
+                else if(baxk > 20f)
                 {
                     //坂道下り始め
                     SakaBlock = collision.gameObject;
@@ -153,6 +158,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     peguin.SetBool("SaKa", true);//坂アニメーション開始
                     // 滑りSE開始
                     SoundManager.Instance.PlaySeEX("cute-sad1_EX");
+
                     Debug.Log("坂" + baxk);
                 }
             }
