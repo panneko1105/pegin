@@ -18,7 +18,7 @@ public class Particle : MonoBehaviour
         if (collision.gameObject.tag == "block")
         {
             
-            if (rb.velocity.y > 0.3f)
+            if (rb.velocity.y < -0.1f)
             {
                  //エフェクト発生
                 GameObject obj = (GameObject)Resources.Load("CFX3_Hit_SmokePuff");

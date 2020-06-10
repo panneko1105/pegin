@@ -319,7 +319,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isRot = !isRot;
             }
 
-            // 右回転
+            //角度リセット！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
             if (Input.GetKey(KeyCode.R))
             {
                 this.transform.rotation = Quaternion.Euler(0, 0, 0);

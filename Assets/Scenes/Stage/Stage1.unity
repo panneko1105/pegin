@@ -3156,6 +3156,11 @@ PrefabInstance:
       propertyPath: StaManager
       value: 
       objectReference: {fileID: 299713963}
+    - target: {fileID: 5774262023838429959, guid: 538e17bd95534ca47a87e22c9d8a75ba,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0155
+      objectReference: {fileID: 0}
     - target: {fileID: 6209964673473486222, guid: 538e17bd95534ca47a87e22c9d8a75ba,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3164,7 +3169,7 @@ PrefabInstance:
     - target: {fileID: 6209964673473486222, guid: 538e17bd95534ca47a87e22c9d8a75ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.58
+      value: -2.663
       objectReference: {fileID: 0}
     - target: {fileID: 6209964673473486222, guid: 538e17bd95534ca47a87e22c9d8a75ba,
         type: 3}

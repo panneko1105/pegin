@@ -36,6 +36,8 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     public Vector2 Jp_Fase1;
     public Vector2 Jp_Fase2;
     public Vector2 Jp_Fase3;
+    //ジャンプモーションなどを一度だけ行うため
+    bool OnceJpFg = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +72,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             transform.position = BackPos;
          
             Vector2 Jp_Power;
-            //peguin.SetTrigger("Jump");
             switch (HitNum)
             {
                 case 1:
@@ -117,8 +118,18 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             //坂に触れていない場合
             if (SakaBlock == null)
             {
+                //足音再開！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                 //ジャンプモーション終了
+                OnceJpFg = false;
                 walk = true;
+                Debug.Log("ジャンプモーション終了");
+
+                //エフェクト発生
+                GameObject obj2 = (GameObject)Resources.Load("CFX3_Hit_SmokePuff");
+                Vector3 efePos = transform.position;
+                efePos.y -= 0.6f;
+                Instantiate(obj2, efePos, Quaternion.identity);
+
             }
 
             foreach (ContactPoint2D point in collision.contacts)
@@ -148,7 +159,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         {
             if (col.gameObject.tag == "block")
             {
-                if (Mathf.Abs(rb.velocity.y) < 3.0f)
+                if (Mathf.Abs(rb.velocity.y) < 2.0f)
                 {
                     //ジャンプ力調整のため
                     HitNum++;
@@ -202,7 +213,13 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             {
                 Jp = true;
                 HitJpCheck = false;
-               // peguin.SetTrigger("Jump");
+                if (!OnceJpFg)
+                {
+                    //ジャンプ音入れて足音STOP！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
+                    Debug.Log("とんだ");
+         
+                    OnceJpFg = true;
+                }
             }
 
             if (HitWall||HantenFg)

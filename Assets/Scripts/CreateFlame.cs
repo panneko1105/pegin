@@ -100,6 +100,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             {
                 return;
             }
+            //氷全削除！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 DeleteAllChildren();
