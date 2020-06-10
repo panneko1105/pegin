@@ -100,11 +100,14 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             {
                 return;
             }
-
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                DeleteAllChildren();
+            }
             //----------------------------------------------
             //  氷生成モード (Aボタン)
             //----------------------------------------------
-            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 //マスクboxのキャッシュ削除
                 Transform KeepMask = null;
@@ -226,5 +229,25 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     public int GetIceNum()
     {
         return IceNum;
+    }
+
+    void DeleteAllChildren()
+    {
+        foreach(Transform child in this.transform)
+        {
+            if (child.tag == "block")
+            {
+                
+                //エフェクト発生
+                GameObject obj = (GameObject)Resources.Load("icebreak");
+                Vector3 EfectPos = child.transform.position;
+                EfectPos.y -= 1.0f;
+                Instantiate(obj, EfectPos, Quaternion.identity);
+
+                Destroy(child.gameObject);
+                IceNum = 0;
+                PushNum = 0;
+            }
+        }
     }
 }
