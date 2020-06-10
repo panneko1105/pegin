@@ -78,7 +78,6 @@
 		<type fullname="LoadingScene" preserve="nothing"/>
 		<type fullname="Mybutton" preserve="nothing"/>
 		<type fullname="OutlinePostEffect" preserve="nothing"/>
-		<type fullname="Particle" preserve="nothing"/>
 		<type fullname="PauseManager" preserve="nothing"/>
 		<type fullname="PlayerControl1" preserve="nothing"/>
 		<type fullname="Post" preserve="nothing"/>

@@ -153,6 +153,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     peguin.SetBool("SaKa", true);//坂アニメーション開始
                     // 滑りSE開始
                     SoundManager.Instance.PlaySeEX("cute-sad1_EX");
+                    Debug.Log("坂" + baxk);
                 }
             }
         }
@@ -264,7 +265,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             walk = false;
       
             KeepPos = transform.position;
-
+            SoundManager.Instance.StopSeEX("Step_EX");
             peguin.SetBool("Walk", false);
             StopNow = true;
             KeepVec = rb.velocity;
@@ -287,11 +288,13 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             StopNow = false;
             rb.WakeUp();
             rb.velocity = KeepVec;
+            SoundManager.Instance.PlaySeEX("Step_EX");
         }
     }
 
     public void LetsStart()
     {
+        SoundManager.Instance.PlaySeEX("Step_EX");
         rb.WakeUp();
         StartMove = true;
         walk = true;
