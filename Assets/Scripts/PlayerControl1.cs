@@ -64,7 +64,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         if (walk)
         {
             rb.velocity = new Vector2(transform.localScale.x * Time.deltaTime * playerspeed, rb.velocity.y);
-                    }
+        }
         if (Jp)
         {
             Vector3 BackPos = transform.position;
@@ -123,6 +123,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 OnceJpFg = false;
                 walk = true;
                 Debug.Log("ジャンプモーション終了");
+                //peguin.SetBool("jp", false);
 
                 //エフェクト発生
                 GameObject obj2 = (GameObject)Resources.Load("CFX3_Hit_SmokePuff");
@@ -206,6 +207,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         if (StopNow)
         {
             transform.position = KeepPos;
+           
         }
         else
         {
@@ -217,7 +219,6 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 {
                     //ジャンプ音入れて足音STOP！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                     Debug.Log("とんだ");
-         
                     OnceJpFg = true;
                 }
             }
@@ -255,10 +256,12 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
       
             KeepPos = transform.position;
 
+            peguin.SetBool("Walk", false);
             StopNow = true;
             KeepVec = rb.velocity;
             rb.Sleep();
         }
+      
     }
 
     public void StartWalk()
@@ -268,10 +271,10 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             if (!DownFg)
             {
                 walk = true;
+                peguin.SetBool("Walk", true);
             }
 
             rb.WakeUp();
-
             StopNow = false;
             rb.WakeUp();
             rb.velocity = KeepVec;
@@ -283,6 +286,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         rb.WakeUp();
         StartMove = true;
         walk = true;
+        peguin.SetBool("Walk", true);
         StopNow = false;
         transform.position = KeepPos;
         rb.velocity = KeepVec;
