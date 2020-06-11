@@ -740,14 +740,15 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             if (CrossNum > 3)
             {
                 CutFg = false;
-                VibrateFg = true;
 
+                if(!VibrateFg)
                 this.initPosition = transform.localPosition.x;
                 this.newPosition = this.initPosition;
                 this.minPosition = this.initPosition - this.vibrateRange;
                 this.maxPosition = this.initPosition + this.vibrateRange;
                 this.directionToggle = false;
             }
+            VibrateFg = true;
             CrossNum = 0;
         }
         //---------------------------------------------------------------------------------------------------------------
@@ -802,5 +803,10 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     public void SetYuka(PhysicsMaterial2D mate)
     {
         yuka = mate;
+    }
+
+    public bool GetVibrate()
+    {
+        return VibrateFg;
     }
 }

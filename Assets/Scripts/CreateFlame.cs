@@ -108,7 +108,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             //----------------------------------------------
             //  氷生成モード (Aボタン)
             //----------------------------------------------
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 //マスクboxのキャッシュ削除
                 Transform KeepMask = null;

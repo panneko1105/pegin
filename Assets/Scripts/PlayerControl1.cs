@@ -54,7 +54,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         HitJpCheck = false;
         HitWall = false;
         dir = 1;
-        rb.Sleep();
+        rb.isKinematic = true;
         DownFg = false;
         SakaBlock = null;
     }
@@ -275,7 +275,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             peguin.SetBool("Walk", false);
             StopNow = true;
             KeepVec = rb.velocity;
-            rb.Sleep();
+            rb.isKinematic = true;
         }
       
     }
@@ -290,7 +290,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 peguin.SetBool("Walk", true);
             }
 
-            rb.WakeUp();
+            rb.isKinematic = false;
             StopNow = false;
             rb.WakeUp();
             rb.velocity = KeepVec;
@@ -301,7 +301,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     public void LetsStart()
     {
         SoundManager.Instance.PlaySeEX("Step_EX");
-        rb.WakeUp();
+        rb.isKinematic = false;
         StartMove = true;
         walk = true;
         peguin.SetBool("Walk", true);
