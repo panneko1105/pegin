@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using GokUtil.UpdateManager;
 
-// @date 2020/05/14 [今後修正予定]
-//
-// NowLoadingの動きとか
-//
-
 public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdatable
 {
+    [SerializeField] GameObject loadCamera;                         //!< NOWLOADING...用のカメラ
     [SerializeField] SceneObject firstScene;                        //!< 開始するシーンを指定 (まぁ普通はTitleからだよね)
     [SerializeField] GameObject canvas;                             //!< キャンバス情報
     const int footMax = 4;
@@ -90,6 +86,8 @@ public class BaseSceneManager : SingletonMonoBehaviour<BaseSceneManager>, IUpdat
 
         // falseになると存在を確認できないらしく、直接trueにできなかった...。
         // 仕方なく親Objからたどることに。
+        // カメラ
+        loadCamera.SetActive(isUse);
         canvas.transform.Find("AllObject").gameObject.SetActive(isUse);
         Debug.Log("BaseSceneObj：SetActive設定");
 

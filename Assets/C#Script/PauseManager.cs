@@ -152,6 +152,17 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                     case 0:
                         // このまま閉じる
                         StageManager.Instance.SetFlg(StageFlg.NOMAL);
+                        // 歩行SE再開
+                        PlayerControl1 playerControl1 = GameObject.Find("player").GetComponent<PlayerControl1>();
+                        if (playerControl1.GetWalking())
+                        {
+                            //Debug.Log("歩いとるで");
+                            SoundManager.Instance.PlaySeEX("Step_EX");
+                        }
+                        else
+                        {
+                            //Debug.Log("歩いとらんで");
+                        }
                         break;
                     case 1:
                         if (SceneChangeManager.Instance == null)
@@ -185,6 +196,17 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                 ClosePauseMenu();
                 // このまま閉じる
                 StageManager.Instance.SetFlg(StageFlg.NOMAL);
+                // 歩行SE再開
+                PlayerControl1 playerControl1 = GameObject.Find("player").GetComponent<PlayerControl1>();
+                if (playerControl1.GetWalking())
+                {
+                    //Debug.Log("歩いとるで");
+                    SoundManager.Instance.PlaySeEX("Step_EX");
+                }
+                else
+                {
+                    //Debug.Log("歩いとらんで");
+                }
             }
         }
         // まだポーズメニュー開いてないよ
@@ -211,6 +233,18 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                 // ポーズ中に切り替え
                 isPause = true;
                 StageManager.Instance.SetFlg(StageFlg.PAUSE_BEGIN);
+
+                // 歩行SE停止
+                PlayerControl1 playerControl1 = GameObject.Find("player").GetComponent<PlayerControl1>();
+                if (playerControl1.GetWalking())
+                {
+                    //Debug.Log("歩いとるで");
+                    SoundManager.Instance.StopSeEX("Step_EX");
+                }
+                else
+                {
+                    //Debug.Log("歩いとらんで");
+                }
 
                 // ザ・ワールド
                 Time.timeScale = 0f;

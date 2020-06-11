@@ -228,7 +228,7 @@ PrefabInstance:
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
@@ -378,7 +378,7 @@ PrefabInstance:
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
@@ -528,7 +528,7 @@ PrefabInstance:
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
@@ -733,6 +733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad31f11da1751d43a1ddaaee31824ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadCamera: {fileID: 1164130131}
   firstScene:
     m_SceneName: Title
   canvas: {fileID: 582926200}
@@ -1040,7 +1041,7 @@ PrefabInstance:
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
@@ -1445,7 +1446,7 @@ PrefabInstance:
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
@@ -1721,7 +1722,7 @@ PrefabInstance:
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
@@ -2108,7 +2109,7 @@ PrefabInstance:
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5868868747787316153, guid: 4f95015b81e3303479595a02d27e6790,
         type: 3}

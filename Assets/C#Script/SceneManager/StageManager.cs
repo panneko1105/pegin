@@ -45,26 +45,26 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
                 case 1:
                 case 2:
                 case 3:
-                    //SoundManager.Instance.PlayBgm("Stage_Asa");
+                    SoundManager.Instance.PlayBgm("Stage_Asa");
                     break;
                 case 4:
                 case 5:
                 case 6:
-                    //SoundManager.Instance.PlayBgm("Stage_Yugata");
+                    SoundManager.Instance.PlayBgm("Stage_Yugata");
                     break;
                 case 7:
                 case 8:
-                    //SoundManager.Instance.PlayBgm("Stage_Yoru");
+                    SoundManager.Instance.PlayBgm("Stage_Yoru");
                     break;
                 default:
-                    //SoundManager.Instance.PlayBgm("Stage_Asa");
+                    SoundManager.Instance.PlayBgm("Stage_Asa");
                     break;
             }
         }
         else
         {
             // BGMの再生
-            //SoundManager.Instance.PlayBgm("Stage_Asa");
+            SoundManager.Instance.PlayBgm("Stage_Asa");
         }
 
         // START演出
@@ -149,14 +149,19 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         // クリア演出へ
         stageFlg = StageFlg.GAME_CLEAR;
 
-        // BGM
+        // BGM・SE
         SoundManager.Instance.StopSe();
         SoundManager.Instance.StopSeEX("Step_EX");
         SoundManager.Instance.StopBgm();
         SoundManager.Instance.PlaySeEX("ファンファーレ2");
 
         // いらんUI削除
-        GameObject.Find("ALL_UI").SetActive(false);
+        canvasData.transform.Find("ALL_UI").gameObject.SetActive(false);
+        GameObject item = GameObject.Find("ItemEX");
+        if (item != null)
+        {
+            item.SetActive(false);
+        }
 
         //!< 時間計測用
         float seconds = 1.0f;
@@ -166,7 +171,6 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         // カメラ移動
         //----------------------------------------------------
         StartCoroutine(goal_camera());
-        //// ペンギン：わーいアニメーションへ
 
         //----------------------------------------------------
         // 待機
@@ -177,8 +181,6 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         // カメラ移動終了
         // 「ステージクリア」の文字登場開始
         //----------------------------------------------------
-        // ペンギン：手を振るアニメーションへ
-        //
         StartCoroutine(goal_clear1());
 
         yield return new WaitForSecondsRealtime(0.15f);
@@ -187,7 +189,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         obj2.transform.SetParent(canvasData.transform, false);
         Vector3 pos2 = obj2.transform.localPosition;
 
-        //!< ラジアンに変換 (25.0度→)
+        //!< ラジアンに変換 (20.0度→)
         float rad = 20.0f * Mathf.Deg2Rad;
 
         seconds = 1.0f;
@@ -205,7 +207,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         // 調整用
         obj2.transform.localPosition = pos2;
 
-        Debug.Log("MojiEnd");
+        Debug.Log("StageClear!");
 
         //---------------------------------------
         //  ステージエンドUI

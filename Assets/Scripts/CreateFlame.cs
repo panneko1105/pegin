@@ -55,9 +55,9 @@ public class CreateFlame : MonoBehaviour, IUpdatable
         if (!SpownMode)
         {
             //----------------------------------------------
-            //  氷生成モード (Xボタン)
+            //  氷生成モード (Aボタン)
             //----------------------------------------------
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 2"))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
             {
 
                 //マスク処理用のCube生成-----------------------------------------------------------
@@ -108,7 +108,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             //----------------------------------------------
             //  氷生成モード (Aボタン)
             //----------------------------------------------
-                if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown("joystick button 0"))
             {
                 //マスクboxのキャッシュ削除
                 Transform KeepMask = null;
@@ -174,9 +174,9 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             }
 
             //----------------------------------------------
-            //  氷生成キャンセル (Xボタン)
+            //  氷生成キャンセル (Bボタン)
             //----------------------------------------------
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown("joystick button 2"))
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown("joystick button 1"))
             {
                 //プレイヤーの移動開始
                 if (!OnceMove)
@@ -220,6 +220,9 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             Destroy(child.gameObject);
             ten = transform.GetChild(1).gameObject.AddComponent<Tenmetu>();
             IceNum--;
+
+            // 消えSE
+            SoundManager.Instance.PlaySeEX("溶ける音CESA");
         }
     }
 

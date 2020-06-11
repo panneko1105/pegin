@@ -38,6 +38,12 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     public Vector2 Jp_Fase3;
     //ジャンプモーションなどを一度だけ行うため
     bool OnceJpFg = false;
+
+    public bool GetWalking()
+    {
+        return walk;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

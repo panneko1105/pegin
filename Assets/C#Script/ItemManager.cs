@@ -11,13 +11,13 @@ public class ItemManager : MonoBehaviour, IUpdatable
     [SerializeField] GameObject goalFlgObj;                              //!< ゴールUIObj
     bool[] isGetFlg = new bool[itemNum];                                 //!< 取得の有無 (bool, bool, bool)
 
-    private int stageNo = 1;                                             //!< 現在のステージNo.
+    //private int stageNo = 1;                                             //!< 現在のステージNo.
 
     // Start is called before the first frame update
     void Start()
     {
         // 現在どこのステージかの情報を取得
-        stageNo = GameDataManager.Instance.GetNowStageNo();
+        //stageNo = GameDataManager.Instance.GetNowStageNo();
 
         // 必要分のアイテム情報を用意
         //
@@ -128,29 +128,31 @@ public class ItemManager : MonoBehaviour, IUpdatable
             Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
             Image image = itemObj[num - 1].GetComponent<Image>();
             image.sprite = afterPic;
+            //SpriteRenderer image = itemObj[num - 1].GetComponent<SpriteRenderer>();
+            //image.sprite = afterPic;
 
             // 色切り替え
             //Image image = itemObj[num - 1].GetComponent<Image>();
             //image.color = new Color(1.0f, 1.0f, 100.0f / 255.0f, 1.0f);
 
             // アニメーション開始
-            StartCoroutine(ItemGettingAnim(num, 0.08f));
-            //itemObj[num - 1].transform.localScale = new Vector3(3.0f, 3.0f, 1.0f);
+            StartCoroutine(ItemGettingAnim(num, 0.1f));
 
             // 全取得
             if(isGetFlg[0] && isGetFlg[1] && isGetFlg[2])
             {
                 // 旗処理
-                StartCoroutine(GoalUIAnim(0.1f, 0.12f));
+                StartCoroutine(GoalUIAnim(0.1f, 0.15f));
 
                 // SE再生
                 SoundManager.Instance.PlaySeEX("magic-cure1");
+                SoundManager.Instance.PlaySeEX("magic-stick1");
             }
+            // 単体取得
             else
             {
                 // SE再生
-                //SoundManager.Instance.PlaySeEX("magic-cure1");
-                SoundManager.Instance.PlaySeEX("magic-stick1");
+                SoundManager.Instance.PlaySeEX("magic-cure1");
             }
         }
     }
@@ -184,7 +186,7 @@ public class ItemManager : MonoBehaviour, IUpdatable
         // 
         while (seconds > Time.time - startTime)
         {
-            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 200.0f, scal);
+            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 250.0f, scal);
             //float w = Easing.BackOut(Time.time - startTime, seconds, scal / 100.0f * 150.0f, scal, 5.0f);
             if (w < 0.0f)
             {
@@ -216,8 +218,8 @@ public class ItemManager : MonoBehaviour, IUpdatable
         // 
         while (seconds > Time.time - startTime)
         {
-            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 300.0f, scal);
-            float rd = Easing.CubicOut(Time.time - startTime, seconds, rdEX.z * 100.0f, rdEX.z);
+            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 350.0f, scal);
+            float rd = Easing.CubicOut(Time.time - startTime, seconds, rdEX.z * 150.0f, rdEX.z);
             //float w = Easing.BackOut(Time.time - startTime, seconds, scal / 100.0f * 150.0f, scal, 5.0f);
             if (w < 0.0f)
             {
