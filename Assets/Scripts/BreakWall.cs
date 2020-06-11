@@ -17,7 +17,7 @@ public class BreakWall : MonoBehaviour
                 {
                     //壁破壊！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                     // SE
-                    //SoundManager.Instance.PlaySeEX("Step_EX");
+                    SoundManager.Instance.PlaySeEX("溶ける音CESA");
 
                     //エフェクト発生
                     GameObject obj = (GameObject)Resources.Load("icebreak");

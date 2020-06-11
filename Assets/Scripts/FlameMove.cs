@@ -84,6 +84,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     // Update is called once per frame
     public void UpdateMe()
     {
+        // ポーズ中は操作だめよ
         if (PauseManager.Instance.GetisPause())
         {
             return;
@@ -302,7 +303,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 // SE停止
                 if (upDwnSeFlg)
                 {
-                    Debug.Log("SEストップ");
+                    //Debug.Log("水SEストップ");
                     //SoundManager.Instance.StopSe();
                     SoundManager.Instance.StopSeEX("near_a_brook");
                     upDwnSeFlg = false;
@@ -342,7 +343,8 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             }
 
             //角度リセット！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-            if (Input.GetKey(KeyCode.R))
+            // LR同時押し！！！！！！！！！！！！
+            if (Input.GetKey(KeyCode.R) || Input.GetKey("joystick button 4") && Input.GetKey("joystick button 5"))
             {
                 this.transform.rotation = Quaternion.Euler(0, 0, 0);
                 isRot = !isRot;
