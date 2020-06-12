@@ -43,6 +43,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     //int pushCnt = 0;              //!< 押し続け
     bool upDwnSeFlg = false;
 
+    private CreateFlame IceManagerScript;
     // Start is called before the first frame update
     void Start()
     {
@@ -68,6 +69,8 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 MaskCube = child.gameObject;
             }
         }
+
+        IceManagerScript = transform.root.GetComponent<CreateFlame>();
     }
 
     void OnEnable()
@@ -97,21 +100,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             // 十字キー
             float dpv = Input.GetAxis("D_Pad_V");
             float dph = Input.GetAxis("D_Pad_H");
-            //if (lsh != 0)
-            //{
-            //    Debug.Log("スティック" + lsh);
-            //}
-            //if (dph != 0)
-            //{
-            //    Debug.Log("ボタン" + dph);
-            //}
-
-            // 押してない判定
-            //if (lsv == 0 && dpv == 0 && lsh == 0 && dph == 0)
-            //{
-            //    pushFlg = false;
-            //    pushCnt = 0;
-            //}
+           
 
             Vector3 vec = new Vector3(0, 0, 0);
             //----------------------------------------------
@@ -243,49 +232,54 @@ public class FlameMove : MonoBehaviour, IUpdatable {
             //----------------------------------------------
             //float triggerLR = Input.GetAxis("L_R_Trigger");
             float rsv = Input.GetAxis("R_Stick_V");
-            //if (rsv != 0)
-            //{
-            //    Debug.Log(rsv);
-            //}
+            
+
             bool upDownFlg = false;
 
-            if (Input.GetKey(KeyCode.UpArrow) || rsv > 0)
+            
+            //チュートリアル用の-------------------------------------------------------------------------------------------
+            if (IceManagerScript.Gettutorial())
             {
-                float Chek_pos = MaskCube.transform.position.y - transform.position.y;
-                if (Chek_pos < 3f)
+                if (Input.GetKey(KeyCode.UpArrow) || rsv > 0)
                 {
-                    // キーボード
-                    if (rsv == 0)
+                    float Chek_pos = MaskCube.transform.position.y - transform.position.y;
+                    if (Chek_pos < 3f)
                     {
-                        MaskCube.transform.position += new Vector3(0, 2f * Time.deltaTime, 0);
+                        // キーボード
+                        if (rsv == 0)
+                        {
+                            MaskCube.transform.position += new Vector3(0, 2f * Time.deltaTime, 0);
+                        }
+                        // コントローラ
+                        else
+                        {
+                            MaskCube.transform.position += new Vector3(0, 2.5f * rsv * Time.deltaTime, 0);
+                        }
                     }
-                    // コントローラ
-                    else
-                    {
-                        MaskCube.transform.position += new Vector3(0, 2.5f * rsv * Time.deltaTime, 0);
-                    }
+                    upDownFlg = true;
                 }
-                upDownFlg = true;
-            }
 
-            if (Input.GetKey(KeyCode.DownArrow) || rsv < 0)
-            {
-                float Chek_pos = MaskCube.transform.position.y - transform.position.y;
-                if (Chek_pos > 0.5f)
+                if (Input.GetKey(KeyCode.DownArrow) || rsv < 0)
                 {
-                    // キーボード
-                    if (rsv == 0)
+                    float Chek_pos = MaskCube.transform.position.y - transform.position.y;
+                    if (Chek_pos > 0.5f)
                     {
-                        MaskCube.transform.position += new Vector3(0, -2f * Time.deltaTime, 0);
+                        // キーボード
+                        if (rsv == 0)
+                        {
+                            MaskCube.transform.position += new Vector3(0, -2f * Time.deltaTime, 0);
+                        }
+                        // コントローラ
+                        else
+                        {
+                            MaskCube.transform.position += new Vector3(0, 2.5f * rsv * Time.deltaTime, 0);
+                        }
                     }
-                    // コントローラ
-                    else
-                    {
-                        MaskCube.transform.position += new Vector3(0, 2.5f * rsv * Time.deltaTime, 0);
-                    }
+                    upDownFlg = true;
                 }
-                upDownFlg = true;
+
             }
+            //---------------------------------------------------------------------------------------------------------------
 
             // 上下開始でSE再生
             if (upDownFlg)
@@ -819,4 +813,5 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     {
         return VibrateFg;
     }
+
 }

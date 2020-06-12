@@ -25,10 +25,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     //点滅スクリプト保持
     Tenmetu ten = null;
 
-    //
-    //[SerializeField] GameObject iceNumtext; //!< 氷制限数の表記
-    //
-
+    [SerializeField] private bool tutorial;
     void OnEnable()
     {
         UpdateManager.AddUpdatable(this);
@@ -64,16 +61,15 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             //----------------------------------------------
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0"))
             {
-
-                //マスク処理用のCube生成-----------------------------------------------------------
+                //マスク処理用のCube生成------------------------------------------------------------
                 GameObject obj2 = (GameObject)Resources.Load("maskBox");
                 Vector3 Setpos2 = maincamera.transform.position;
                 Setpos2.z = 1f;
                 Setpos2.y += 2.5f;
                 obj2 = Instantiate(obj2, Setpos2, Quaternion.identity);
                 obj2.transform.SetParent(this.transform);
-                //---------------------------------------------------------------------------------
-                
+                //----------------------------------------------------------------------------------
+
                 //flameの生成-----------------------------------------------------------------------
                 GameObject obj = (GameObject)Resources.Load("flame");
                 Vector3 Setpos = maincamera.transform.position;
@@ -81,8 +77,9 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 obj = Instantiate(obj, Setpos, Quaternion.identity);
                 obj.transform.SetParent(this.transform);
                 obj.tag = "flame";
-                //---------------------------------------------------------------------------------
+                //----------------------------------------------------------------------------------
                 
+
                 //生成可能状態に
                 SpownMode = true;
                 //画面演出ON
@@ -94,9 +91,10 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 if (ten != null)
                 {
                     ten.enabled = true;
-                } 
+                }
             }
         }
+
         // 氷生成モード中
         else
         {
@@ -260,5 +258,10 @@ public class CreateFlame : MonoBehaviour, IUpdatable
 
         // 消えSE
         SoundManager.Instance.PlaySeEX("溶ける音CESA");
+    }
+
+    public bool Gettutorial()
+    {
+        return tutorial;
     }
 }

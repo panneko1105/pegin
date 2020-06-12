@@ -1942,6 +1942,7 @@ MonoBehaviour:
   DelNum: 1
   Player: {fileID: 1663613787}
   Camera: {fileID: 950783505}
+  tutorial: 1
 --- !u!4 &1462105862
 Transform:
   m_ObjectHideFlags: 0
