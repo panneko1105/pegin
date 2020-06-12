@@ -14,7 +14,7 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
     void Start()
     {
         // BGMの再生
-        SoundManager.Instance.PlayBgm("Stage_Asa");
+        SoundManager.Instance.PlayBgm("Title");
         SoundManager.Instance.PlaySeEX("small_footsteps");
         // シーンの初期化
         LoadingScene.Instance.InitScene();

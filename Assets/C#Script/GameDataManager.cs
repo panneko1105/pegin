@@ -8,11 +8,11 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     private static int itemMax = 3;                                 //!< １ステージのアイテム最大数 (固定、ここ以外で弄れない)
     private bool[,] isItemGetFlg = new bool[stageMax, itemMax];     //!< 取得の有無 (今後ステージ分これ用意したい)
     private int nowStageNo = 1;                                     //!< 現在のステージNo.
-    private int stageSelectPos = 1;                                 //!< ステージセレクトのカーソル位置保存
+    private int stageSelectPos = 1;                                 //!< ステージセレクトのカーソル位置保存 (1～)
     private int[] stageIceMax = new int[]                           //!< 各ステージの氷制限数
     {
         1, 1, 1, 1,
-        1, 3, 2, 99,
+        1, 3, 2, 5,
     };
 
     // Start is called before the first frame update
@@ -134,10 +134,23 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
         get { return itemMax; }
     }
 
+    //====================================================================
+    // ステージセレクトカーソル位置情報
+    //====================================================================
     public int StageSelectPos
     {
         get { return stageSelectPos; }
         set { stageSelectPos = value; }
+    }
+
+    public void nextStageSelectPos()
+    {
+        stageSelectPos++;
+        // 最終ステージなら
+        if (stageSelectPos > stageMax)
+        {
+            stageSelectPos = stageMax;
+        }
     }
 
     //====================================================================

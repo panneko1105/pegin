@@ -34,7 +34,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     void Start()
     {
         // BGMの再生
-        SoundManager.Instance.PlayBgm("Stage_Asa");
+        SoundManager.Instance.PlayBgm("StageSelect");
         selectCursortpos = firstSelect;
 
         if (BaseSceneManager.Instance != null)
@@ -150,10 +150,10 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
                 //
                 // デバッグ用！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
                 //
-                if(selectCursortpos > 7)
-                {
-                    selectCursortpos = 7;
-                }
+                //if(selectCursortpos > 7)
+                //{
+                //    selectCursortpos = 7;
+                //}
                 SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "Stage" + selectCursortpos);
             }
 

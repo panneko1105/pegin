@@ -10,7 +10,7 @@ public class ItemManager : MonoBehaviour, IUpdatable
     [SerializeField] GameObject[] itemObj = new GameObject[itemNum];     //!< アイテムObj
     [SerializeField] GameObject goalFlgObj;                              //!< ゴールUIObj
     bool[] isGetFlg = new bool[itemNum];                                 //!< 取得の有無 (bool, bool, bool)
-
+    
     //private int stageNo = 1;                                             //!< 現在のステージNo.
 
     // Start is called before the first frame update
@@ -136,13 +136,13 @@ public class ItemManager : MonoBehaviour, IUpdatable
             //image.color = new Color(1.0f, 1.0f, 100.0f / 255.0f, 1.0f);
 
             // アニメーション開始
-            StartCoroutine(ItemGettingAnim(num, 0.1f));
+            StartCoroutine(ItemGettingAnim(num, 0.11f));
 
             // 全取得
             if(isGetFlg[0] && isGetFlg[1] && isGetFlg[2])
             {
                 // 旗処理
-                StartCoroutine(GoalUIAnim(0.1f, 0.15f));
+                StartCoroutine(GoalUIAnim(0.1f, 0.18f));
 
                 // SE再生
                 SoundManager.Instance.PlaySeEX("magic-cure1");
@@ -186,7 +186,7 @@ public class ItemManager : MonoBehaviour, IUpdatable
         // 
         while (seconds > Time.time - startTime)
         {
-            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 250.0f, scal);
+            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 300.0f, scal);
             //float w = Easing.BackOut(Time.time - startTime, seconds, scal / 100.0f * 150.0f, scal, 5.0f);
             if (w < 0.0f)
             {
@@ -218,8 +218,8 @@ public class ItemManager : MonoBehaviour, IUpdatable
         // 
         while (seconds > Time.time - startTime)
         {
-            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 350.0f, scal);
-            float rd = Easing.CubicOut(Time.time - startTime, seconds, rdEX.z * 150.0f, rdEX.z);
+            float w = Easing.SineIn(Time.time - startTime, seconds, scal / 100.0f * 500.0f, scal);
+            float rd = Easing.CubicOut(Time.time - startTime, seconds, rdEX.z * 180.0f, rdEX.z);
             //float w = Easing.BackOut(Time.time - startTime, seconds, scal / 100.0f * 150.0f, scal, 5.0f);
             if (w < 0.0f)
             {

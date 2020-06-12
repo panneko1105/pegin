@@ -149,6 +149,12 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         // クリア演出へ
         stageFlg = StageFlg.GAME_CLEAR;
 
+        // ステージセレクトカーソルを１つずらす
+        if (GameDataManager.Instance != null)
+        {
+            GameDataManager.Instance.nextStageSelectPos();
+        }
+
         // BGM・SE
         SoundManager.Instance.StopSe();
         SoundManager.Instance.StopSeEX("Step_EX");

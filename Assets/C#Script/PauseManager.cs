@@ -171,6 +171,8 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                             StageManager.Instance.SetFlg(StageFlg.NOMAL);
                             break;
                         }
+                        // SE 星・キラーン07
+                        SoundManager.Instance.PlaySeEX("凍る・コチーン");
                         // リスタート (同じシーンを読み込み直す)
                         SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.2f, LoadingScene.Instance.GetNowScene());
                         break;
@@ -181,6 +183,8 @@ public class PauseManager : SingletonMonoBehaviour<PauseManager>, IUpdatable
                             StageManager.Instance.SetFlg(StageFlg.NOMAL);
                             break;
                         }
+                        // SE 星・キラーン07
+                        SoundManager.Instance.PlaySeEX("凍る・コチーン");
                         // セレクト画面へ
                         SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.2f, "StageSelect");
                         break;

@@ -253,5 +253,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 PushNum = 0;
             }
         }
+
+        // 消えSE
+        SoundManager.Instance.PlaySeEX("溶ける音CESA");
     }
 }
