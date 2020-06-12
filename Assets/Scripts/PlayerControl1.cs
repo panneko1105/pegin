@@ -137,45 +137,39 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             if (SakaBlock == null)
             {
                 //足音再開！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
-                // 
                 SoundManager.Instance.PlaySeEX("Step_EX");
                 //ジャンプモーション終了
                 OnceJpFg = false;
                 walk = true;
                 Debug.Log("ジャンプモーション終了");
-                //peguin.SetBool("jp", false);
 
                 //エフェクト発生
                 GameObject obj2 = (GameObject)Resources.Load("CFX3_Hit_SmokePuff");
                 Vector3 efePos = transform.position;
                 efePos.y -= 0.6f;
                 Instantiate(obj2, efePos, Quaternion.identity);
-            }
 
-            foreach (ContactPoint2D point in collision.contacts)
-            {
-                Vector2 kudari = new Vector2(point.point.x, point.point.y);
-                Vector2 kudari2 = kudari;
+            //} ほんとはIF文ここまで
+                foreach (ContactPoint2D point in collision.contacts)
+                {
+                    Vector2 kudari = new Vector2(point.point.x, point.point.y);
+                    Vector2 kudari2 = kudari;
 
-                kudari.x += 3f;
-                kudari2.x -= 3f;
-                float baxk = CheckKudari(collision.transform, kudari, kudari2);
-                //特定の傾斜の場合坂判定からはずすため--------------------
-                float gori = 54f - baxk;
-                Debug.Log("坂" + baxk);
-                if (Mathf.Abs(gori) < 1f)
-                {
-                    
-                }//-------------------------------------------
-                else if(baxk > 20f)
-                {
-                    //坂道下り始め
-                    SakaBlock = collision.gameObject;
-                    walk = false;
-                    DownFg = true;
-                    peguin.SetBool("SaKa", true);//坂アニメーション開始
-                    // 滑りSE開始
-                    SoundManager.Instance.PlaySeEX("cute-sad1_EX");
+                    kudari.y += 3f;
+                    kudari2.y -= 3f;
+                    float baxk = CheckKudari(collision.transform, kudari, kudari2);
+
+                    Debug.Log("坂" + baxk);
+                    if (baxk > 20f)
+                    {
+                        //坂道下り始め
+                        SakaBlock = collision.gameObject;
+                        walk = false;
+                        DownFg = true;
+                        peguin.SetBool("SaKa", true);//坂アニメーション開始
+                         // 滑りSE開始
+                        SoundManager.Instance.PlaySeEX("cute-sad1_EX");
+                    }
                 }
             }
         }
@@ -259,26 +253,34 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
             if (HitWall||HantenFg)
             {
+                //坂下り中は反転しない
+                if (!DownFg)
+                {
+                    //反転処理
+                    Vector3 temp = gameObject.transform.localScale;
 
-                //反転処理
-                Vector3 temp = gameObject.transform.localScale;
+                    //localScale.xに-1をかける
 
-                //localScale.xに-1をかける
+                    temp.x *= -1f;
 
-                temp.x *= -1f;
+                    //結果を戻す
 
-                //結果を戻す
+                    gameObject.transform.localScale = temp;
+                    dir *= -1;
 
-                gameObject.transform.localScale = temp;
-                dir *= -1;
-
-                HitBoxCol = true;
-                Jp = false;
-                HitWall = false;
-                HantenFg = false;
-                HitNum = 0;
+                    HitBoxCol = true;
+                    Jp = false;
+                    HitWall = false;
+                    HantenFg = false;
+                    HitNum = 0;
+                }
+                else
+                {
+                    HantenFg = false;
+                }
             }
         }
+
     }
 
    
@@ -534,15 +536,17 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 {
                     if (nearpoint < CrossPoint.x)
                     {
-                        Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                        Vector2 seikou = new Vector2(0, 0);
 
                         if (Pos1.y < Pos2.y)
                         {
                             S_Angle = GetAngle(Pos1, Pos2);
+                            seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                         }
                         else
                         {
                             S_Angle = GetAngle(Pos2, Pos1);
+                            seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
                         }
 
                         nearpoint = CrossPoint.x;
@@ -553,14 +557,16 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 {
                     if (nearpoint > CrossPoint.x)
                     {
-                        Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                        Vector2 seikou = new Vector2(0,0);
                         if (Pos1.y < Pos2.y)
                         {
                             S_Angle = GetAngle(Pos1, Pos2);
+                            seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                         }
                         else
                         {
                             S_Angle = GetAngle(Pos2, Pos1);
+                            seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
                         }
 
                         nearpoint = CrossPoint.x;
@@ -582,14 +588,16 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     {
                         if (nearpoint < CrossPoint.x)
                         {
-                            Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                            Vector2 seikou = new Vector2(0,0);
                             if (Pos1.y < Pos2.y)
                             {
                                 S_Angle = GetAngle(Pos1, Pos2);
+                                seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                             }
                             else
                             {
                                 S_Angle = GetAngle(Pos2, Pos1);
+                                seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
                             }
                             nearpoint = CrossPoint.x;
                             TouchVec = seikou;
@@ -599,15 +607,17 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                     {
                         if (nearpoint > CrossPoint.x)
                         {
-                            Vector2 seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
+                            Vector2 seikou = new Vector2(0, 0);
 
                             if (Pos1.y < Pos2.y)
                             {
                                 S_Angle = GetAngle(Pos1, Pos2);
+                                seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                             }
                             else
                             {
                                 S_Angle = GetAngle(Pos2, Pos1);
+                                seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
                             }
 
                             nearpoint = CrossPoint.x;
@@ -632,6 +642,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         {
             S_Angle = 0;
         }
+        //正の向きのとき
 
         return S_Angle;
     }
