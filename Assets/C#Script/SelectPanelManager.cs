@@ -9,7 +9,7 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
 {
     [SerializeField] private int    stageNo = 1;                      //!< ステージNo.(1～)
 
-    const int stageMax = 8;                                           //!< ステージ最大数 (※)
+    const int stageMax = 9;                                           //!< ステージ最大数 (※)
     const int itemMax = 3;                                            //!< アイテム合計数
     [SerializeField] GameObject[] itemObj = new GameObject[itemMax];  //!< アイテムObj
     [SerializeField] GameObject text;                                 //!< STAGE○テキストObj

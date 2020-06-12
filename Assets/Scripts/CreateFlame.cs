@@ -7,15 +7,20 @@ using UnityEngine.UI;
 public class CreateFlame : MonoBehaviour, IUpdatable
 {
     public Camera maincamera;
+    //氷の生成限界
     public int DelNum;
     private bool SpownMode = false;         //trueで出ている状態
 
     public GameObject Player;
     public GameObject Camera;
     PlayerControl1 WalkCon;
+    //停止時のカメラエフェクト用
     Post StopMono;
+    //ペンギンが最初だけ動き出すため
     bool OnceMove;
+    //氷を生成したトータル数
     int PushNum = 0;
+    //現状出ている氷の数
     int IceNum = 0;
     //点滅スクリプト保持
     Tenmetu ten = null;
@@ -137,7 +142,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                             col.isTrigger = false;
                             sc.CreateIce();
                             //生成可能状態に
-                            Debug.Log("あああ");
                             SpownMode = false;
                             //最初の動きだし用
                             if (OnceMove)

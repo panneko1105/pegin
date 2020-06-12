@@ -90,6 +90,8 @@
 		<type fullname="StageSelectManager" preserve="nothing"/>
 		<type fullname="StartEvent" preserve="nothing"/>
 		<type fullname="TextEffect" preserve="nothing"/>
+		<type fullname="TitleEffectManager" preserve="nothing"/>
+		<type fullname="TitleEffectMove" preserve="nothing"/>
 		<type fullname="TitleManager" preserve="nothing"/>
 		<type fullname="camera" preserve="nothing"/>
 		<type fullname="vfx" preserve="nothing"/>
@@ -105,7 +107,9 @@
 		<type fullname="UnityEngine.Rendering.PostProcessing.LensDistortion" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.PostProcessing.MotionBlur" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.PostProcessing.PostProcessLayer" preserve="nothing"/>
+		<type fullname="UnityEngine.Rendering.PostProcessing.PostProcessProfile" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.PostProcessing.PostProcessResources" preserve="nothing"/>
+		<type fullname="UnityEngine.Rendering.PostProcessing.PostProcessVolume" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.PostProcessing.ScreenSpaceReflections" preserve="nothing"/>
 		<type fullname="UnityEngine.Rendering.PostProcessing.Vignette" preserve="nothing"/>
 	</assembly>

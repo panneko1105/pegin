@@ -20,8 +20,8 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     [SerializeField] int firstSelect = 1;         //!< ステージ選択カーソル初期位置 (基本は１じゃね)
     [SerializeField] float cursorSpeed = 0.16f;   //!< ステージ選択カーソル移動速度
     const float panelSpeed = 0.15f;               //!< パネル生成アニメーションの速度
-    int selectCursortpos = 1;                      //!< ステージ選択カーソル箇所 (1～)
-    const int stageMax = 8;                       //!< ステージ最大数 (※)
+    int selectCursortpos = 1;                     //!< ステージ選択カーソル箇所 (1～)
+    const int stageMax = 9;                       //!< ステージ最大数 (※)
     StageSelectFlg selectFlg = StageSelectFlg.START;
 
     /* ステージセレクト位置設定関連 */

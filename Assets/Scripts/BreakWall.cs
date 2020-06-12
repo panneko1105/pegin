@@ -22,10 +22,12 @@ public class BreakWall : MonoBehaviour
                     //エフェクト発生
                     GameObject obj = (GameObject)Resources.Load("icebreak");
                     Vector3 EfectPos = transform.position;
+                    //足元から出すため少し下げる
                     EfectPos.y -= 1.0f;
                     Instantiate(obj, EfectPos, Quaternion.identity);
 
                     Destroy(this.gameObject);
+                    //ぶつかってきた氷の速度を原作させて与えなおす
                     rb.velocity = new Vector2(collision.relativeVelocity.x * 0.3f, collision.relativeVelocity.x * 0.3f);
                 }
             }
@@ -37,6 +39,7 @@ public class BreakWall : MonoBehaviour
     {
         if (col.tag == "block")
         {
+            //横から当たってきた氷がそのまま本体に当たったか確認するため
             KeepBlock = col.gameObject;
         }
     }

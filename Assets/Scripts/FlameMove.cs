@@ -350,7 +350,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isRot = !isRot;
             }
         }
-
+        //生成負荷の場合振動して伝えるため
         if (VibrateFg)
         {
             VibrateTime += Time.deltaTime;
@@ -374,20 +374,21 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         GameObject obj = (GameObject)Resources.Load("test");
         Instantiate(obj, transform.position, Quaternion.identity);
 
-
+        
         m_ObjectCollider.isTrigger = false;
         var rb = this.gameObject.AddComponent<Rigidbody2D>();
         this.gameObject.AddComponent<StopIce>();
         rb.mass = 100f;
+        //物理マテリアルの適用
         rb.sharedMaterial = yuka;
 
         this.gameObject.layer = 0;
-
+        //タグの設定
         var targetCollider = this.gameObject.GetComponent<Collider2D>();
         this.gameObject.tag = "block";
         transform.GetChild(0).gameObject.tag = "block";
 
-        //切り取り
+        //切り取り----------------------------------------------------------------------------------------
         var overlappingColliders = new List<Collider2D>();
         targetCollider.OverlapCollider(new ContactFilter2D(), overlappingColliders);
         var carvers = overlappingColliders.Select(c => c.GetComponentInChildren<Carver>())
@@ -395,11 +396,13 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         var thisCarver = targetCollider.GetComponentInChildren<Carver>();
 
         Carver.Carve(thisCarver, carvers);
-
-        //メッシュの生成
+        //-----------------------------------------------------------------------------------------------
+       
+        //メッシュの生成----------------------------------------------------------------------------------
         MeshFilter mf = this.gameObject.GetComponent<MeshFilter>();
         Vector3[] test = mf.mesh.vertices;
 
+        //各頂点にワールド座標取得用の透明なスフィアーをつけるため
         Quaternion KeepmyRot = this.transform.rotation;
         this.transform.rotation = Quaternion.Euler(0, 0, 0);
         foreach (Vector3 item in test)
@@ -416,14 +419,16 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         this.transform.rotation = KeepmyRot;
 
         dr.CreateMesh(v);
+        //-----------------------------------------------------------------------------------------------------
         var child = transform.GetChild(0);
 
-        //子のメッシュを削除
+        //子のメッシュを削除------------------------------------------------------------------
         var delfilter = child.GetComponent<MeshFilter>();
         var delrender = child.GetComponent<MeshRenderer>();
 
         Destroy(delfilter);
         Destroy(delrender);
+        //-------------------------------------------------------------------------------------
 
         //子のスクリプトを取得してセットしてあるマテリアルを取得
         var ChangeMaterial = child.gameObject.GetComponent<Carver>();
@@ -434,6 +439,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         this.gameObject.name = "ice" + num;
         num++;
 
+        //子供にいたスフィアーの削除
         foreach (GameObject K_pos in GR_Child)
         {
             Destroy(K_pos);
@@ -551,8 +557,10 @@ public class FlameMove : MonoBehaviour, IUpdatable {
         return true;
     }
 
+    //氷が分断して生成されないかのチェック
     public bool Mabiki(Vector3 P_Pos)
     {
+        //flameの各頂点のワールド座標取得
         myPoint.Clear();
         foreach (GameObject K_pos in GR_Child)
         {
