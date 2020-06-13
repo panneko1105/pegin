@@ -55,7 +55,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
                 case 7:
                 case 8:
                 case 9:
-                    SoundManager.Instance.PlayBgm("Stage_Yoru");
+                    //SoundManager.Instance.PlayBgm("Stage_Yoru");
                     break;
                 default:
                     SoundManager.Instance.PlayBgm("Stage_Asa");
@@ -65,7 +65,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         else
         {
             // BGMの再生
-            SoundManager.Instance.PlayBgm("Stage_Asa");
+            //SoundManager.Instance.PlayBgm("Stage_Asa");
         }
 
         // START演出

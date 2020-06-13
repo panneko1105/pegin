@@ -776,7 +776,6 @@ GameObject:
   - component: {fileID: 436950601}
   - component: {fileID: 436950607}
   - component: {fileID: 436950605}
-  - component: {fileID: 436950604}
   - component: {fileID: 436950603}
   - component: {fileID: 436950602}
   - component: {fileID: 436950609}
@@ -859,18 +858,6 @@ MonoBehaviour:
   Post_Outline: {fileID: 4800000, guid: 5ec87da8aa32f3e499089cd2896e2e2f, type: 3}
   DrawSimple: {fileID: 4800000, guid: 6a2a466bae3aa654b90732503b9740bc, type: 3}
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
---- !u!114 &436950604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 436950600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6706c842509af41b78c8bdb29bfe99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &436950605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2537,6 +2524,7 @@ MonoBehaviour:
   DelNum: 1
   Player: {fileID: 909882178786137914}
   Camera: {fileID: 436950600}
+  tutorial: 0
 --- !u!4 &1296462016
 Transform:
   m_ObjectHideFlags: 0

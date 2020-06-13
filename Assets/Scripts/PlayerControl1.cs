@@ -42,6 +42,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     //------------------------------------
     //ジャンプモーションなどを一度だけ行うため
     bool OnceJpFg = false;
+    bool KudariCancelFg = false;
 
     public bool GetWalking()
     {
@@ -124,6 +125,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             HitNum = 0;
             SakaBlock = null;
             peguin.SetBool("SaKa", false);//坂アニメーション終了
+            peguin.SetBool("Walk", true);
             // 滑りSE停止
             SoundManager.Instance.StopSeEX("cute-sad1_EX");
         }
@@ -157,17 +159,22 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
 
                     kudari.y += 3f;
                     kudari2.y -= 3f;
-                    float baxk = CheckKudari(collision.transform, kudari, kudari2);
-
-                    Debug.Log("坂" + baxk);
-                    if (baxk > 20f)
+                    float baxk = CheckKudari2(collision.transform, kudari, kudari2);
+                    float gori = Mathf.Abs(baxk) - 45f;
+                    if (Mathf.Abs(gori)<15.5f)
                     {
+
+                    }
+                    else if (baxk > 20f)
+                    {
+                        Debug.Log("坂滑り" + baxk);
                         //坂道下り始め
                         SakaBlock = collision.gameObject;
                         walk = false;
                         DownFg = true;
                         peguin.SetBool("SaKa", true);//坂アニメーション開始
-                         // 滑りSE開始
+                        peguin.SetBool("Walk", false);
+                        // 滑りSE開始
                         SoundManager.Instance.PlaySeEX("cute-sad1_EX");
                     }
                 }
@@ -194,11 +201,11 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 //接触点の傾斜を判定----------------------------------------------------------------
                 Vector2 watasu = col.ClosestPoint(this.transform.position);
                 Vector2 watasu2 = col.ClosestPoint(this.transform.position);
-                watasu2.x += 6f;
-                watasu.x -= 6f;
-                float back = CheckCrossPoint(col.transform, watasu, watasu2);
+                watasu2.y += 6f;
+                watasu.y -= 6f;
+                float back = CheckKudari2(col.transform, watasu, watasu2);//CheckCrossPoint(col.transform, watasu, watasu2);
                 //坂だった場合反転
-                if (back > 43f)
+                if (back > 45f)
                 {
                     Debug.Log("坂道です" + back);
                     HitJpCheck = false;
@@ -240,6 +247,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             if (HitJpCheck)
             {
                 Jp = true;
+                Debug.Log("????");
                 HitJpCheck = false;
                 if (!OnceJpFg)
                 {
@@ -317,13 +325,14 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             StopNow = false;
             rb.WakeUp();
             rb.velocity = KeepVec;
-            SoundManager.Instance.PlaySeEX("Step_EX");
+           SoundManager.Instance.PlaySeEX("Step_EX");
         }
     }
 
     public void LetsStart()
     {
         SoundManager.Instance.PlaySeEX("Step_EX");
+
         rb.isKinematic = false;
         StartMove = true;
         walk = true;
@@ -503,21 +512,15 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         return S_Angle;
     }
     //上の関数の下りの坂道チェック用に書き換えたもの　ほぼ同じ
-    float CheckKudari(Transform ParentIce, Vector2 Hitpos, Vector2 P_pos)
+
+    float CheckKudari2(Transform ParentIce, Vector2 Hitpos, Vector2 P_pos)
     {
         Vector2 CrossPoint;
 
         float nearpoint;
         Vector2 TouchVec = new Vector2(0, 0);
-        //右向き
-        if (dir < 0f)
-        {
-            nearpoint = 1000f;
-        }
-        else
-        {
-            nearpoint = -1000f;
-        }
+
+        nearpoint = -1000f;
 
         Vector2 Pos1, Pos2;
         Vector3 I_pos, I_pos2;
@@ -532,46 +535,23 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             Pos2 = new Vector2(I_pos2.x, I_pos2.y);
             if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
             {
-                if (dir > 0f)
+                if (nearpoint < CrossPoint.y)
                 {
-                    if (nearpoint < CrossPoint.x)
+                    Vector2 seikou = new Vector2(0, 0);
+
+                    if (Pos1.y < Pos2.y)
                     {
-                        Vector2 seikou = new Vector2(0, 0);
-
-                        if (Pos1.y < Pos2.y)
-                        {
-                            S_Angle = GetAngle(Pos1, Pos2);
-                            seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                        }
-                        else
-                        {
-                            S_Angle = GetAngle(Pos2, Pos1);
-                            seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
-                        }
-
-                        nearpoint = CrossPoint.x;
-                        TouchVec = seikou;
+                        S_Angle = GetAngle(Pos1, Pos2);
+                        seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                     }
-                }
-                else
-                {
-                    if (nearpoint > CrossPoint.x)
+                    else
                     {
-                        Vector2 seikou = new Vector2(0,0);
-                        if (Pos1.y < Pos2.y)
-                        {
-                            S_Angle = GetAngle(Pos1, Pos2);
-                            seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                        }
-                        else
-                        {
-                            S_Angle = GetAngle(Pos2, Pos1);
-                            seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
-                        }
-
-                        nearpoint = CrossPoint.x;
-                        TouchVec = seikou;
+                        S_Angle = GetAngle(Pos2, Pos1);
+                        seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
                     }
+
+                    nearpoint = CrossPoint.x;
+                    TouchVec = seikou;
                 }
 
             }
@@ -584,51 +564,28 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                 if (LineSegmentsIntersection(P_pos, Hitpos, Pos1, Pos2, out CrossPoint))
                 {
 
-                    if (dir > 0)
-                    {
-                        if (nearpoint < CrossPoint.x)
-                        {
-                            Vector2 seikou = new Vector2(0,0);
-                            if (Pos1.y < Pos2.y)
-                            {
-                                S_Angle = GetAngle(Pos1, Pos2);
-                                seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                            }
-                            else
-                            {
-                                S_Angle = GetAngle(Pos2, Pos1);
-                                seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
-                            }
-                            nearpoint = CrossPoint.x;
-                            TouchVec = seikou;
-                        }
-                    }
-                    else
-                    {
-                        if (nearpoint > CrossPoint.x)
-                        {
-                            Vector2 seikou = new Vector2(0, 0);
 
-                            if (Pos1.y < Pos2.y)
-                            {
-                                S_Angle = GetAngle(Pos1, Pos2);
-                                seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
-                            }
-                            else
-                            {
-                                S_Angle = GetAngle(Pos2, Pos1);
-                                seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
-                            }
-
-                            nearpoint = CrossPoint.x;
-                            TouchVec = seikou;
+                    if (nearpoint < CrossPoint.y)
+                    {
+                        Vector2 seikou = new Vector2(0, 0);
+                        if (Pos1.y < Pos2.y)
+                        {
+                            S_Angle = GetAngle(Pos1, Pos2);
+                            seikou = new Vector2(Pos1.x - Pos2.x, Pos1.y - Pos2.y);
                         }
+                        else
+                        {
+                            S_Angle = GetAngle(Pos2, Pos1);
+                            seikou = new Vector2(Pos2.x - Pos1.x, Pos2.y - Pos1.y);
+                        }
+                        nearpoint = CrossPoint.x;
+                        TouchVec = seikou;
                     }
+
                 }
             }
 
         }
-        Debug.Log("角度は" + S_Angle);
         if (S_Angle > 90f)
         {
             S_Angle = 180f - S_Angle;
