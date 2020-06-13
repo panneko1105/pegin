@@ -89,10 +89,15 @@ public class FadeManager : MonoBehaviour
         Image image = GetComponent<Image>();
         Color col = image.color;
 
-        while (alpha < maxAlpha)
+        // 時間計測開始
+        ProcessTimer processTimer = new ProcessTimer();
+        processTimer.Restart();
+
+        while (_seconds > processTimer.TotalSeconds)
         {
             // α値どんどん濃くなるよ
-            alpha = _minAlpha + (Time.time - startTime) / _seconds * (_maxAlpha - _minAlpha);
+            alpha = Easing.QuintIn(processTimer.TotalSeconds, seconds, _minAlpha, _maxAlpha);
+            //alpha = _minAlpha + (Time.time - startTime) / _seconds * (_maxAlpha - _minAlpha);
             if (alpha > _maxAlpha)
             {
                 alpha = _maxAlpha;

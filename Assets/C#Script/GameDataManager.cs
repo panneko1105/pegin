@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
 {
-    private static int stageMax = 9;                                //!< ステージ最大数 (固定、ここ以外で弄れない)
+    private static int stageMax = 10;                                //!< ステージ最大数 (固定、ここ以外で弄れない)
     private static int itemMax = 3;                                 //!< １ステージのアイテム最大数 (固定、ここ以外で弄れない)
     private bool[,] isItemGetFlg = new bool[stageMax, itemMax];     //!< 取得の有無 (今後ステージ分これ用意したい)
     private int nowStageNo = 1;                                     //!< 現在のステージNo.
     private int stageSelectPos = 1;                                 //!< ステージセレクトのカーソル位置保存 (1～)
     private int[] stageIceMax = new int[]                           //!< 各ステージの氷制限数
     {
-        1, 1, 1, 1,
-        1, 2, 3, 2, 3,
+        1, 1, 1, 1, 1,
+        2, 3, 2, 3, 9,
     };
+    private bool[] stageClearFlg = new bool[stageMax];
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +29,11 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
             }
         }
 
-        // 氷制限初期化
-        //for(int i = 0; i < stageMax; i++)
-        //{
-        //    stageIceMax[i] = iceYeah[i];
-        //}
+        // ステージクリアflg初期化
+        for (int i = 0; i < stageMax; i++)
+        {
+            stageClearFlg[i] = false;
+        }
     }
 
     //====================================================================
@@ -135,6 +136,19 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     }
 
     //====================================================================
+    // ステージクリア情報 (引数：1～)
+    //====================================================================
+    public void SetStgaeClearFlg(int stageNo)
+    {
+        stageClearFlg[stageNo - 1] = true;
+    }
+
+    public bool GetStageClearFlg(int stageNo)
+    {
+        return stageClearFlg[stageNo - 1];
+    }
+
+    //====================================================================
     // ステージセレクトカーソル位置情報
     //====================================================================
     public int StageSelectPos
@@ -151,6 +165,7 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
         {
             stageSelectPos = stageMax;
         }
+        Debug.Log("ステージクリアカーソル：" + stageSelectPos);
     }
 
     //====================================================================

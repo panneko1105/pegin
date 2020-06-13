@@ -18,6 +18,7 @@ public enum StageFlg {
 
 public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
 {
+    [SerializeField] private bool finalStage = false;
     [SerializeField] private GameObject cameraObj;        //!< カメラ
     [SerializeField] private GameObject penguinObj;       //!< ペンギン野郎
     [SerializeField] private GameObject canvasData;       //!< 親Obj参照データ
@@ -26,6 +27,12 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
     [SerializeField] private GameObject stageEndButton;   //!< ステージエンドボタンUI
     private StageFlg stageFlg = StageFlg.START;           //!< ステージ状態flg
     private int stageNo = 1;                              //!< ステージ番号
+    private bool isStageEnd = false;                      //!< ゴール演出何度もかからんように
+
+    public bool GetFinalFlag()
+    {
+        return finalStage;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +63,10 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
                 case 8:
                 case 9:
                     SoundManager.Instance.PlayBgm("Stage_Yoru");
+                    break;
+                case 10:
+                    SoundManager.Instance.PlayBgm("GoodNight");
+                    //Invoke("FinalSoundplay", 0.05f);
                     break;
                 default:
                     SoundManager.Instance.PlayBgm("Stage_Asa");
@@ -97,9 +108,12 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
                 // セレクト画面へ
                 SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, "StageSelect");
                 // SE
-                SoundManager.Instance.PlaySe("凍る・コチーン");
+                SoundManager.Instance.PlaySeEX("凍る・コチーン");
 
                 stageFlg = StageFlg.OTHER;
+
+                // ステージセレクトカーソルを１つずらす
+                GameDataManager.Instance.nextStageSelectPos();
             }
         }
         //---------------------------------
@@ -116,6 +130,14 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
     //====================================================================
     IEnumerator StartEvent()
     {
+        // 既に演出やりました
+        if (isStageEnd)
+        {
+            yield break;
+        }
+
+        isStageEnd = true;
+
         // 時を止める
         Time.timeScale = 0.0f;
 
@@ -150,12 +172,6 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         // クリア演出へ
         stageFlg = StageFlg.GAME_CLEAR;
 
-        // ステージセレクトカーソルを１つずらす
-        if (GameDataManager.Instance != null)
-        {
-            GameDataManager.Instance.nextStageSelectPos();
-        }
-
         // BGM・SE
         SoundManager.Instance.StopSe();
         SoundManager.Instance.StopSeEX("Step_EX");
@@ -169,6 +185,12 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         {
             item.SetActive(false);
         }
+
+        // 氷削除
+        Debug.Log("Fianl：全氷消去");
+        GameObject obj = GameObject.Find("icemanager");
+        CreateFlame createFlame = obj.GetComponent<CreateFlame>();
+        createFlame.DeleteAllChildren();
 
         //!< 時間計測用
         float seconds = 1.0f;
@@ -192,7 +214,7 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
 
         yield return new WaitForSecondsRealtime(0.15f);
 
-        GameObject obj2 = Instantiate(clearObj2, new Vector3( 470, 140, 0), Quaternion.identity);
+        GameObject obj2 = Instantiate(clearObj2, new Vector3(470, 140, 0), Quaternion.identity);
         obj2.transform.SetParent(canvasData.transform, false);
         Vector3 pos2 = obj2.transform.localPosition;
 
@@ -221,6 +243,13 @@ public class StageManager : SingletonMonoBehaviour<StageManager>, IUpdatable
         //---------------------------------------
         GameObject obj3 = Instantiate(stageEndButton);
         obj3.transform.SetParent(canvasData.transform, false);
+
+        // クリアしたことで何かが起こるんじゃ
+        if (GameDataManager.Instance != null)
+        {
+            // ステージクリア情報を保存
+            GameDataManager.Instance.SetStgaeClearFlg(stageNo);
+        }
 
         // 「ステージクリア」文字登場終了
         // ボタンを押すとシーン遷移可能に

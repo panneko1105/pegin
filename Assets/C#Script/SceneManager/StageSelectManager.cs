@@ -21,7 +21,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
     [SerializeField] float cursorSpeed = 0.16f;   //!< ステージ選択カーソル移動速度
     const float panelSpeed = 0.15f;               //!< パネル生成アニメーションの速度
     int selectCursortpos = 1;                     //!< ステージ選択カーソル箇所 (1～)
-    const int stageMax = 9;                       //!< ステージ最大数 (※)
+    const int stageMax = 10;                       //!< ステージ最大数 (※)
     StageSelectFlg selectFlg = StageSelectFlg.START;
 
     /* ステージセレクト位置設定関連 */
@@ -46,6 +46,49 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
             Debug.Log(GameDataManager.Instance.StageSelectPos);
             // カーソル位置の読み込み
             selectCursortpos = GameDataManager.Instance.StageSelectPos;
+
+            //---------------------------------------------
+            //  ステージクリア状況をセット
+            //---------------------------------------------
+            bool allClearFlg = true;
+            for (int i = 0; i < stageMax; i++)
+            {
+                GameObject obj = mapPlane[i].transform.Find("STAGE" + (i + 1) + "_CLEAR").gameObject;
+                if (obj != null)
+                {
+                    // もしクリアしてなければ非表示
+                    if(GameDataManager.Instance.GetStageClearFlg(i + 1) == false)
+                    {
+                        obj.SetActive(false);
+                        allClearFlg = false;
+                    }
+                }
+            }
+            // もし全クリでなければ
+            if (!allClearFlg)
+            {
+                GameObject allClearObj = GameObject.Find("ALL_CLEAR!");
+                allClearObj.SetActive(false);
+            }
+        }
+        // 通常プレイでは到達不可
+        else
+        {
+            //---------------------------------------------
+            //  ステージクリア状況をセット
+            //---------------------------------------------
+            // とりあえず全部非表示
+            for (int i = 0; i < stageMax; i++)
+            {
+                Debug.Log("STAGE" + i + 1 + "_CLEAR");
+                GameObject obj = mapPlane[i].transform.Find("STAGE" + (i + 1) + "_CLEAR").gameObject;
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                }
+            }
+            GameObject allClearObj = GameObject.Find("ALL_CLEAR!");
+            allClearObj.SetActive(false);
         }
 
         // カーソル位置を合わせる
@@ -145,6 +188,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>, IU
                 // SE
                 SoundManager.Instance.PlaySe("small_ice1");
                 // カーソル位置の保存
+                Debug.Log("ステージ直前カーソル：" + selectCursortpos);
                 GameDataManager.Instance.StageSelectPos = selectCursortpos;
                 // シーン遷移
                 //

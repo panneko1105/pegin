@@ -9,7 +9,7 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
 {
     [SerializeField] private int    stageNo = 1;                      //!< ステージNo.(1～)
 
-    const int stageMax = 9;                                           //!< ステージ最大数 (※)
+    const int stageMax = 10;                                          //!< ステージ最大数 (※)
     const int itemMax = 3;                                            //!< アイテム合計数
     [SerializeField] GameObject[] itemObj = new GameObject[itemMax];  //!< アイテムObj
     [SerializeField] GameObject text;                                 //!< STAGE○テキストObj
@@ -24,8 +24,7 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
         //itemObj[1] = obj.Find("Star_2").gameObject;
         //itemObj[2] = obj.Find("Star_3").gameObject;
 
-        // アイテム情報をセット
-        //SetItem();
+        // クリア情報をセット
     }
 
     void OnEnable()
@@ -44,26 +43,6 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
         
     }
 
-    void SetItem()
-    {
-        // 取得状況に合わせる
-        if (GameDataManager.Instance == null)
-        {
-            return;
-        }
-
-        for (int i = 0; i < GameDataManager.Instance.ItemMax; i++)
-        {
-            // もし取得済みであれば
-            if (GameDataManager.Instance.GetItemFlg(stageNo, i + 1))
-            {
-                // 画像を変更
-                Sprite afterPic = Resources.Load<Sprite>("Texture/StarCESA_02");
-                Image image = itemObj[i].GetComponent<Image>();
-                image.sprite = afterPic;
-            }
-        }
-    }
 
     public void SetInfo(int _stageNo)
     {
@@ -76,17 +55,15 @@ public class SelectPanelManager : MonoBehaviour, IUpdatable
         }
 
         stageNo = _stageNo;
-        // アイテム画像の変更
-        //SetItem();
 
         //「Stage○」テキスト
         Text t = text.GetComponent<Text>();
         t.text = "STAGE " + _stageNo;
 
         // 氷制限数テキスト
-        Text t2 = text2.GetComponent<Text>();
         if (GameDataManager.Instance != null)
         {
+            Text t2 = text2.GetComponent<Text>();
             int a = GameDataManager.Instance.GetIceMax(stageNo);
             Debug.Log(a);
             t2.text = a.ToString();

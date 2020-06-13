@@ -4,11 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using GokUtil.UpdateManager;
 
+public enum TitleFlg
+{
+    BIGIN,
+    NOMAL,
+    END,
+}
 
 public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
 {
     [SerializeField] SceneObject m_nextScene;       //!< 次のシーン先をInspector上で指定できるよ
-    bool flg = true;
+    //bool flg = true;
+    TitleFlg titleFlg = TitleFlg.BIGIN;             //!< 画面状態管理
 
     // Use this for initialization
     void Start()
@@ -19,7 +26,9 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
         // シーンの初期化
         LoadingScene.Instance.InitScene();
         // シーンイン演出処理
-        SceneChangeManager.Instance.SceneChangeIn(SceneChangeType.FADE, 0.5f);
+        SceneChangeManager.Instance.SceneChangeIn(SceneChangeType.FADE, 1.5f);
+
+        Invoke("StartPushOK", 0.6f);
 
         // 仮取得処理
         //GameDataManager.Instance.SaveItemFlg(1, 2);
@@ -47,7 +56,7 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
         //    Debug.Log(rsv);
         //}
 
-        if (flg)
+        if (titleFlg==TitleFlg.NOMAL)
         {
             float triggerLR = Input.GetAxis("L_R_Trigger");
 
@@ -56,7 +65,8 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
                 || Input.GetKeyDown("joystick button 0") || Input.GetKeyDown("joystick button 1") || Input.GetKeyDown("joystick button 2") || Input.GetKeyDown("joystick button 3")
                 || Input.GetKeyDown("joystick button 4") || Input.GetKeyDown("joystick button 5") || triggerLR !=0)
             {
-                flg = false;
+                //flg = false;
+                titleFlg = TitleFlg.END;
                 // シーン遷移
                 SceneChangeManager.Instance.SceneChangeOut(SceneChangeType.FADE, 0.5f, m_nextScene);
                 // 演出
@@ -68,5 +78,10 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>, IUpdatable
                 SoundManager.Instance.PlaySe("凍る・コチーン");
             }
         }
+    }
+
+    void StartPushOK()
+    {
+        titleFlg = TitleFlg.NOMAL;
     }
 }
