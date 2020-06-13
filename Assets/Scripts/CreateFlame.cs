@@ -108,6 +108,8 @@ public class CreateFlame : MonoBehaviour, IUpdatable
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 DeleteAllChildren();
+                // 溶けSE
+                SoundManager.Instance.PlaySeEX("溶ける音CESA");
             }
             //----------------------------------------------
             //  氷生成モード (Aボタン)
@@ -145,7 +147,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                             //最初の動きだし用
                             if (OnceMove)
                             {
-                                SoundManager.Instance.PlaySeEX("Step_EX");
+                                //SoundManager.Instance.PlaySeEX("Step_EX");
                                 WalkCon.LetsStart();
                                 OnceMove = false;
                             }
@@ -238,7 +240,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
         return IceNum;
     }
 
-    void DeleteAllChildren()
+    public void DeleteAllChildren()
     {
         foreach(Transform child in this.transform)
         {
@@ -256,9 +258,6 @@ public class CreateFlame : MonoBehaviour, IUpdatable
                 PushNum = 0;
             }
         }
-
-        // 消えSE
-        SoundManager.Instance.PlaySeEX("溶ける音CESA");
     }
 
     public bool Gettutorial()

@@ -32,7 +32,7 @@ public class TitleEffectMove : MonoBehaviour, IUpdatable
     public void UpdateMe()
     {
         // 上昇
-        speed *= 0.9991f;
+        speed *= 0.9988f;
         transform.position += new Vector3(0, speed * Time.deltaTime, 0);
 
         // サイズ

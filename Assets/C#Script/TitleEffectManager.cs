@@ -30,7 +30,7 @@ public class TitleEffectManager : MonoBehaviour, IUpdatable
     public void UpdateMe()
     {
         // ランダムにエフェクト生成
-        if(Random.Range(1, 160) == 1)
+        if(Random.Range(1, 150) == 1)
         {
             CreateEffect();
         }

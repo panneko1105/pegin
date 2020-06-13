@@ -44,6 +44,9 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
     bool OnceJpFg = false;
     bool KudariCancelFg = false;
 
+    // ラストステージ演出用
+    bool isFianlEffect = false;
+
     public bool GetWalking()
     {
         return walk;
@@ -124,10 +127,16 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             DownFg = false;
             HitNum = 0;
             SakaBlock = null;
+<<<<<<< HEAD
             peguin.SetBool("SaKa", false);//坂アニメーション終了
             peguin.SetBool("Walk", true);
             // 滑りSE停止
+=======
+            //坂アニメーション終了
+            peguin.SetBool("SaKa", false);
+>>>>>>> origin/UI6
             SoundManager.Instance.StopSeEX("cute-sad1_EX");
+            peguin.SetBool("Walk", true); // 歩きアニメーション開始
         }
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -172,10 +181,18 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
                         SakaBlock = collision.gameObject;
                         walk = false;
                         DownFg = true;
+<<<<<<< HEAD
                         peguin.SetBool("SaKa", true);//坂アニメーション開始
                         peguin.SetBool("Walk", false);
                         // 滑りSE開始
+=======
+                        // 坂アニメーション開始
+                        peguin.SetBool("SaKa", true);
+>>>>>>> origin/UI6
                         SoundManager.Instance.PlaySeEX("cute-sad1_EX");
+                        // 歩きアニメーション終了
+                        peguin.SetBool("Walk", false); 
+                        SoundManager.Instance.StopSeEX("Step_EX");
                     }
                 }
             }
@@ -226,6 +243,7 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
         {
             if (col.gameObject.tag == "Goal")
             {
+                Debug.Log("End");
                 peguin.SetBool("Goal_1", true);
                 StartCoroutine(StageManager.Instance.GoalEvent());
                 playerspeed = 0;
@@ -289,6 +307,27 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             }
         }
 
+        // 最終面
+        if (StageManager.Instance.GetFinalFlag())
+        {
+            if (!isFianlEffect)
+            {
+                //Debug.Log(this.transform.position.x);
+                // 画面端
+                if (this.transform.position.x > 17.5f)
+                {
+                    // 全氷消す
+                    Debug.Log("Fianl：全氷消去");
+                    GameObject obj = GameObject.Find("icemanager");
+                    CreateFlame createFlame = obj.GetComponent<CreateFlame>();
+                    createFlame.DeleteAllChildren();
+                    // 溶けSE
+                    SoundManager.Instance.PlaySeEX("溶ける音CESA");
+
+                    isFianlEffect = true;
+                }
+            }
+        }
     }
 
    
@@ -325,12 +364,18 @@ public class PlayerControl1 : MonoBehaviour/*,IUpdatable*/
             StopNow = false;
             rb.WakeUp();
             rb.velocity = KeepVec;
+<<<<<<< HEAD
            SoundManager.Instance.PlaySeEX("Step_EX");
+=======
+            // SE再生
+            SoundManager.Instance.PlaySeEX("Step_EX");
+>>>>>>> origin/UI6
         }
     }
 
     public void LetsStart()
     {
+        // SE再生
         SoundManager.Instance.PlaySeEX("Step_EX");
 
         rb.isKinematic = false;

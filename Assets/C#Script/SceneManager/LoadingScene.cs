@@ -139,6 +139,12 @@ public class LoadingScene : SingletonMonoBehaviour<LoadingScene>
             case "Stage9":
                 GameDataManager.Instance.SetNowStageNo(9);
                 break;
+            case "Stage10":
+                GameDataManager.Instance.SetNowStageNo(10);
+                break;
+            default:
+                Debug.Log("Not Find ステージ名 Yeah");
+                break;
         }
 
 
