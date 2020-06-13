@@ -26,6 +26,7 @@ public class CreateFlame : MonoBehaviour, IUpdatable
     Tenmetu ten = null;
 
     [SerializeField] private bool tutorial;
+
     void OnEnable()
     {
         UpdateManager.AddUpdatable(this);

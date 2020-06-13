@@ -44,6 +44,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
     bool upDwnSeFlg = false;
 
     private CreateFlame IceManagerScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -344,7 +345,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
                 isRot = !isRot;
             }
         }
-        //生成負荷の場合振動して伝えるため
+        //生成不可の場合振動して伝えるため
         if (VibrateFg)
         {
             VibrateTime += Time.deltaTime;
@@ -363,6 +364,7 @@ public class FlameMove : MonoBehaviour, IUpdatable {
 
     public void CreateIce()
     {
+        MaskCube.transform.position += new Vector3(0, Random.Range(-0.05f, 0.09f), 0);
 
         //エフェクト発生
         GameObject obj = (GameObject)Resources.Load("test");
